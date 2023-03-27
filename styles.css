@@ -14,3 +14,7 @@ body {
 .categories {
     display: flex;
 }
+
+.categories__row {
+    display: flex;
+}
