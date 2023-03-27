@@ -1,14 +1,28 @@
-body {
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
     display: flex;
     flex-direction: column;
 }
 
 .head {
     background-color: black;
+    width: 100vw;
+    height: 10vh;
 }
 
 .menu {
     background-color: #0769AF;
+    width: 100vw;
+    height: 6vh;
+}
+
+.banner {
+    width: 100vw;
+    height: 15vh;
 }
 
 .categories {
@@ -17,4 +31,13 @@ body {
 
 .categories__row {
     display: flex;
+}
+
+
+
+
+.loginMain {
+    background-color: #186094;
+    width: 100vw;
+    height: 100vh;
 }
