@@ -11,11 +11,42 @@
 
 <body>
     <div class="loginMain">
-        <div class="head"></div>
-        <div class="menu"></div>
-        <div class="login"></div>
-        <div class="noLogin"></div>
-    </div>
+        <header>
+            <img src="/assets/Kumpech_logo.png" alt="logo" class="logo">
+            <div>
+                <form class="search_form" action="search.php">
+                    <input type="text" placeholder="Buscar.." name="searchbar" class="search">
+                    <button type="submit" class="search_button"><img src="/assets/search_icon.svg" alt="search_icon"
+                            class="search_img"></button>
+                </form>
+            </div>
+        </header>
+        <div class="menu">
+            <div>
+                <div>Tudo</div>
+                <div>Acessórios</div>
+                <div>Teclados</div>
+                <div>Mouse</div>
+                <div>Fones</div>
+                <div>Celulares</div>
+                <div>Laptops</div>
+            </div>
+        </div>
+        <div class="containerLogin">
+            <div class="login">
+                <div class="tittleLogin">Realize seu login</div>
+                <div><input type="text" alt="email ou cpf" placeholder="E-mail ou CPF" class="email"></div>
+                <div><input type="password" alt="password" placeholder="Senha" class="password"></div>
+                <div><a href="" class="forgotPassword">Esqueceu sua senha?</a></div>
+                <a href=""><button type="button" class="buttonLogin">Entrar</button></a>
+                <div class="subLogin">Entrar com:</div>
+                <div class="oneClickLogin">
+                    <button>Facebook</button>
+                    <button>Google</button>
+                </div>
+            </div>
+            <div class="login_register"></div>
+        </div>
 </body>
 
 </html>
