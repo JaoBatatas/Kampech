@@ -7,60 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="/assets/Kumpech_logo.png">
+    <link rel="icon" href="/assets/Kumpech_logo_noText.png">
 </head>
 
 <body>
     <header>
-        <img src="/assets/Kumpech_logo.png" alt="logo" class="logo">
-        <div>
-            <form class="search_form" action="search.php">
-                <input type="text" placeholder="Buscar.." name="searchbar" class="search">
-                <button type="submit" class="search_button"><img src="/assets/search_icon.svg" alt="search_icon"
-                        class="search_img"></button>
-            </form>
+        <div class="headerRight">
+            <img src="/assets/Kumpech_logo_noText.png" alt="logo" class="logo">
+            <h1>Kampech</h1>
+        </div>
+        <div class="headerLeft">
+            <input type="text" placeholder="Search.." id="searchBar">
+            <button onclick="showHide()" class="searchButton"><img src="/assets/searchIcon.svg" alt="searchIcon" class="searchIcon"></button>
+            <img src="/assets/accountIcon.svg" alt="accountIcon" class="accountIcon">
+            <img src="/assets/cartIcon.svg" alt="cartIcon" class="cartIcon">
         </div>
     </header>
-    <div class="main">
-        <div class="menu">
-            <div>
-                <div>Tudo</div>
-                <div>Acessórios</div>
-                <div>Teclados</div>
-                <div>Mouse</div>
-                <div>Fones</div>
-                <div>Celulares</div>
-                <div>Laptops</div>
-            </div>
-        </div>
-        <img class="bannerP" src="/assets/bannerP.png" alt="bannerP">
-        <div class="categories">
-            <div class="categories__col">
-                <div class="categories__row">
-                    <div><img src="/assets/teclado.png" alt="teclados">Teclados</div>
-                    <div><img src="/assets/mouse.png" alt="mouses">Mouses</div>
-                    <div><img src="/assets/headset.png" alt="headsets">Headsets</div>
-                </div>
-                <div class="categories__row">
-                    <div><img src="/assets/laptop.png" alt="laptops">Laptops</div>
-                    <div><img src="/assets/smartphone.png" alt="celulares">Celulares</div>
-                    <div><img src="/assets/gpu.png" alt="gpus">Placas de vídeo</div>
-                </div>
-            </div>
-            <div class="categories__col">
-                <div class="categories__row">
-                    <div><img src="/assets/fone.png" alt="fones">Fones</div>
-                    <div><img src="/assets/acessorios.png" alt="acessorios">Acessórios</div>
-                    <div><img src="/assets/monitor.png" alt="monitores">Monitores</div>
-                </div>
-                <div class="categories__row">
-                    <div><img src="/assets/cadeira.png" alt="cadeiras">Cadeiras</div>
-                    <div><img src="/assets/gabinete.png" alt="gabinetes">Gabinetes</div>
-                    <div><img src="/assets/smartwatch.png" alt="smartwatches">Smartwatches</div>
-                </div>
-            </div>
-        </div>
+
+    <div class="container">
+        <img src="/assets/keyboardCustom.avif" alt="keyboardCustom" class="keyboardCustom">
+        <div class="centeredImageText">Customização</div>
     </div>
+
+
+    <script>
+        function showHide() {
+            var x = document.getElementById('searchBar');
+            if(x.style.display == 'block'){
+                x.style.display = 'none';
+            }
+            else{
+                x.style.display = 'block';
+            }
+        }
+        </script>
 </body>
 
 </html>
