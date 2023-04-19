@@ -1,6 +1,7 @@
 function show() {
     const stylesheet = document.styleSheets[0];
     let elementRules;
+    // let searchBar = document.querySelector(".searchBar")
 
     for (let i = 0; i < stylesheet.cssRules.length; i++) {
         if (stylesheet.cssRules[i].selectorText === '#searchBar') {
@@ -12,6 +13,20 @@ function show() {
         elementRules.style.display = 'block';
     }
     else {
-        elementRules.style.display = 'none';
+        if (searchBar.value == '') {
+            alert("Campo vazio");
+        }
+        else{
+            alert("Buscnado");
+        }
     }
 }
+
+
+
+
+// if (email_box.value == '') {
+//     alert ("Campo vazio");
+// } else {
+//     alert("Redirecionando")
+// }
