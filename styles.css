@@ -60,7 +60,11 @@ h1 {
 .accountIcon, .cartIcon {
     width: auto;
     height: 50%;
-    cursor: pointer;
+}
+
+.accountIcon>a>img, .cartIcon>a>img {
+    width: auto;
+    height: 100%;
 }
 
 .searchButton {
@@ -84,32 +88,40 @@ h1 {
     padding: 10px;
     width: 40%;
     font-size: 15px;
+    animation: searchBar_slide 0.7s;
+}
+
+@keyframes searchBar_slide {
+    from {width: 0px;}
+    to {width: 40%;}
 }
 
 /* Body */
 
 body {
     background-color: #F3F5F8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container {
-    position: relative;
-    text-align: center;
+    width: 100%;
     color: white;
+    margin-top: 2%;
   }
 
 .keyboardCustom {
-    margin-top: 1%;
-    width: 60%;
-    height: auto;
+    position: relative;
     border-radius: 50px;
 }
 
 .centeredImageText   {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    text-align: center;
+    left: 0;
+    top: 275px;
+    width: 100%;
     font-family: 'Noto Sans', sans-serif;
     font-size: 50px;
 }
