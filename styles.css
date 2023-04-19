@@ -57,9 +57,22 @@ h1 {
     width: 50%;
 }
 
-.accountIcon, .cartIcon {
+.accountIcon {
     width: auto;
     height: 50%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.cartIcon {
+    width: auto;
+    height: 50%;
+}
+
+.accountIcon>img {
+    width: auto;
+    height: 100%;
 }
 
 .accountIcon>a>img, .cartIcon>a>img {
