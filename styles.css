@@ -294,9 +294,35 @@ body {
 
 .shipping {
     display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
 }
 
-.shipping__right {
+.shipping__left {
+
+    border: 1px solid black;
+
     display: flex;
     flex-direction: column;
+    width: 40%;
+    height: 80%;
+}
+
+#shipping__left__title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 30px;
+}
+
+#shipping__left__contact {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+#shipping__left__checkbox {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+    font-size: 15px;
 }
