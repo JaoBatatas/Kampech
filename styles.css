@@ -287,3 +287,16 @@ body {
     font-size: 14px;
     margin-top: 3%;
 }
+
+/* shipping.html */
+
+/* body */
+
+.shipping {
+    display: flex;
+}
+
+.shipping__right {
+    display: flex;
+    flex-direction: column;
+}
