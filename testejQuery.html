@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/assets/Kumpech_logo_noText.png">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <header>
+       
+    </header>
+
+    <main class="shipping">
+        <div class="shipping__left">
+            <h1 id="shipping__left__title" class="shipping__title">Informações de contato</h1>
+            <h3 id="shipping__left__contact">Henrique Gomes (henrique_rei_delas_69420@gmail.com)</h3>
+            <div>
+                <input type="checkbox" id="shipping__left__checkbox" name="shipping__checkbox" checked>
+                <label for="shipping__left__checkbox">Quero receber notícias e promoções</label>
+            </div>
+            <a id="shipping__left__logout" href="">Sair</a>
+            <a id="shipping__left__return" href="">
+                <img id="shipping__left__return__button" src="./assets/back_button.png">
+                <h2 id="shipping__left__return__text">Voltar</h2>
+            </a>
+        </div>
+
+        <div class="shipping__right">
+            <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
+            <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
+                placeholder="Nome Completo:">
+            <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:">
+            <input type="number" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP">
+            <div class="city_state">
+                <input type="text" id="city" placeholder="Cidade">
+                <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado">
+            </div>
+            <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="phone" class="shipping__right__inputBig"
+                placeholder="Telefone:">
+            <button type="submit" id="shipping__right__button">Próximo</button>
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+
+
+
+</html>
