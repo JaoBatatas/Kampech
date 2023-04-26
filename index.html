@@ -21,19 +21,21 @@
         </div>
         <div class="headerRight">
             <input type="text" placeholder="Buscar.." id="searchBar">
-            <button onclick="show()" class="searchButton">
+            <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/assets/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
                 <a href="login.html" class="accountIcon">
                     <img src="/assets/accountIcon.svg" alt="accountIcon">
                 </a>
-            <a class="cartIcon" href="">
+            <button class="cartIcon" onclick="cartAnimation()">
                 <img src="/assets/cartIcon.svg" alt="cartIcon">
-            </a>
+            </button>
+            
         </div>
     </header>
 
     <main class="index">
+        <div class="cartPopUp"></div>
         <a href="" class="keyboardCustom_link">
             <div class="container">
                 <img src="/assets/keyboardCustom.png" alt="keyboardCustom" class="keyboardCustom">

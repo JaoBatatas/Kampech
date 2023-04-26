@@ -1,4 +1,4 @@
-function show() {
+function searchBar_slide() {
     const stylesheet = document.styleSheets[0];
     let elementRules;
 
@@ -20,6 +20,25 @@ function show() {
         }
     }
 }
+
+function cartAnimation() {
+    const stylesheet = document.styleSheets[0];
+    let elementRules;
+
+    for (let i = 0; i < stylesheet.cssRules.length; i++) {
+        if (stylesheet.cssRules[i].selectorText === '.cartPopUp') {
+            elementRules = stylesheet.cssRules[i];
+        }
+    }
+
+    if (elementRules.style.display === 'none') {
+        elementRules.style.display = 'block';
+    }
+    else {
+       elementRules.style.display = 'none';
+    }
+}
+
 
 const handlePhone = (event) => {
     let input = event.target

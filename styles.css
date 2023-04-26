@@ -124,6 +124,34 @@ h1 {
     }
 }
 
+.cartPopUp {
+    display: none;
+    position: fixed;
+    top: 4rem;
+    right: 1rem;
+    z-index: 3;
+    width: 20%;
+    height: 50%;
+    border-radius: 20px;
+    animation: cartAnimation 1s;
+    background-color: #F1ECEC;
+}
+
+@keyframes cartAnimation {
+    from {
+        width: 0px;
+        height: 0px;
+    }
+
+    to {
+        width: 20%;
+        height: 50%;
+    }
+}
+
+
+
+
 /* Main */
 
 main {
