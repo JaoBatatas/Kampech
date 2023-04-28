@@ -125,7 +125,11 @@ h1 {
 }
 
 .cartPopUp {
-    display: none;
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
     position: fixed;
     top: 4rem;
     right: 1rem;
@@ -133,7 +137,7 @@ h1 {
     width: 20%;
     height: 50%;
     border-radius: 20px;
-    animation: cartAnimation 1s;
+    animation: cartAnimation 0.5s;
     background-color: #F1ECEC;
 }
 
@@ -149,8 +153,68 @@ h1 {
     }
 }
 
+.close_button {
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 50%;
+    height: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
+.close_button__img {
+    width: 30%;
+    height: auto;
+}
 
+.close_button__title {
+    width: 50%;
+    height: auto;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 23px;
+}
+
+.cartPopUp__item {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 20%;
+    margin-left: 5%;
+    margin-top: 3%;
+    border: 1px solid black;
+}
+
+.cartPopUp__item__left {
+    width: 30%;
+    height: 100%;
+}
+
+.cartPopUp__item__left__img {
+    width: 100%;
+    height: auto;
+}
+
+.cartPopUp__item__right {
+    width: 65%;
+    height: 100%;
+}
+
+.cartPopUp__item__right__title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.cartPopUp__item__right__desc {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+    font-size: 15px;
+
+}
 
 /* Main */
 
