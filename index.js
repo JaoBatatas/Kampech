@@ -55,25 +55,3 @@ const phoneMask = (value) => {
     value = value.replace(/(\d)(\d{4})$/, "$1-$2")
     return value
 }
-
-// Change Itens Quantity
-const quantityGroupClass = "CLASS-NAME-HERE"
-const quantityIncrementButtonClass = "CLASS-NAME-HERE"
-const quantityDecrementButtonClass = "CLASS-NAME-HERE"
-const quantityNumberFieldClass = "CLASS-NAME-HERE"
-
-// Increment
-$(document).on('click', `.${quantityIncrementButtonClass}`, function(){
-  var $input = $(this).closest(`.${quantityGroupClass}`).find(`.${quantityNumberFieldClass}`);    
-  var val = parseInt($input.val(), 10);
-  $input.val(val + 1);
-  $input[0].dispatchEvent(new Event('change'));
-});
-
-// Decrement
-$(document).on('click', `.${quantityDecrementButtonClass}`, function(){
-  var $input = $(this).closest(`.${quantityGroupClass}`).find(`.${quantityNumberFieldClass}`);    
-  var val = parseInt($input.val(), 10);
-  $input.val(Math.max(val - 1, 1));
-  $input[0].dispatchEvent(new Event('change'));
-});

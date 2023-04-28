@@ -185,7 +185,6 @@ h1 {
     height: 20%;
     margin-left: 5%;
     margin-top: 3%;
-    border: 1px solid black;
 }
 
 .cartPopUp__item__left {
@@ -213,7 +212,31 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 100;
     font-size: 15px;
+    margin-bottom: 5%;
+}
 
+.cartPopUp__item__right__bottom {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.quantity {
+    width: 30%;
+    height: 40%;
+    text-align: center;
+}
+
+.quantity::-webkit-inner-spin-button, 
+.quantity::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
+.cartPopUp__item__right__bottom__price {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 /* Main */
