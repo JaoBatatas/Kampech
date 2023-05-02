@@ -178,7 +178,7 @@ h1 {
     font-size: 23px;
 }
 
-.cartPopUp__item {
+.cartPopUp__item, .cartPopUp__item2 {
     display: flex;
     justify-content: space-between;
     width: 90%;
