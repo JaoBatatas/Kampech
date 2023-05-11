@@ -540,3 +540,131 @@ body {
     font-weight: 400;
     font-size: 30px;
 }
+
+/* personalInfo.html */
+
+/* Main */
+
+.personalInfo {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.personal__container1 {
+    width: 90%;
+    height: 6%;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    gap: 0 1%;
+}
+
+.personal__container1>a {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.personal__container1__backButton {
+    width: auto;
+    height: 90%;
+}
+
+.personal__container1__title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.personal__buttons {
+    width: 90%;
+    margin-top: 1.5%;
+}
+
+.personal__buttons__text {
+    align-self: flex-start;
+    color: black;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+}
+
+.personal__container2 {
+    width: 90%;
+    height: auto;
+}
+
+.personal__container2>form {
+    display: flex;
+}
+
+.personal__container2__col1 {
+    width: 50%;
+}
+
+.personal__info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+}
+
+.personal__info__inputBig {
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    width: 98%;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 3%;
+}
+
+.personal__info__inputSmall {
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    width: 33%;
+    font-size: 15px;
+    margin-top: 3%;
+    margin-left: 3%;
+    text-align: center;
+}
+
+.personal__info__inputMedium {
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    width: 60%;
+    font-size: 15px;
+    margin-top: 3%;
+    text-align: center;
+}
+
+.personal__container2__col2 {
+    margin-top: 2.5%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.personal__info__save {
+    background-color: #24cf24;
+    border-radius: 50px;
+    border: 2px solid black;
+    width: 30%;
+    height: 20%;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.personal__info__save:hover{
+    background: #1ba81b;
+}
