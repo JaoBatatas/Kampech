@@ -55,3 +55,8 @@ const phoneMask = (value) => {
     value = value.replace(/(\d)(\d{4})$/, "$1-$2")
     return value
 }
+
+function changeClass(id,currentClass,newClass) {
+    document.getElementById(id).classList.remove(currentClass);
+    document.getElementById(id).classList.add(newClass);
+}

@@ -61,39 +61,23 @@
         </div>
     </header>
 
-    <main class="personalInfo">
-        <div class="personal__container1">
+    <main class="purchaseHistory">
+        <div class="purchase__container1">
             <a href="./index.html">
-                <img class="personal__container1__backButton" src="./assets/back_button.png" alt="back_button">
+                <img class="purchase__container1__backButton" src="./assets/back_button.png" alt="back_button">
             </a>
-            <h1 class="personal__container1__title">Meus Dados</h1>
+            <h1 class="purchase__container1__title">Meus Dados</h1>
         </div>
-        <div class="personal__buttons">
-            <a href="./personalInfo.html" class="personal__buttons__text"><strong>Dados Pessoais</strong></a>
-            <a href="./purchaseHistory.html" class="personal__buttons__text">- Histórico de Compras</a>
+        <div class="purchase__buttons">
+            <a href="./personalInfo.html" class="purchase__buttons__text">Dados Pessoais -</a>
+            <a href="./purchaseHistory.html" class="purchase__buttons__text"><strong>Histórico de Compras</strong></a>
         </div>
-        <div class="personal__container2">
-            <form>
-                <div class="personal__container2__col1">
-                    <div class="personal__info">
-                        <input type="text" placeholder="Nome Completo:" id="personal__info__name" class="personal__info__inputBig">
-                        <input type="text" placeholder="Endereço:" id="personal__info__address" class="personal__info__inputBig">
-                        <div>
-                        <input type="text" placeholder="CPF" id="personal__info__CPF" class="personal__info__inputMedium">
-                        <input type="text" placeholder="CEP" id="personal__info__zipCode" class="personal__info__inputSmall">
-                        <input type="text" placeholder="Cidade" id="personal__info__city" class="personal__info__inputMedium">
-                        <input type="text" placeholder="Estado" id="personal__info__state" class="personal__info__inputSmall">
-                        </div>
-                        <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="personal__info__phone" placeholder="Telefone:" class="personal__info__inputBig">
-                    </div>
-                </div>
-                <div class="personal__container2__col2">
-                    <button type="submit" class="personal__info__save">
-                        Salvar
-                    </button>
-                </div>
-            </form>
+        <div class="purchase__filter">
+            <button onclick="changeClass('oneMonthFilter','purchase__filter__button','buttonClicked')" class="purchase__filter__button" id="oneMonthFilter">1 mês</button>
+            <button class="purchase__filter__button">6 meses</button>
         </div>
+        <div class="purchase__history">
+
         </div>
     </main>
 

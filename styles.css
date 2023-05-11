@@ -668,3 +668,95 @@ body {
 .personal__info__save:hover{
     background: #1ba81b;
 }
+
+/* Purchase History */
+
+/* Main */
+
+.purchaseHistory {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid cyan;
+}
+
+.purchase__container1 {
+    width: 90%;
+    height: 6%;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    gap: 0 1%;
+}
+
+.purchase__container1>a {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.purchase__container1__backButton {
+    width: auto;
+    height: 90%;
+}
+
+.purchase__container1__title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.purchase__buttons {
+    width: 90%;
+    margin-top: 1.5%;
+}
+
+.purchase__buttons__text {
+    align-self: flex-start;
+    color: black;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+}
+
+.purchase__filter {
+    width: 90%;
+    height: 10%;
+    margin-top: 2%;
+    align-items: center;
+    display: flex;
+    gap: 1%;
+}
+
+.purchase__filter__button {
+    width: 10%;
+    height: 80%;
+    background-color: #F3F5F8;
+    color: rgb(0, 0, 0);
+    border-radius: 25px;
+    border: 2px solid black;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.purchase__filter__button:active, .buttonClicked {
+    width: 10%;
+    height: 80%;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    border-radius: 25px;
+    border: 2px solid black;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+}
