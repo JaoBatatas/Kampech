@@ -1,0 +1,44 @@
+/* Itens do carrinho */
+
+SELECT p.name, p.description, p.price
+FROM cart_items ci
+JOIN cart c ON ci.id_cart = c.id_cart
+JOIN product p ON ci.id_product = p.id_product
+WHERE c.id_user = [ID_DO_USUARIO];
+
+
+/* Dados pessoais */
+
+SELECT u.name, a.address, a.zip_code, a.cpf, a.city, a.state, a.phone
+FROM `user` u
+JOIN `address` a ON u.id_user = a.id_user
+WHERE u.id_user = [ID_DO_USUARIO];
+
+/* Histórico de compras */
+
+SELECT o.id_order, COUNT(oi.id_order_items) AS num_items, o.date, o.total
+FROM `order` o
+JOIN `order_items` oi ON o.id_order = oi.id_order
+WHERE o.id_user = [ID_DO_USUARIO]
+GROUP BY o.id_order;
+
+/* Página do produto */
+
+SELECT name, description, price, image_url, layout, size, connection
+FROM `product`
+WHERE id_product = [ID_DO_PRODUTO];
+
+/* Busca de produtos com filtro (deixa o filtro vazio ('') se não for selecionado) */
+
+SELECT id_product, name, description, price, image_url
+FROM `product`
+WHERE (connection = '[TIPO_DE_CONEXAO]' OR '[TIPO_DE_CONEXAO]' = '')
+  AND (layout = '[LAYOUT]' OR '[LAYOUT]' = '')
+  AND (size = '[TAMANHO]' OR '[TAMANHO]' = '');
+
+/* Endereço para envio */
+
+SELECT u.name, a.address, a.zip_code, a.city, a.state, a.phone
+FROM `user` u
+JOIN `address` a ON u.id_user = a.id_user
+WHERE u.id_user = [ID_DO_USUARIO];
