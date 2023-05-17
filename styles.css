@@ -752,13 +752,75 @@ body {
     border: 2px solid black;
 }
 
+.searchContainer {
+    display: flex;
+    width: 100%;
+    height: 15%;
+    border-bottom: 2px solid black;
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 1%;
+}
+
+.search-icon {
+    width: auto;
+    height: 60%;
+}
+
+.clearButton {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 1%;
+}
+
+.xIcon {
+    width: auto;
+    height: 60%;
+}
+
 #purchaseSearchBar, #purchaseSearchBar:focus {
     width: calc(100% - 10px);
-    height: 15%;
+    height: 100%;
     border: none;
-    background-color: #f1f1f1;
-    border-bottom: 2px solid black;
     padding-left: 10px;
     font-size: 15px;
     outline: none;
+    background: none;
+}
+
+/* Purchase History table */
+
+.purchaseTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.purchaseTableHeader, .purchaseTableCell {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 2px solid black;
+}
+
+.purchaseTableRow:nth-child(even) {
+    background-color: #cfcfcf;
+}
+
+.purchaseTableHeader {
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
 }

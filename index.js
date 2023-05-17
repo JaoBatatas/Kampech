@@ -73,3 +73,8 @@ function changeClass() {
         elementRules.style.background = '#F3F5F8';
     }
 }
+
+// Clear searchBar
+function clearSearchBar() {
+    document.getElementById('purchaseSearchBar').value = '';
+}
