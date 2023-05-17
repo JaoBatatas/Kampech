@@ -5,7 +5,7 @@ function searchBar_slide() {
     let elementRules;
 
     for (let i = 0; i < stylesheet.cssRules.length; i++) {
-        if (stylesheet.cssRules[i].selectorText === '#searchBar') {
+        if (stylesheet.cssRules[i].selectorText === '#headerSearchBar') {
             elementRules = stylesheet.cssRules[i];
         }
     }
@@ -14,7 +14,7 @@ function searchBar_slide() {
         elementRules.style.display = 'block';
     }
     else {
-        if (searchBar.value == '') {
+        if (headerSearchBar.value == '') {
             alert("Campo vazio");
         }
         else {
@@ -38,7 +38,7 @@ function cartAnimation() {
         elementRules.style.display = 'flex';
     }
     else {
-       elementRules.style.display = 'none';
+        elementRules.style.display = 'none';
     }
 }
 
@@ -56,7 +56,20 @@ const phoneMask = (value) => {
     return value
 }
 
-function changeClass(id,currentClass,newClass) {
-    document.getElementById(id).classList.remove(currentClass);
-    document.getElementById(id).classList.add(newClass);
+function changeClass() {
+    const stylesheet = document.styleSheets[0];
+    let elementRules;
+    
+    for (let i = 0; i < stylesheet.cssRules.length; i++) {
+        if (stylesheet.cssRules[i].selectorText === '#oneMonthFilter') {
+            elementRules = stylesheet.cssRules[i];
+        }
+    }
+
+    if (elementRules.style.background === '#F3F5F8') {
+        elementRules.style.background = 'black';
+    }
+    else {
+        elementRules.style.background = '#F3F5F8';
+    }
 }

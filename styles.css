@@ -103,7 +103,7 @@ h1 {
     height: 100%;
 }
 
-#searchBar {
+#headerSearchBar {
     display: none;
     background-color: #f1f1f1;
     border: 2px solid black;
@@ -679,7 +679,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid cyan;
 }
 
 .purchase__container1 {
@@ -731,10 +730,10 @@ body {
     gap: 1%;
 }
 
-.purchase__filter__button {
+#oneMonthFilter, #sixMonthFilter {
     width: 10%;
     height: 80%;
-    background-color: #F3F5F8;
+    background: #F3F5F8;
     color: rgb(0, 0, 0);
     border-radius: 25px;
     border: 2px solid black;
@@ -746,17 +745,20 @@ body {
     cursor: pointer;
 }
 
-.purchase__filter__button:active, .buttonClicked {
-    width: 10%;
-    height: 80%;
-    background-color: #000000;
-    color: rgb(255, 255, 255);
-    border-radius: 25px;
+.purchase__history {
+    width: 90%;
+    height: 60%;
+    margin-top: 1%;
     border: 2px solid black;
-    text-align: center;
-    text-decoration: none;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    cursor: pointer;
+}
+
+#purchaseSearchBar, #purchaseSearchBar:focus {
+    width: calc(100% - 10px);
+    height: 15%;
+    border: none;
+    background-color: #f1f1f1;
+    border-bottom: 2px solid black;
+    padding-left: 10px;
+    font-size: 15px;
+    outline: none;
 }

@@ -20,7 +20,7 @@
 
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." id="searchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/assets/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
@@ -73,11 +73,11 @@
             <a href="./purchaseHistory.html" class="purchase__buttons__text"><strong>Histórico de Compras</strong></a>
         </div>
         <div class="purchase__filter">
-            <button onclick="changeClass('oneMonthFilter','purchase__filter__button','buttonClicked')" class="purchase__filter__button" id="oneMonthFilter">1 mês</button>
-            <button class="purchase__filter__button">6 meses</button>
+            <button class="purchase__filter__button" id="oneMonthFilter">1 mês</button>
+            <button class="purchase__filter__button" id="sixMonthFilter">6 meses</button>
         </div>
         <div class="purchase__history">
-
+            <input type="text" placeholder="Pesquise aqui" class="searchBar" id="purchaseSearchBar">
         </div>
     </main>
 
