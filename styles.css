@@ -126,7 +126,6 @@ h1 {
 
 .cartPopUp {
     display: none;
-    /* display: flex; */
     flex-direction: column;
     align-items: flex-start;
     justify-content: start;
@@ -237,6 +236,40 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
     font-size: 17px;
+}
+
+.cartPopUp__priceContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 2.5%;
+    align-self: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+#finishCart {
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    width: 60%;
+    align-self: center;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 2%;
+}
+
+#finePrint {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 10px;
+    align-self: center;
+    margin-top: 1.5%;
 }
 
 /* Main */
