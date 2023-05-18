@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/assets/Kumpech_logo_noText.png">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="headerLeft">
+            <a href="index.html" class="nome_logo"><img src="/assets/Kumpech_logo_noText.png" alt="logo" class="logo">
+                <h1>Kampech</h1>
+            </a>
+
+        </div>
+        <div class="headerRight">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <button onclick="searchBar_slide()" class="searchButton">
+                <img src="/assets/searchIcon.svg" alt="searchIcon" class="searchIcon">
+            </button>
+            <a href="login.html" class="accountIcon">
+                <img src="/assets/accountIcon.svg" alt="accountIcon">
+            </a>
+            <button class="cartIcon" onclick="cartAnimation()">
+                <img src="/assets/cartIcon.svg" alt="cartIcon">
+            </button>
+        </div>
+        <div class="cartPopUp">
+            <button class="close_button" onclick="cartAnimation()">
+                <img class="close_button__img" alt="close_button" src="./assets/close_button.svg">
+                <h4 class="close_button__title">Fechar</h4>
+            </button>
+            <div class="cartPopUp__item">
+                <div class="cartPopUp__item__left">
+                    <img class="cartPopUp__item__left__img" src="./assets/keyboardExample.png">
+                </div>
+                <div class="cartPopUp__item__right">
+                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
+                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
+                    <div class="cartPopUp__item__right__bottom">
+                        <input class="quantity" type="number" name="quantity" min="0" value="1">
+                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="cartPopUp__item2">
+                <div class="cartPopUp__item__left">
+                    <img class="cartPopUp__item__left__img" src="./assets/keyboardExample.png">
+                </div>
+                <div class="cartPopUp__item__right">
+                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
+                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
+                    <div class="cartPopUp__item__right__bottom">
+                        <input class="quantity" type="number" name="quantity" min="0" value="1">
+                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
+                    </div>
+                </div>
+            </div>
+            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
+            <div class="cartPopUp__priceContainer">
+                <h2>Total</h2>
+                <h2>R$696,90</h2>
+            </div>
+            <a id="finishCart" href="">
+                <p>Finalizar<br>pedido</p>
+            </a>
+            <p id="finePrint">*taxas calculadas na finalização da compra</p>
+        </div>
+    </header>
+
+    <main class="product">
+        <div class="product__back">
+            <a href="./products.html">
+                <img class="product__backButton" src="./assets/back_button.png" alt="back_button">Voltar para a página
+                de teclados
+            </a>
+        </div>
+        <div class="product__container">
+            <div class="product__containerCol1">
+                <img src="./assets/productImage.jpg">
+                <img src="./assets/productImage.jpg">
+                <img src="./assets/productImage.jpg">
+                <img src="./assets/productImage.jpg">
+            </div>
+            <div class="product__containerCol2"><img src="./assets/productImage.jpg"></div>
+            <div class="product__containerCol3">
+                <div class="product__containerCol3__title">
+                    <h2>Teclado mecânico insano muito brabo - Switch Blue</h2>
+                </div>
+                <div class="product__containerCol3__review">
+                    <img src="./assets/starIconFilled.svg">
+                    <img src="./assets/starIconFilled.svg">
+                    <img src="./assets/starIconFilled.svg">
+                    <img src="./assets/starIconFilled.svg">
+                    <img src="./assets/starIcon.svg">
+                    <p>1 avaliação</p>
+                </div>
+                <div class="product__containerCol3__desc">
+                    <p>Ai q n sei oq q n sei oq lá q esse teclado é muito bom e você deveria compra-lo por favor compre
+                        esse teclado a gente precisa de dinheiro para comprar a comida de todo mês e sem contar que essa
+                        descrição insana precisa ser preenchida. Look, I was gonna go easy on you
+                        And not to hurt your feelings
+                        But I'm only going to get this one chance
+                        Something's wrong, I can feel it
+                        Just a feeling I've got
+                        Like something's about to happen
+                        But I don't know what
+                        If that means, what I think it means
+                        We're in trouble, big trouble
+                        And if he is as bananas as you say
+                        I'm not taking any chances
+                        You were just what the doctor ordered
+
+                        I'm beginning to feel like a Rap God, Rap God
+                        All my people from the front to the back nod, back nod
+                        Now who thinks their arms
+                        Are long enough to slapbox, slapbox?
+                        They said I rap like a robot
+                        So call me Rapbot
+                    </p>
+                </div>
+                <div class="product__containerCol3__tags">
+                    <p>ABNT2</p>
+                    <p>60%</p>
+                    <p>USB</p>
+                </div>
+            </div>
+            <div class="product__containerCol4">
+                <div class="productDiv1"><h2>Em estoque.</h2></div>
+                <div class="productDiv2"><h2>R$9,90</h2></div>
+                <div class="product__containerCol4__quantity"><h3>Quantidade:</h3><input class="product__containerCol4__input" type="number" name="quantity" min="1" value="1"></div>
+                <button class="productAddToCart">Adicionar<br>ao carrinho</button>
+                <button class="productBuy">Comprar</button>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+</body>
+
+</html>
