@@ -1176,3 +1176,54 @@ body {
 a:link{
     text-decoration: none!important;
   }
+
+  /* Custom Keyboard Page */
+  /* Main */
+
+  .custom {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    align-items: center;
+}
+
+.customLeft {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.customLeft__img {
+    height: 100%;
+    width: auto;
+}
+
+.customRight {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#customRight__row1 {
+    align-items: end;
+}
+
+.customRight__row {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.customRight__row div {
+    width: 30%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5% 0;
+}

@@ -14,7 +14,8 @@
 <body>
     <header>
         <div class="headerLeft">
-            <a href="./index.html" class="nome_logo"><img src="../assets/Kumpech_logo_noText.png" alt="logo" class="logo">
+            <a href="./index.html" class="nome_logo"><img src="../assets/Kumpech_logo_noText.png" alt="logo"
+                    class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -76,18 +77,67 @@
 
     <main class="custom">
         <div class="customLeft">
+            <img src="../assets/keyboardExample.png" alt="customKeyboardImage" class="customLeft__img">
         </div>
         <div class="customRight">
-            <div>
-                <label>Tamanho</a>
-                    <select name="viagem" id="my-icon-select">
+            <div class="customRight__row" id="customRight__row1">
+                <div>
+                    <label for="selSize">Tamanho</label>
+                    <select id="selSize" name="size">
                         <option value="100%">Full-size (100%)</option>
                         <option value="80%">Tenkeyless (80%)</option>
-                        <option value="65%">Compact (60%)</option>
-                        <option value="60%">Mini (65%)</option>
+                        <option value="65%">Compact (65%)</option>
+                        <option value="60%">Mini (60%)</option>
                     </select>
+                </div>
+                <div>
+                    <label for="selConnection">Conexão</label>
+                    <select id="selConnection" name="connection">
+                        <option value="usb">USB (Padrão)</option>
+                        <option value="usb-c">USB-C</option>
+                        <option value="wireless">Sem fio (2.4G)</option>
+                        <option value="bluetooth">Bluetooth</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="selSwitch">Switch</label>
+                    <select id="selSwitch" name="switch">
+                        <option value="sBlue">Switch Blue</option>
+                        <option value="sRed">Switch Red</option>
+                        <option value="sBrown">Switch Brown</option>
+                    </select>
+                </div>
             </div>
-            <div></div>
+            <div class="customRight__row" id="customRight__row2">
+                <div>
+                    <label for="selKeycap">Keycap</label>
+                    <select id="selKeycap" name="keycap">
+                        <option value="none">Nenhuma</option>
+                        <option value="kc1">Keycap 1</option>
+                        <option value="kc2">Keycap 2</option>
+                        <option value="kc3">Keycap 3</option>
+                        <option value="kc4">Keycap 4</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="selBoardColor">Cor teclado</label>
+                    <select id="selBoardColor" name="boardColor">
+                        <option value="black">Preto</option>
+                        <option value="white">Branco</option>
+                        <option value="grey">Cinza</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="selKeyColor">Cor teclas</label>
+                    <select id="selKeyColor" name="keyColor">
+                        <option value="black">Preto</option>
+                        <option value="white">Branco</option>
+                        <option value="purple">Roxo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div></div>
         </div>
     </main>
 
