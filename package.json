@@ -2,6 +2,25 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "mysql2": "^3.3.2"
-  }
+    "mysql2": "^3.3.2",
+    "nodemon": "^2.0.22"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "kampech",
+  "description": "Modelagem desenvolvida por Paulo Cesar Siewert Carneiro, João Fernando Brüske,\r Henrique Gomes do Vale, Daniel Costa Krüger e João Paulo Ersching.",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaoBatatas/kampech.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaoBatatas/kampech/issues"
+  },
+  "homepage": "https://github.com/JaoBatatas/kampech#readme"
 }
