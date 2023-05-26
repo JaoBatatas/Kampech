@@ -22,7 +22,7 @@ connection.connect(function (err) {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/html/index.html')
+  res.sendFile(__dirname + '/index.html')
 })
 
 app.post('/login', (req, res) => {
