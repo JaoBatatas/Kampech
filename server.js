@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('css'))
 app.use(express.static('assets'))
 app.use(express.static('html'))
+app.use(express.static('js'))
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',
