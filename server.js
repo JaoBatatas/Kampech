@@ -29,15 +29,20 @@ app.post('/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  connection.query(`SELECT * FROM user where email = '${email}'`, function (err, rows, fields) {
+  connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, rows, fields) {
     if (!err) {
       console.log("Resultado:", rows);
 
-      if (rows.length > 0 && password === rows[0].password) {
-        res.send('Admin login successful!');
-      }
-      else {
-        res.send('User login successful!');
+      if (rows.length === 0) {
+        res.send('Conta não existente!');
+      } else {
+
+        if (password === rows[0].password) {
+          res.send('Login realizado com sucesso!');
+        }
+        else {
+          res.send('Senha incorreta');
+        }
       }
     } else {
       console.log("Erro: Consulta não realizada", err);
