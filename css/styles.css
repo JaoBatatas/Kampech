@@ -575,6 +575,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 30px;
+    cursor: pointer;
 }
 
 /* personalInfo.html */
@@ -1173,9 +1174,9 @@ body {
     color: black;
 }
 
-a:link{
+.productsShow__row div a{
     text-decoration: none!important;
-  }
+}
 
   /* Custom Keyboard Page */
   /* Main */
