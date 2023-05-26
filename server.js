@@ -6,6 +6,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static('css'))
+app.use(express.static('assets'))
+app.use(express.static('html'))
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',
@@ -19,7 +21,7 @@ connection.connect(function (err) {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/html/login.html')
+  res.sendFile(__dirname + '/html/index.html')
 })
 
 app.post('/login', (req, res) => {
