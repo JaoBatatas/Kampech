@@ -49,6 +49,6 @@ app.post('/login', (req, res) => {
     }
   });
 })
-app.listen(5500, () => {
-  console.log('Servidor rodando na porta 5500!')
+app.listen(3700, () => {
+  console.log('Servidor rodando na porta 3700!')
 })
