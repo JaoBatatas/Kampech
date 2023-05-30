@@ -2,9 +2,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql2');
 const app = express()
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-
 app.use(express.static('css'))
 app.use(express.static('assets'))
 app.use(express.static('html'))
@@ -34,7 +34,7 @@ app.post('/login', (req, res) => {
       console.log("Resultado:", rows);
 
       if (rows.length === 0) {
-        res.send('Conta não existente!');
+        res.redirect('/login.html?404account');
       } else {
 
         if (password === rows[0].password) {

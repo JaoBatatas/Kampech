@@ -14,8 +14,7 @@
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -78,7 +77,7 @@
     <main class="login">
         <div class="login__container">
             <h1 id="login__title">Login</h1>
-            <form action="/login" method="post">
+            <form action="/login" method="post" id="loginForm">
                 <input type="email" placeholder="Email" id="login__email" name="email">
                 <input type="password" placeholder="Senha" id="login__password" name="password">
                 <a id="login__forgotPassword" href="">
@@ -94,6 +93,19 @@
 
     <footer>
     </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('404account')) {
+            const loginForm = document.querySelector('.login__container');
+            const mensagemNoAccount = document.createElement('p');
+            mensagemNoAccount.style.color = 'red';
+            mensagemNoAccount.textContent = 'Conta não encontrada!';
+            loginForm.insertBefore(mensagemNoAccount, document.getElementById('loginForm'));
+        }
+
+
+    </script>
 </body>
 
 </html>
