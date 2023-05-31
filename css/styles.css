@@ -1080,13 +1080,13 @@ body {
     height: 90%;
     width: 15%;
     font-family: 'Open Sans', sans-serif;
-    font-weight: normal ;
+    font-weight: normal;
     font-size: 16px;
 }
 
 .filter__container h3 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: normal ;
+    font-weight: normal;
     font-size: 25px;
     margin-left: 2%;
 }
@@ -1170,18 +1170,19 @@ body {
     height: auto;
 }
 
-.productsTitle, .productsDesc {
+.productsTitle,
+.productsDesc {
     color: black;
 }
 
-.productsShow__row div a{
-    text-decoration: none!important;
+.productsShow__row div a {
+    text-decoration: none !important;
 }
 
-  /* Custom Keyboard Page */
-  /* Main */
+/* Custom Keyboard Page */
+/* Main */
 
-  .custom {
+.custom {
     width: 100%;
     height: calc(100vh - 5rem);
     display: flex;
@@ -1238,7 +1239,7 @@ body {
     font-weight: bold;
 }
 
-.customRight__row div select{
+.customRight__row div select {
     border: 1px solid #ccc;
     border-radius: 50px;
     width: 80%;
@@ -1249,7 +1250,8 @@ body {
     background-image: none;
     border: 1px solid rgb(41, 18, 18);
 }
-.customRight__row div select option{
+
+.customRight__row div select option {
     background-color: rgb(247, 247, 247);
     background-image: none;
     font-size: 16px;
@@ -1273,5 +1275,93 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     font-size: 20px;
+    cursor: pointer;
+}
+
+/* Payment Method Page */
+/* Main */
+
+.payment {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.paymentRow1 {
+    width: 90%;
+    height: 66%;
+    margin-top: 4%;
+    display: flex;
+}
+
+.paymentCol {
+    width: 50%;
+    height: 100%;
+}
+
+.paymentCol h1 {
+    height: 20%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 30px;
+}
+
+.paymentCol h4 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 20px;
+    margin-top: 5%;
+}
+
+#paymentOptions {
+    margin-top: 2%;
+    border: 1px solid #ccc;
+    width: 50%;
+    text-align: start;
+    padding: 1%;
+    font-size: 16px;
+    background-color: white;
+    background-image: none;
+    border: 1px solid rgb(41, 18, 18);
+}
+
+.paymentImageContainer {
+    width: 100%;
+    height: 80%;
+    display: flex;
+}
+
+.paymentImageContainer div {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.paymentImage {
+    width: auto;
+    height: 50%;
+}
+
+.paymentRow2 {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+#paymentButton {
+    width: 40%;
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    padding: 20px 0 20px 0;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 25px;
     cursor: pointer;
 }
