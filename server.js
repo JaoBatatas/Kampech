@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
 });
 
 connection.connect(function (err) {
-  console.log("Conexão como o Banco realizada com sucesso!!!")
+  console.log("Conexão como o Banco realizada com sucesso!")
 });
 
 app.get('/', (req, res) => {
