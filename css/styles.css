@@ -1361,7 +1361,7 @@ body {
     padding: 20px 0 20px 0;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    font-size: 20px;
+    font-weight: normal;
+    font-size: 25px;
     cursor: pointer;
 }

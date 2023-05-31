@@ -74,37 +74,8 @@
         </div>
     </header>
 
-    <main class="payment">
-        <div class="paymentRow1">
-            <div class="paymentCol" id="paymentCol1">
-                <h1>Forma de pagamento</h1>
-                <h4>Selecione a forma de pagamento:</h4>
-                <form for="paymentOptions" id="paymentForm" method="post" action="/payment"></form>
-                <select id="paymentOptions" name="paymentOptions" required>
-                    <option value="" selected></option>
-                    <option value="pix">PIX</option>
-                    <option value="boleto">Boleto</option>
-                    <option value="credito">Cartão de Crédito</option>
-                    <option value="debito">Cartão de Débito</option>
-                </select>
-            </div>
-            <div class="paymentCol" id="paymentCol2">
-                <h1>Métodos de pagamento</h1>
-                <div class="paymentImageContainer">
-                    <div>
-                        <img class="paymentImage" src="/pix-logo.png" alt="pix-logo">
-                        <img class="paymentImage" src="/visa-logo.png" alt="visa-logo">
-                    </div>
-                    <div>
-                        <img class="paymentImage" src="/mastercard-logo.png" alt="mastercard-logo">
-                        <img class="paymentImage" src="/boleto-logo.png" alt="boleto-logo">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="paymentRow2">
-            <input class="paymentButton" id="paymentButton" type="submit" form="paymentForm" value="Próximo"/>
-        </div>
+    <main class="pix">
+        
     </main>
 
     <footer>
