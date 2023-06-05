@@ -1365,3 +1365,72 @@ body {
     font-size: 25px;
     cursor: pointer;
 }
+
+/* Pix.html */
+/* Main */
+
+.pix {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pixImage {
+    position: absolute;
+    top: 4%;
+    width: 15%;
+    height: auto;
+}
+
+.pixCol {
+    width: 40%;
+    height: 60%;
+    margin-top: 5%;
+}
+
+.pixForm {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+}
+
+.pixForm__name, .pixForm__cpf {
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    font-size: 15px;
+    margin-bottom: 15%;
+}
+
+.pixForm__submit {
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 5%;
+}
+
+#pixCol2 {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.pixContainer {
+    height: 100%;
+}
+
+.pixCol__text{
+    height: calc(100% / 3);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+}
