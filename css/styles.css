@@ -1365,3 +1365,179 @@ body {
     font-size: 25px;
     cursor: pointer;
 }
+
+/* Pix.html */
+/* Main */
+
+.pix {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pixImage {
+    position: absolute;
+    top: 4%;
+    width: 15%;
+    height: auto;
+}
+
+.pixCol {
+    width: 40%;
+    height: 60%;
+    margin-top: 5%;
+}
+
+.pixForm {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+}
+
+.pixForm__name, .pixForm__cpf {
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    font-size: 15px;
+    margin-bottom: 15%;
+}
+
+.pixForm__submit {
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 5%;
+}
+
+#pixCol2 {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.pixContainer {
+    height: 100%;
+}
+
+.pixCol__text{
+    height: calc(100% / 3);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+/* Pix Qr Code */
+/* main */
+
+.pixQr {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pixQrCol {
+    width: 47.5%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pixQrCol h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.pixQrCol h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    margin-top: 2%;
+}
+
+#pixQrCol1 h2 strong {
+    color: #38B6FF;
+}
+
+#pixQrCol1 div {
+    display: flex;
+    margin-top: 10%;
+    width: 80%;
+    height: 30%;
+    align-items: center;
+    gap: 0 10%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 35px;
+}
+
+.pixQrImage {
+    width: auto;
+    height: 100%;
+}
+
+#pixQr__return {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10%;
+    width: 15%;
+    bottom: 25%;
+    text-decoration: none;
+}
+
+#pixQr__return__button {
+    width: 30%;
+    height: auto;
+}
+
+#pixQr__return__text {
+    margin-left: 10%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    color: black;
+}
+
+#pixQrCol2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pixQrCode {
+    width: 60%;
+    height: auto;
+}
+
+.pixQr__copy {
+    background-color: #38B6FF;
+    color: black;
+    border-radius: 25px;
+    border: 1px solid black;
+    width: 50%;
+    padding: 20px 0 20px 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 6%;
+    cursor: pointer;
+}
+
+.pixQr__copy:hover {
+    background-color: #2f9ad8;
+}

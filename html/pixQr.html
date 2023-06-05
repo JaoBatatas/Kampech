@@ -74,37 +74,34 @@
         </div>
     </header>
 
-    <main class="pix">
-        <img class="pixImage" src="/pix-logo.png" alt="pix-logo">
-        <div class="pixCol" id="pixCol1">
-            <form class="pixForm">
-                <input type="text" name="name" class="pixForm__name" placeholder="Nome completo">
-                <input type="text" name="cpf" class="pixForm__cpf" placeholder="CPF">
-                <input type="submit" value="Próximo" class="pixForm__submit">
-            </form>
-        </div>
-        <div class="pixCol" id="pixCol2">
-            <div class="pixContainer">
-                <div class="pixCol__text">
-                    <p class="pixText"><strong>Pedido:</strong></p>
-                    <p class="pixText">#6969420</p>
-                </div>
-                <div class="pixCol__text">
-                    <p class="pixText"><strong>Forma de pagamento:</strong></p>
-                    <p class="pixText">PIX</p>
-                </div>
-                <div class="pixCol__text">
-                    <p class="pixText">Valor do pedido: <span>R$22,00</span></p>
-                    <p class="pixText">Frete: <span>R$2,00</span></p>
-                    <p class="pixText">Total: <strong>R$24,00</strong></p>
-                </div>
+    <main class="pixQr">
+        <div class="pixQrCol" id="pixQrCol1">
+            <h1>Detalhes do Pedido</h1>
+            <h2>Escaneie o <strong>QR Code</strong><br>com seu celular</h2>
+            <div>
+                <img class="pixQrImage" src="/Kumpech_logo_noText.png" alt="kampech-logo">
+                <p>Valor: <strong>R$24,00</strong></p>
             </div>
+            <a id="pixQr__return" href="/index.html">
+                <img id="pixQr__return__button" src="/back_button.png">
+                <h2 id="pixQr__return__text">Voltar</h2>
+            </a>
+        </div>
+        <div class="pixQrCol" id="pixQrCol2">
+            <img class="pixQrCode" src="/pix_qrCode.png" alt="PIX-qrCode">
+            <button class="pixQr__copy" onclick="copyText()">Copiar Pix</button>
         </div>
     </main>
 
     <footer>
     </footer>
 
+    <script>
+        function copyText() {
+            navigator.clipboard.writeText
+                ("https://youtu.be/q82z-lsvPw4");
+        }
+    </script>
 </body>
 
 </html>
