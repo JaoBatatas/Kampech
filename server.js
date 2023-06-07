@@ -38,10 +38,11 @@ app.post('/login', (req, res) => {
       } else {
 
         if (password === rows[0].password) {
-          res.send('Login realizado com sucesso!');
+          // res.send('Login realizado com sucesso!');
+          res.redirect('/personalInfo.html');
         }
         else {
-          res.send('Senha incorreta');
+          res.redirect('/login.html?passwordError');
         }
       }
     } else {
