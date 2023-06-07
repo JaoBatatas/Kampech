@@ -74,33 +74,33 @@
         </div>
     </header>
 
-    <main class="creditCard">
-        <section class="CCLeft">
+    <main class="Card">
+        <section class="CardLeft">
             <h1>Cartão de Crédito</h1>
-            <form action="/creditCard" method="post" id="CreditForm">
-                <input type="text" name="CreditName" placeholder="Nome no cartão" id="CreditName">
-                <input type="text" name="Creditnumber" placeholder="Número do cartão" id="CreditNum">
-                <input type="text" name="CreditExpiration" placeholder="Data de validade" id="CreditExp">
-                <input type="text" name="CreditCVV" placeholder="Código de verificação (CVV)" id="CreditCVV">
-                <input type="text" name="CreditCPF" placeholder="CPF do titular" id="CreditCPF">
+            <form action="/CardCard" method="post" id="CardForm">
+                <input type="text" name="CardName" placeholder="Nome no cartão" id="CardName">
+                <input type="text" name="Cardnumber" placeholder="Número do cartão" id="CardNum">
+                <input type="text" name="CardExpiration" placeholder="Data de validade" id="CardExp">
+                <input type="text" name="CardCVV" placeholder="Código de verificação (CVV)" id="CardCVV">
+                <input type="text" name="CardCPF" placeholder="CPF do titular" id="CardCPF">
             </form>
-            <select name="CreditParcel" id="CreditParcel" form="CreditForm" aria-placeholder="Forma de pagamento:">
+            <select name="CardParcel" id="CardParcel" form="CardForm" aria-placeholder="Forma de pagamento:">
                 <option value="" disabled selected>Forma de pagamento:</option>
                 <option value="cash">À vista</option>
                 <option value="2x">2x - Sem juros</option>
             </select>
         </section>
-        <section class="CCRight">
-            <a id="CreditReturn" href="/index.html">
-                <img id="CreditReturn__button" src="/back_button.png">
-                <h2 id="CreditReturn__text">Voltar</h2>
+        <section class="CardRight">
+            <a id="CardReturn" href="/index.html">
+                <img id="CardReturn__button" src="/back_button.png">
+                <h2 id="CardReturn__text">Voltar</h2>
             </a>
-            <div class="CreditImageContainer">
+            <div class="CardImageContainer">
                 <p>Bandeiras aceitas:</p>
-                <img class="CreditImage" src="/mastercard-logo.png" alt="mastercard-logo">
-                <img class="CreditImage" src="/visa-logo.png" alt="visa-logo">
+                <img class="CardImage" src="/mastercard-logo.png" alt="mastercard-logo">
+                <img class="CardImage" src="/visa-logo.png" alt="visa-logo">
             </div>
-            <button class="CreditFinish">Efetuar pagamento</button>
+            <button class="CardFinish">Efetuar pagamento</button>
         </section>
     </main>
 

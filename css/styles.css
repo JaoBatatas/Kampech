@@ -1542,10 +1542,10 @@ body {
     background-color: #2f9ad8;
 }
 
-/* Credit Card */
+/* Card Card */
 /* main */
 
-.creditCard {
+.Card {
     width: 100%;
     height: calc(100vh - 5rem);
     display: flex;
@@ -1553,23 +1553,23 @@ body {
     justify-content: space-around;
 }
 
-.CCLeft {
+.CardLeft {
     width: 65%;
     height: 90%;
 }
 
-.CCLeft h1 {
+.CardLeft h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: normal;
     font-size: 30px;
     margin-bottom: 5%;
 }
 
-#CreditForm {
+#CardForm {
     width: 90%;
 }
 
-#CreditForm input {
+#CardForm input {
     margin-bottom: 3%;
     background-color: #ffffff;
     border: 2px solid black;
@@ -1578,7 +1578,7 @@ body {
     font-size: 15px;
 }
 
-#CreditParcel {
+#CardParcel {
     width: 89%;
     background-color: #ffffff;
     border: 2px solid black;
@@ -1586,7 +1586,7 @@ body {
     font-size: 15px;
 }
 
-.CCRight {
+.CardRight {
     width: 20%;
     height: 90%;
     display: flex;
@@ -1595,19 +1595,19 @@ body {
     justify-content: space-between;
 }
 
-#CreditReturn {
+#CardReturn {
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
 }
 
-#CreditReturn__button {
+#CardReturn__button {
     width: 15%;
     height: auto;
 }
 
-#CreditReturn__text {
+#CardReturn__text {
     margin-left: 5%;
     font-family: 'Open Sans', sans-serif;
     font-weight: normal;
@@ -1615,7 +1615,7 @@ body {
     color: black;
 }
 
-.CreditImageContainer {
+.CardImageContainer {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -1626,12 +1626,12 @@ body {
     font-size: 20px
 }
 
-.CreditImage {
+.CardImage {
     width: auto;
     height: 40%;
 }
 
-.CreditFinish {
+.CardFinish {
     background-color: #38B6FF;
     color: black;
     border-radius: 25px;
@@ -1647,6 +1647,6 @@ body {
     cursor: pointer;
 }
 
-.CreditFinish:hover {
+.CardFinish:hover {
     background-color: #2f9ad8;
 }
