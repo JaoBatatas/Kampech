@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampech</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/Kumpech_logo_noText.png">
+    <script src="/index.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="headerLeft">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
+                <h1>Kampech</h1>
+            </a>
+
+        </div>
+        <div class="headerRight">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <button onclick="searchBar_slide()" class="searchButton">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+            </button>
+            <a href="/login.html" class="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon">
+            </a>
+            <button class="cartIcon" onclick="cartAnimation()">
+                <img src="/cartIcon.svg" alt="cartIcon">
+            </button>
+        </div>
+        <div class="cartPopUp">
+            <button class="close_button" onclick="cartAnimation()">
+                <img class="close_button__img" alt="close_button" src="/close_button.svg">
+                <h4 class="close_button__title">Fechar</h4>
+            </button>
+            <div class="cartPopUp__item">
+                <div class="cartPopUp__item__left">
+                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
+                </div>
+                <div class="cartPopUp__item__right">
+                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
+                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
+                    <div class="cartPopUp__item__right__bottom">
+                        <input class="quantity" type="number" name="quantity" min="0" value="1">
+                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="cartPopUp__item2">
+                <div class="cartPopUp__item__left">
+                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
+                </div>
+                <div class="cartPopUp__item__right">
+                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
+                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
+                    <div class="cartPopUp__item__right__bottom">
+                        <input class="quantity" type="number" name="quantity" min="0" value="1">
+                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
+                    </div>
+                </div>
+            </div>
+            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
+            <div class="cartPopUp__priceContainer">
+                <h2>Total</h2>
+                <h2>R$696,90</h2>
+            </div>
+            <a id="finishCart" href="">
+                <p>Finalizar<br>pedido</p>
+            </a>
+            <p id="finePrint">*taxas calculadas na finalização da compra</p>
+        </div>
+    </header>
+
+    <main class="creditCard">
+        <section class="CCLeft">
+            <h1>Cartão de Crédito</h1>
+            <form action="/creditCard" method="post" id="CreditForm">
+                <input type="text" name="CreditName" placeholder="Nome no cartão" id="CreditName">
+                <input type="text" name="Creditnumber" placeholder="Número do cartão" id="CreditNum">
+                <input type="text" name="CreditExpiration" placeholder="Data de validade" id="CreditExp">
+                <input type="text" name="CreditCVV" placeholder="Código de verificação (CVV)" id="CreditCVV">
+                <input type="text" name="CreditCPF" placeholder="CPF do titular" id="CreditCPF">
+            </form>
+            <select name="CreditParcel" id="CreditParcel" form="CreditForm" aria-placeholder="Forma de pagamento:">
+                <option value="" disabled selected>Forma de pagamento:</option>
+                <option value="cash">À vista</option>
+                <option value="2x">2x - Sem juros</option>
+            </select>
+        </section>
+        <section class="CCRight">
+            <a id="CreditReturn" href="/index.html">
+                <img id="CreditReturn__button" src="/back_button.png">
+                <h2 id="CreditReturn__text">Voltar</h2>
+            </a>
+            <div class="CreditImageContainer">
+                <p>Bandeiras aceitas:</p>
+                <img class="CreditImage" src="/mastercard-logo.png" alt="mastercard-logo">
+                <img class="CreditImage" src="/visa-logo.png" alt="visa-logo">
+            </div>
+            <button class="CreditFinish">Efetuar pagamento</button>
+        </section>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+
+</html>
