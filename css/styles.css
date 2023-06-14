@@ -664,7 +664,7 @@ body {
     background-color: #ffffff;
     border: 2px solid black;
     padding: 10px 0 10px 5px;
-    width: 33%;
+    width: 34%;
     font-size: 15px;
     margin-top: 3%;
     margin-left: 3%;
@@ -685,11 +685,13 @@ body {
     margin-top: 2.5%;
     width: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20%;
 }
 
-.personal__info__save {
+.personal__info__save, .personal__info__logout {
     background-color: #24cf24;
     border-radius: 50px;
     border: 2px solid black;
@@ -699,10 +701,15 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 30px;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 
-.personal__info__save:hover {
+.personal__info__save:hover, .personal__info__logout:hover {
     background: #1ba81b;
 }
 

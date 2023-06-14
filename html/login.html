@@ -95,7 +95,7 @@
     </footer>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
+       const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('404account')) {
             const loginForm = document.querySelector('.login__container');
             const mensagemNoAccount = document.createElement('p');
@@ -103,8 +103,13 @@
             mensagemNoAccount.textContent = 'Conta não encontrada!';
             loginForm.insertBefore(mensagemNoAccount, document.getElementById('loginForm'));
         }
-
-
+        if (urlParams.has('passwordError')) {
+            const loginForm = document.querySelector('.login__container');
+            const mensagemNoAccount = document.createElement('p');
+            mensagemNoAccount.style.color = 'red';
+            mensagemNoAccount.textContent = 'Senha Incorreta!';
+            loginForm.insertBefore(mensagemNoAccount, document.getElementById('loginForm'));
+        }
     </script>
 </body>
 
