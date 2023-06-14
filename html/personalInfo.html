@@ -88,17 +88,24 @@
             <form>
                 <div class="personal__container2__col1">
                     <div class="personal__info">
-                        <input type="text" placeholder="Nome Completo:" id="personal__info__name" class="personal__info__inputBig">
-                        <input type="text" placeholder="Endereço:" id="personal__info__address" class="personal__info__inputBig">
+                        <input type="text" placeholder="Nome Completo:" id="personal__info__name"
+                            class="personal__info__inputBig">
+                        <input type="text" placeholder="Endereço:" id="personal__info__address"
+                            class="personal__info__inputBig">
                         <div>
-                          <input type="text" placeholder="CPF" id="personal__info__CPF" class="personal__info__inputMedium">
-                          <input type="text" placeholder="CEP" id="personal__info__zipCode" class="personal__info__inputSmall">
-                          <input type="text" placeholder="Cidade" id="personal__info__city" class="personal__info__inputMedium">
-                          <input type="text" placeholder="Estado" id="personal__info__state" class="personal__info__inputSmall">
+                            <input type="text" placeholder="CPF" id="personal__info__CPF"
+                                class="personal__info__inputMedium">
+                            <input type="text" placeholder="CEP" id="personal__info__zipCode"
+                                class="personal__info__inputSmall">
+                            <input type="text" placeholder="Cidade" id="personal__info__city"
+                                class="personal__info__inputMedium">
+                            <input type="text" placeholder="Estado" id="personal__info__state"
+                                class="personal__info__inputSmall">
                         </div>
-                        <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="personal__info__phone" placeholder="Telefone:" class="personal__info__inputBig">
-                      </div>
-                      
+                        <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="personal__info__phone"
+                            placeholder="Telefone:" class="personal__info__inputBig">
+                    </div>
+
                 </div>
                 <div class="personal__container2__col2">
                     <button type="submit" class="personal__info__save">
@@ -116,31 +123,31 @@
     <script>
         // Verifica se a variável com os dados existe e preenche os campos de entrada
         function fillFormFields(data) {
-          document.getElementById('personal__info__name').value = data.name || '';
-          document.getElementById('personal__info__address').value = data.address || '';
-          document.getElementById('personal__info__CPF').value = data.cpf || '';
-          document.getElementById('personal__info__zipCode').value = data.zip_code || '';
-          document.getElementById('personal__info__city').value = data.city || '';
-          document.getElementById('personal__info__state').value = data.state || '';
-          document.getElementById('personal__info__phone').value = data.phone || '';
+            document.getElementById('personal__info__name').value = data.name || '';
+            document.getElementById('personal__info__address').value = data.address || '';
+            document.getElementById('personal__info__CPF').value = data.cpf || '';
+            document.getElementById('personal__info__zipCode').value = data.zip_code || '';
+            document.getElementById('personal__info__city').value = data.city || '';
+            document.getElementById('personal__info__state').value = data.state || '';
+            document.getElementById('personal__info__phone').value = data.phone || '';
         }
-      
+
         // Função para obter os dados pessoais do usuário
         function getPersonalInfo() {
-          fetch('/getPersonalInfo')
-            .then(response => response.json())
-            .then(data => {
-              fillFormFields(data);
-            })
-            .catch(error => {
-              console.log('Erro ao obter dados pessoais:', error);
-            });
+            fetch('/getPersonalInfo')
+                .then(response => response.json())
+                .then(data => {
+                    fillFormFields(data);
+                })
+                .catch(error => {
+                    console.log('Erro ao obter dados pessoais:', error);
+                });
         }
-      
+
         // Chama a função para obter os dados pessoais quando a página é carregada
         window.addEventListener('load', getPersonalInfo);
-      </script>
-      
+    </script>
+
 </body>
 
 </html>
