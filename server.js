@@ -102,7 +102,6 @@ app.get('/getPersonalInfo', (req, res) => {
           state: rows[0].state,
           phone: rows[0].phone
         };
-
         res.json(personalInfo);
       }
     } else {
@@ -111,7 +110,19 @@ app.get('/getPersonalInfo', (req, res) => {
     }
   });
 });
-
+app.post('/custom', (req, res) => {
+  const customKeyboard = {
+    size: req.body.size,
+    connection: req.body.connection,
+    switch: req.body.switch,
+    keycap: req.body.keycap,
+    boardColor: req.body.boardColor,
+    keyColor: req.body.keyColor,
+    description: `Teclado ${req.body.size}, ${req.body.switch}, ${req.body.keycap}, ${req.body.boardColor}, ${req.body.keyColor}`
+  };
+  res.json(customKeyboard);
+  console.log(customKeyboard);
+});
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')

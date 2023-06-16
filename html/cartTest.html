@@ -13,8 +13,7 @@
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -24,98 +23,131 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
             <button class="cartIcon" onclick="cartAnimation()">
                 <img src="/cartIcon.svg" alt="cartIcon">
             </button>
         </div>
-        <div class="cartPopUp">
+        <div class="cartPopUp" id="cartContainer">
             <button class="close_button" onclick="cartAnimation()">
                 <img class="close_button__img" alt="close_button" src="/close_button.svg">
                 <h4 class="close_button__title">Fechar</h4>
             </button>
-            <div class="cartPopUp__item" id="cartItem1">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" id="quantity1" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price" id="cartPrice1">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__item2" id="cartItem2">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" id="quantity2" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price" id="cartPrice2">696,90</h1>
-                    </div>
-                </div>
+            <div class="cartPopUp__item" id="cartItems">
+
             </div>
             <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
             <div class="cartPopUp__priceContainer">
                 <h2>Total</h2>
-                <h2 id="cartTotal">R$696,90</h2>
+                <h2>R$696,90</h2>
             </div>
             <a id="finishCart" href="">
                 <p>Finalizar<br>pedido</p>
             </a>
             <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
-
-        <script>
-            // Função para calcular o preço total do carrinho
-            function calcularTotal() {
-              let total = 0;
-              let quantity1 = parseInt(document.getElementById("quantity1").value);
-              let price1 = parseFloat(document.getElementById("cartPrice1").innerHTML.replace(",", "."));
-              let quantity2 = parseInt(document.getElementById("quantity2").value);
-              let price2 = parseFloat(document.getElementById("cartPrice2").innerHTML.replace(",", "."));
-          
-              total = (quantity1 * price1) + (quantity2 * price2);
-          
-              // Atualiza o preço total do carrinho
-              document.getElementById("cartTotal").innerHTML = "R$" + total.toFixed(2).replace(".", ",");
-          
-              // Ou você pode usar a seguinte linha para atualizar diretamente o elemento de preço total:
-              // document.getElementById("cartTotal").textContent = "R$" + total.toFixed(2).replace(".", ",");
-          
-              // Verifica se a quantidade é zero e remove o item do carrinho
-              if (quantity1 === 0) {
-                document.getElementById("cartItem1").remove();
-              }
-              if (quantity2 === 0) {
-                document.getElementById("cartItem2").remove();
-              }
-            }
-          
-            // Adiciona um ouvinte de eventos para cada campo de quantidade
-            let quantities = document.getElementsByClassName("quantity");
-            for (let i = 0; i < quantities.length; i++) {
-              quantities[i].addEventListener("change", calcularTotal);
-            }
-          </script>
-          
-          
     </header>
 
-    <main>
+    <main class="index">
+        <a href="/custom.html" class="keyboardCustom_link">
+            <div class="container">
+                <img src="/keyboardCustom.png" alt="keyboardCustom" class="keyboardCustom">
+            </div>
+        </a>
+
+        <a href="/products.html" class="keyboardBuy_link">
+            <div class="container">
+                <img src="/keyboardBuy.png" alt="keyboardBuy" class="keyboardBuy">
+            </div>
+        </a>
     </main>
 
     <footer>
     </footer>
 
+    <script>
+        // Função para redirecionar com base na resposta do servidor
+        function handleAuthenticationResponse(response) {
+            if (response.ok) {
+                // Se o servidor retornar uma resposta bem-sucedida, redireciona para personalInfo.html
+                window.location.href = '/personalInfo.html';
+            } else {
+                // Caso contrário, redireciona para login.html
+                window.location.href = '/login.html';
+            }
+        }
 
+        // Ouvinte de eventos para redirecionar quando o usuário clicar no ícone de conta
+        document.querySelector('.accountIcon').addEventListener('click', function (event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+
+            fetch('/getPersonalInfo')
+                .then(handleAuthenticationResponse)
+                .catch(error => {
+                    console.log('Erro ao verificar autenticação:', error);
+                    // Em caso de erro, redireciona para login.html por padrão
+                    window.location.href = '/login.html';
+                });
+        });
+        // Função para adicionar um item ao carrinho
+        function addToCart(item) {
+            var cartItems = document.getElementById("cartItems");
+
+            var itemElement = document.createElement("div");
+            itemElement.classList.add("cartPopUp__item");
+
+            var itemHTML = `
+    <div class="cartPopUp__item__left">
+      <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
+    </div>
+    <div class="cartPopUp__item__right">
+      <h1 class="cartPopUp__item__right__title">Teclado Customizado</h1>
+      <h2 class="cartPopUp__item__right__desc" id="cartDescription">${item.description}</h2>
+      <div class="cartPopUp__item__right__bottom">
+        <input class="quantity" type="number" name="quantity" min="0" value="1">
+        <h1 class="cartPopUp__item__right__bottom__price">R$69,90</h1>
+      </div>
+    </div>
+  `;
+
+            itemElement.innerHTML = itemHTML;
+            cartItems.appendChild(itemElement);
+
+            // Atualiza o elemento com o ID "cartDescription" com a descrição do item
+            document.getElementById("cartDescription").innerText = item.description;
+        };
+        // Função para carregar os dados do item e adicioná-lo ao carrinho
+        function loadItemAndAddToCart() {
+            fetch('/custom', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ /* dados do item, se necessário */ })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Obtém a descrição do JSON retornado
+                    const description = data.description;
+
+                    // Cria o objeto item com a descrição obtida
+                    const item = {
+                        description: description
+                    };
+
+                    // Adiciona o item ao carrinho
+                    addToCart(item);
+                })
+                .catch(error => {
+                    console.log('Erro ao carregar item:', error);
+                });
+        }
+
+        // Ouvinte de eventos para o carregamento da página
+        document.addEventListener('DOMContentLoaded', loadItemAndAddToCart);
+    </script>
 </body>
 
 </html>

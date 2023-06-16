@@ -13,8 +13,7 @@
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -31,7 +30,7 @@
                 <img src="/cartIcon.svg" alt="cartIcon">
             </button>
         </div>
-        <div class="cartPopUp">
+        <div class="cartPopUp" id="cartContainer">
             <button class="close_button" onclick="cartAnimation()">
                 <img class="close_button__img" alt="close_button" src="/close_button.svg">
                 <h4 class="close_button__title">Fechar</h4>
@@ -94,28 +93,28 @@
     <script>
         // Função para redirecionar com base na resposta do servidor
         function handleAuthenticationResponse(response) {
-          if (response.ok) {
-            // Se o servidor retornar uma resposta bem-sucedida, redireciona para personalInfo.html
-            window.location.href = '/personalInfo.html';
-          } else {
-            // Caso contrário, redireciona para login.html
-            window.location.href = '/login.html';
-          }
+            if (response.ok) {
+                // Se o servidor retornar uma resposta bem-sucedida, redireciona para personalInfo.html
+                window.location.href = '/personalInfo.html';
+            } else {
+                // Caso contrário, redireciona para login.html
+                window.location.href = '/login.html';
+            }
         }
-      
+
         // Ouvinte de eventos para redirecionar quando o usuário clicar no ícone de conta
         document.querySelector('.accountIcon').addEventListener('click', function (event) {
-          event.preventDefault(); // Impede o comportamento padrão do link
-      
-          fetch('/getPersonalInfo')
-            .then(handleAuthenticationResponse)
-            .catch(error => {
-              console.log('Erro ao verificar autenticação:', error);
-              // Em caso de erro, redireciona para login.html por padrão
-              window.location.href = '/login.html';
-            });
+            event.preventDefault(); // Impede o comportamento padrão do link
+
+            fetch('/getPersonalInfo')
+                .then(handleAuthenticationResponse)
+                .catch(error => {
+                    console.log('Erro ao verificar autenticação:', error);
+                    // Em caso de erro, redireciona para login.html por padrão
+                    window.location.href = '/login.html';
+                });
         });
-      </script>      
+    </script>
 </body>
 
 </html>
