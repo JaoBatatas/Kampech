@@ -24,8 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',
-  user: 'root',
-  password: 'root',
+  // user: 'root',
+  // password: 'root',
+  user: 'adm',
+  password: 'adm',
   database: 'kampech'
 });
 
@@ -118,9 +120,18 @@ app.post('/custom', (req, res) => {
     keycap: req.body.keycap,
     boardColor: req.body.boardColor,
     keyColor: req.body.keyColor,
-    description: `Teclado ${req.body.size}, ${req.body.switch}, ${req.body.keycap}, ${req.body.boardColor}, ${req.body.keyColor}`
+    description: `Size: ${req.body.size}; Connection: ${req.body.connection}; Switch: ${req.body.switch}; Keycap: ${req.body.keycap}; Board color: ${req.body.boardColor}; Key color: ${req.body.keyColor}`
   };
-  res.json(customKeyboard);
+  connection.query(`INSERT INTO \`kp_product\` (\`id_product\`, \`name\`, \`description\`, \`price\`, \`image_url\`, \`layout\`, \`size\`, \`connection\`, \`switch\`, \`main_color\`, \`key_color\`) VALUES (NULL, 'Teclado Custom', '${customKeyboard.description}', '69.90', 'example.image.com', 'ABNT', '${customKeyboard.size}', '${customKeyboard.connection}', '${customKeyboard.switch}', '${customKeyboard.boardColor}', '${customKeyboard.keyColor}')`, (err, rows, fields) => {
+    if (!err) {
+      console.log('Salvo com sucesso!');
+      // res.json(customKeyboard);
+    } else {
+      console.log("Erro: produto não salvo!", err);
+      res.status(500).json({ error: 'Erro no servidor' });
+    }
+  });
+  // res.json(customKeyboard);
   console.log(customKeyboard);
 });
 
