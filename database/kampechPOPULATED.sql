@@ -9,7 +9,7 @@ CREATE TABLE `kp_address` (
   `zip_code` varchar(8) NOT NULL,
   `city` varchar(100) NOT NULL,
   `state` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_address` (`id_address`, `id_user`, `address`, `zip_code`, `city`, `state`) VALUES
 (1, 1, 'Rua das Flores, 123', '01234567', 'São Paulo', 'SP'),
@@ -20,7 +20,7 @@ INSERT INTO `kp_address` (`id_address`, `id_user`, `address`, `zip_code`, `city`
 CREATE TABLE `kp_cart` (
   `id_cart` int NOT NULL,
   `id_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_cart` (`id_cart`, `id_user`) VALUES
 (1, 1),
@@ -32,7 +32,7 @@ CREATE TABLE `kp_cart_items` (
   `id_cart_items` int NOT NULL,
   `id_cart` int NOT NULL,
   `id_product` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_cart_items` (`id_cart_items`, `id_cart`, `id_product`) VALUES
 (1, 1, 1),
@@ -47,7 +47,7 @@ CREATE TABLE `kp_order` (
   `order_date` date NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `payment` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_order` (`id_order`, `id_user`, `order_date`, `total`, `payment`) VALUES
 (1, 1, '2023-05-26', '299.98', 'Cartão de crédito'),
@@ -60,7 +60,7 @@ CREATE TABLE `kp_order_items` (
   `id_order` int NOT NULL,
   `id_product` int NOT NULL,
   `price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_order_items` (`id_order_items`, `id_order`, `id_product`, `price`) VALUES
 (1, 1, 1, '99.99'),
@@ -81,7 +81,7 @@ CREATE TABLE `kp_product` (
   `switch` varchar(100) NOT NULL,
   `main_color` varchar(100) NOT NULL,
   `key_color` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_product` (`id_product`, `name`, `description`, `price`, `image_url`, `layout`, `size`, `connection`, `switch`, `main_color`, `key_color`) VALUES
 (1, 'Keyboard 1', 'This is a description of Keyboard 1', '99.99', 'https://example.com/keyboard1.jpg', 'ABNT', '100%', 'USB', 'Blue', 'Branco', 'Branco'),
@@ -96,7 +96,7 @@ CREATE TABLE `kp_user` (
   `password` varchar(50) NOT NULL,
   `cpf` varchar(11) NOT NULL,
   `phone` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES
 (1, 'João Silva', 'joao.silva@example.com', 'password1', '12345678901', '11987654321'),
