@@ -119,11 +119,13 @@ app.post('/custom', (req, res) => {
     switch: req.body.switch,
     keycap: req.body.keycap,
     boardColor: req.body.boardColor,
-    keyColor: req.body.keyColor
+    keyColor: req.body.keyColor,
+    description: `Teclado Custom: Size: ${req.body.size}; Connection: ${req.body.connection}; Switch: ${req.body.switch}; Keycap: ${req.body.keycap}; Board color: ${req.body.boardColor}; Key color: ${req.body.keyColor}`
   };
   connection.query(`INSERT INTO \`kp_product\` (\`id_product\`, \`name\`, \`description\`, \`price\`, \`image_url\`, \`layout\`, \`size\`, \`connection\`, \`switch\`, \`main_color\`, \`key_color\`) VALUES (NULL, 'Teclado Custom', '${customKeyboard.description}', '69.90', 'example.image.com', 'ABNT', '${customKeyboard.size}', '${customKeyboard.connection}', '${customKeyboard.switch}', '${customKeyboard.boardColor}', '${customKeyboard.keyColor}')`, (err, rows, fields) => {
     if (!err) {
       console.log('Salvo com sucesso!');
+      res.redirect('/custom.html');
       // res.json(customKeyboard);
     } else {
       console.log("Erro: produto não salvo!", err);
