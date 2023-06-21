@@ -110,9 +110,9 @@ h1 {
     border: 2px solid black;
     border-radius: 10px;
     padding: 10px;
-    width: 40%;
+    width: 60%;
     font-size: 15px;
-    animation: searchBar_slide 0.7s;
+    animation: searchBar_slide 1s;
 }
 
 @keyframes searchBar_slide {
@@ -121,7 +121,7 @@ h1 {
     }
 
     to {
-        width: 40%;
+        width: 60%;
     }
 }
 
@@ -691,7 +691,8 @@ body {
     gap: 20%;
 }
 
-.personal__info__save, .personal__info__logout {
+.personal__info__save,
+.personal__info__logout {
     background-color: #24cf24;
     border-radius: 50px;
     border: 2px solid black;
@@ -709,7 +710,8 @@ body {
     cursor: pointer;
 }
 
-.personal__info__save:hover, .personal__info__logout:hover {
+.personal__info__save:hover,
+.personal__info__logout:hover {
     background: #1ba81b;
 }
 
@@ -1287,6 +1289,65 @@ body {
     cursor: pointer;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+    background-color: #fff;
+    width: 35%;
+    height: auto;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    border-radius: 15px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.modal__buttons {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+.modal__button {
+    width: 35%;
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    padding: 2% 0 2% 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.modal__button:hover {
+    background-color: #4a4a4b;
+}
+
 /* Payment Method Page */
 /* Main */
 
@@ -1406,7 +1467,8 @@ body {
     height: 100%;
 }
 
-.pixForm__name, .pixForm__cpf {
+.pixForm__name,
+.pixForm__cpf {
     background-color: #ffffff;
     border: 2px solid black;
     padding: 10px 0 10px 5px;
@@ -1437,7 +1499,7 @@ body {
     height: 100%;
 }
 
-.pixCol__text{
+.pixCol__text {
     height: calc(100% / 3);
     font-family: 'Open Sans', sans-serif;
     font-weight: normal;

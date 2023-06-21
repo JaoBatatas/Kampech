@@ -138,13 +138,49 @@
                 <input type="submit" class="continueButton" id="customRight__row__button" value="Continuar">
             </div>
         </form>
-
+        </div>
+        <div id="loginModal" class="modal">
+            <div class="modal__content">
+                <h2>Para customizar teclados é necessário fazer login</h2>
+                <div class="modal__buttons">
+                    <a href="/login.html" class="modal__button">Fazer login</a>
+                    <button id="modalCloseButton" class="modal__button">Voltar</button>
+                </div>
+            </div>
         </div>
     </main>
 
     <footer></footer>
 
     <script>
+        // Obtém a referência para o formulário e o modal
+        const form = document.getElementById('customForm');
+        const modal = document.getElementById('loginModal');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+
+        // Função para exibir o modal
+        function exibirModal() {
+            modal.style.display = 'block';
+        }
+
+        // Função para ocultar o modal
+        function fecharModal() {
+            modal.style.display = 'none';
+        }
+
+        // Adiciona um listener de evento para o botão de fechar
+        modalCloseButton.addEventListener('click', fecharModal);
+
+        // Adiciona um listener de evento para o evento de envio do formulário
+        form.addEventListener('submit', function (event) {
+            // Impede o envio padrão do formulário
+            event.preventDefault();
+
+            // Exibe o modal
+            exibirModal();
+        });
+
+        modal.style.display = 'none';
     </script>
 
 </body>
