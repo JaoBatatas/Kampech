@@ -131,53 +131,27 @@ app.post('/custom', (req, res) => {
     \`switch\` = '${customKeyboard.switch}' AND \`main_color\` = '${customKeyboard.boardColor}' AND
     \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1));`, (err, rows, fields) => {
       if (!err) {
-        console.log('Produto adicionado ao carrinho!');
+        if (customKeyboard.keycap != '') {
+        connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
+        VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_product\`
+        WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1));`, (err, rows, fields) => {
+          if (!err) {
+            console.log('Keycap adicionado ao carrinho!');
+          } else {
+            console.log("Erro: keycap não adicionada!", err);
+            res.status(500).json({ error: 'Erro no servidor' });
+          }
+        });
+      }
+        console.log('Teclado adicionado ao carrinho!');
         res.redirect('/index.html');
       } else {
-        console.log("Erro: produto não adicionado!", err);
+        console.log("Erro: teclado não adicionado!", err);
         res.status(500).json({ error: 'Erro no servidor' });
       }
     });
   }
 });
-// 
-// 
-// EDITAR PARA BUSCAR AO INVES DE INSERIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// 
-// 
-// 
-//   connection.query(`INSERT INTO \`kp_product\` (\`id_product\`, \`name\`, \`description\`, 
-//   \`price\`, \`image_url\`, \`layout\`, \`size\`, \`connection\`, \`switch\`, \`main_color\`, 
-//   \`key_color\`) VALUES (NULL, 'Teclado Custom', '${customKeyboard.description}', '69.90', 
-//   'example.image.com', 'ABNT', '${customKeyboard.size}', '${customKeyboard.connection}', 
-//   '${customKeyboard.switch}', '${customKeyboard.boardColor}', '${customKeyboard.keyColor}')`,
-//     (err, rows, fields) => {
-//       if (!err) {
-//         console.log('Teclado salvo com sucesso!');
-//         res.redirect('/custom.html');
-//       } else {
-//         console.log("Erro: produto não salvo!", err);
-//         res.status(500).json({ error: 'Erro no servidor' });
-//       }
-//     });
-//   if (customKeyboard.keycap != '') {
-//     connection.query(`INSERT INTO \`kp_product\` (\`id_product\`, \`name\`, \`description\`, 
-//     \`price\`, \`image_url\`, \`layout\`, \`size\`, \`connection\`, \`switch\`, \`main_color\`, 
-//     \`key_color\`) VALUES (NULL, '${customKeyboard.keycap}', 'Keycap personalizada', '29.90', 
-//     'example.image.com', NULL, NULL, NULL, 
-//     NULL, NULL, NULL)`,
-//       (err, rows, fields) => {
-//         if (!err) {
-//           console.log('Keycap salva com sucesso!');
-//           res.redirect('/custom.html');
-//         } else {
-//           console.log("Erro: produto não salvo!", err);
-//           res.status(500).json({ error: 'Erro no servidor' });
-//         }
-//       });
-//   }
-//   console.log(customKeyboard);
-// });
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
