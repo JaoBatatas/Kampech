@@ -13,8 +13,7 @@
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -24,7 +23,7 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="/register.html" class="accountIcon">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
             <button class="cartIcon" onclick="cartAnimation()">
@@ -77,17 +76,113 @@
     <main class="register">
         <div class="register__container">
             <h1 id="register__title">Criar conta</h1>
-            <input type="text" placeholder="Nome completo" id="register__name">
-            <input type="email" placeholder="Email" id="register__email">
-            <input type="password" placeholder="Senha" id="register__password">
-            <input type="password" placeholder="Confirmar senha" id="register__confirmPassword">
-            <a id="register__enter" href=""><p>Cadastrar</p></a>
-            <a id="register__login" href="/login.html"><p>Já possui uma conta?</p></a>
+            <form action="/register" method="post" id="registerForm">
+                <input type="text" placeholder="Nome completo" id="register__name" name="name">
+                <input type="email" placeholder="Email" id="register__email" name="email">
+                <input type="password" placeholder="Senha" id="register__password" name="password">
+                <input type="password" placeholder="Confirmar senha" id="register__confirmPassword"
+                    name="confirmPassword">
+                <input type="submit" value="Cadastrar" id="register__enter">
+            </form>
+            <a id="register__login" href="/login.html">
+                <p>Já possui uma conta?</p>
+            </a>
         </div>
     </main>
 
     <footer>
     </footer>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', validateRegister);
+
+        function validateRegister() {
+            event.preventDefault(); // Impedir o envio do formulário imediatamente
+
+            let name = document.getElementById('register__name').value;
+            let email = document.getElementById('register__email').value;
+            let password = document.getElementById('register__password').value;
+            let confirm = document.getElementById('register__confirmPassword').value;
+
+            let messageFields = document.getElementById('fieldsEmpty');
+            let messageLength = document.getElementById('passwordLength');
+            let messageMatch = document.getElementById('passwordNotMatch');
+            let emptyFields = { value: false }; // Usando um objeto para armazenar por referência
+
+            validateFields(messageLength, messageMatch, messageFields, emptyFields);
+
+            if (emptyFields.value === false) {
+                validatePassword(messageLength, messageMatch, messageFields);
+            }
+        }
+
+        function validateFields(messageLength, messageMatch, messageFields, emptyFields) {
+            let name = document.getElementById('register__name').value;
+            let email = document.getElementById('register__email').value;
+            let password = document.getElementById('register__password').value;
+            let confirm = document.getElementById('register__confirmPassword').value;
+
+            if (name.length === 0 || email.length === 0 || password.length === 0 || confirm.length === 0) {
+                emptyFields.value = true;
+                if (messageMatch) {
+                    messageMatch.remove();
+                } if (messageLength) {
+                    messageLength.remove();
+                }
+                if (!messageFields) {
+                    const registerForm = document.querySelector('.register__container');
+                    const message = document.createElement('p');
+                    message.id = 'fieldsEmpty';
+                    message.className = 'message';
+                    message.style.color = 'red';
+                    message.textContent = 'Todos os campos são obrigatórios!';
+                    registerForm.insertBefore(message, document.getElementById('registerForm'));
+                }
+
+            }
+        }
+
+        function validatePassword(messageLength, messageMatch, messageFields) {
+            let password = document.getElementById('register__password').value;
+            let confirm = document.getElementById('register__confirmPassword').value;
+
+            if (password.length < 8 || password.length > 32) {
+                if (messageMatch) {
+                    messageMatch.remove();
+                } if (messageFields) {
+                    messageFields.remove();
+                }
+                if (!messageLength) {
+                    const registerForm = document.querySelector('.register__container');
+                    const message = document.createElement('p');
+                    message.id = 'passwordLength';
+                    message.className = 'message';
+                    message.style.color = 'red';
+                    message.textContent = 'A senha deve conter de 8 a 32 caracteres!';
+                    registerForm.insertBefore(message, document.getElementById('registerForm'));
+                }
+
+            } else {
+                if (password !== confirm) {
+                    if (messageLength) {
+                        messageLength.remove();
+                    } if (messageFields) {
+                        messageFields.remove();
+                    }
+                    if (!messageMatch) {
+                        const registerForm = document.querySelector('.register__container');
+                        const message = document.createElement('p');
+                        message.id = 'passwordNotMatch';
+                        message.className = 'message';
+                        message.style.color = 'red';
+                        message.textContent = 'As senhas não coincidem!';
+                        registerForm.insertBefore(message, document.getElementById('registerForm'));
+                    }
+                }
+            }
+        }
+    </script>
+
 </body>
 
 </html>

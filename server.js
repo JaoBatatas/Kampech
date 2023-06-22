@@ -2,12 +2,12 @@ const oneDay = 1000 * 60 * 60 * 24;
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('css'));
 app.use(express.static('assets'));
 app.use(express.static('html'));
@@ -112,6 +112,23 @@ app.get('/getPersonalInfo', (req, res) => {
     }
   });
 });
+
+// app.post('/register', (req, res) => {
+//   let email = req.body.email;
+//   let password = req.body.password;
+//   let name = req.body.name;
+
+//   connection.query(`INSERT INTO \`kp_user\` (\`id_user\`, \`name\`, \`email\`, \`password\`, \`cpf\`, \`phone\`) 
+//   VALUES (NULL, '${name}', '${email}', '${password}', NULL, NULL)`, function (err, rows, fields) {
+//     if (!err) {
+//       console.log("Usuário cadastrado com sucesso!");
+//       res.redirect('/personalInfo.html');
+//     } else {
+//       console.log("Erro: Consulta não realizada", err);
+//     }
+//   });
+// });
+
 app.post('/custom', (req, res) => {
   const customKeyboard = {
     size: req.body.size,
