@@ -1319,7 +1319,7 @@ body {
 .modal h2 {
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .modal__buttons {
@@ -1611,4 +1611,48 @@ body {
 
 .pixQr__copy:hover {
     background-color: #2f9ad8;
+}
+
+/* Forgot Password */
+/* main */
+
+.fPassword {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fPassword__text {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#fPasswordForm {
+    width: 30%;
+    height: auto;
+}
+
+#fPassword__email {
+    margin-top: 6%;
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    width: 100%;
+    font-size: 15px;
+}
+
+#fPassword__submit {
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    width: 100%;
+    padding: 20px 0 20px 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 6%;
 }
