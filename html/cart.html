@@ -50,7 +50,7 @@
     <script src="/index.js"></script>
     <script>
         function getCartItems() {
-            fetch('/getCartItems')
+            fetch('/getCart')
                 .then(response => response.json())
                 .then(data => {
                     const cartItemsContainer = document.getElementById('cartItemsContainer');
@@ -59,13 +59,13 @@
                     cartItemsContainer.innerHTML = '';
 
                     // Verificar se existem produtos no carrinho
-                    if (data.length === 0) {
+                    if (data.items.length === 0) {
                         const emptyCartMessage = document.createElement('p');
                         emptyCartMessage.textContent = 'O carrinho está vazio.';
                         cartItemsContainer.appendChild(emptyCartMessage);
                     } else {
                         // Iterar sobre os produtos e criar elementos HTML para exibi-los
-                        data.forEach(product => {
+                        data.items.forEach(product => {
                             const cartItem = document.createElement('div');
                             cartItem.className = 'cartItem';
 

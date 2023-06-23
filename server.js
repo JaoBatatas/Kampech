@@ -5,6 +5,7 @@ const express = require('express');
 // const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const app = express();
+const path = require('path');
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,10 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',
-  // user: 'root',
-  // password: 'root',
-  user: 'adm',
-  password: 'adm',
+  user: 'root',
+  password: 'root',
+  // user: 'adm',
+  // password: 'adm',
   database: 'kampech'
 });
 
@@ -170,28 +171,38 @@ app.post('/custom', (req, res) => {
   }
 });
 
-app.get('/getCartItems', (req, res) => {
+app.get('/getCart', (req, res) => {
   // Verificar se o usuário está autenticado
-  if (!req.session.id_user) {
-    res.status(401).json({ error: 'Usuário não autenticado' });
-    return;
-  }
+  // if (!req.session.id_user) {
+  //   res.status(401).json({ error: 'Usuário não autenticado' });
+  //   return;
+  // }
 
-  // Obter os itens do carrinho do usuário no banco de dados
-  const email = req.session.id_user;
+  // Obter as informações do carrinho do usuário no banco de dados
+  // const email = req.session.id_user;
+  const email = 'pedro.top@gmail.com'
 
-  connection.query(`SELECT kp_product.name, kp_product.description, kp_product.price FROM kp_product
+  connection.query(`SELECT kp_product.name, kp_product.description, kp_product.price, kp_product.image_url FROM kp_product
     INNER JOIN kp_user_products ON kp_product.id_product = kp_user_products.id_product
     INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
     WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
     if (!err) {
-      res.json(rows);
+      if (rows.length === 0) {
+        res.status(404).json({ error: 'Usuário não encontrado' });
+      } else {
+        // Enviar as informações do carrinho como variáveis para a página cart.html
+        const cartItems = {
+          items: rows
+        };
+        res.json(cartItems);
+      }
     } else {
       console.log("Erro: Consulta não realizada", err);
       res.status(500).json({ error: 'Erro no servidor' });
     }
   });
 });
+
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
