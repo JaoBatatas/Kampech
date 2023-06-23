@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampech</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/Kumpech_logo_noText.png">
+</head>
+
+<body>
+    <header>
+        <div class="headerLeft">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
+                <h1>Kampech</h1>
+            </a>
+
+        </div>
+        <div class="headerRight">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <button onclick="searchBar_slide()" class="searchButton">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+            </button>
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
+                <img src="/accountIcon.svg" alt="accountIcon">
+            </a>
+            <a href="/cart.html" class="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon">
+            </a>
+    </header>
+
+    <main class="cart">
+        <h1 class="cartTitle">Carrinho</h1>
+        <div id="cartItemsContainer"></div> <!-- Inserir aqui -->
+        <div class="cartPriceContainer">
+            <h2>Total:</h2>
+            <h2>R$0,00</h2>
+        </div>
+        <a id="finishCart" href="">
+            <p>Finalizar pedido</p>
+        </a>
+        <p id="finePrint">*taxas calculadas na finalização da compra</p>
+    </main>
+
+    <footer>
+    </footer>
+
+    <script src="/index.js"></script>
+    <script>
+        function getCartItems() {
+            fetch('/getCartItems')
+                .then(response => response.json())
+                .then(data => {
+                    const cartItemsContainer = document.getElementById('cartItemsContainer');
+
+                    // Limpar o contêiner antes de adicionar os produtos
+                    cartItemsContainer.innerHTML = '';
+
+                    // Verificar se existem produtos no carrinho
+                    if (data.length === 0) {
+                        const emptyCartMessage = document.createElement('p');
+                        emptyCartMessage.textContent = 'O carrinho está vazio.';
+                        cartItemsContainer.appendChild(emptyCartMessage);
+                    } else {
+                        // Iterar sobre os produtos e criar elementos HTML para exibi-los
+                        data.forEach(product => {
+                            const cartItem = document.createElement('div');
+                            cartItem.className = 'cartItem';
+
+                            const cartItemLeft = document.createElement('div');
+                            cartItemLeft.className = 'cartItem__left';
+
+                            // Adicionar a imagem do produto (substitua "product.image" pelo caminho real da imagem)
+                            const productImage = document.createElement('img');
+                            productImage.className = 'cartItem__left__img'
+                            productImage.src = product.image; // Substitua "product.image" pelo caminho real da imagem
+                            productImage.alt = product.name;
+                            cartItemLeft.appendChild(productImage);
+
+                            const cartItemRight = document.createElement('div');
+                            cartItemRight.className = 'cartItem__right';
+
+                            const productTitle = document.createElement('h3');
+                            productTitle.className = 'cartItem__right__title';
+                            productTitle.textContent = product.name;
+                            cartItemRight.appendChild(productTitle);
+
+                            const productDescription = document.createElement('p');
+                            productDescription.className = 'cartItem__right__desc';
+                            productDescription.textContent = product.description;
+                            cartItemRight.appendChild(productDescription);
+
+                            const input = document.createElement('input');
+                            input.className = 'quantity';
+                            input.type = 'number';
+                            input.name = 'quantity';
+                            input.min = '0';
+                            input.value = '1';
+
+                            const productPrice = document.createElement('p');
+                            productPrice.className = 'cartItem__right__bottom__price';
+                            productPrice.textContent = 'Preço: ' + product.price;
+                            cartItemRight.appendChild(productPrice);
+
+                            const cartItemRightBottom = document.createElement('div');
+                            cartItemRightBottom.className = 'cartItem__right__bottom';
+                            cartItemRightBottom.appendChild(input);
+                            cartItemRight.appendChild(cartItemRightBottom);
+
+                            cartItem.appendChild(cartItemLeft);
+                            cartItem.appendChild(cartItemRight);
+
+                            cartItemsContainer.appendChild(cartItem);
+                        });
+                    }
+                })
+                .catch(error => console.log(error));
+        }
+        window.addEventListener('load', getCartItems);
+    </script>
+</body>
+
+</html>

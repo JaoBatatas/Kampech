@@ -78,3 +78,27 @@ function changeClass() {
 function clearSearchBar() {
     document.getElementById('purchaseSearchBar').value = '';
 }
+
+// Função para redirecionar com base na resposta do servidor
+function handleAuthenticationResponse(response) {
+    if (response.ok) {
+        // Se o servidor retornar uma resposta bem-sucedida, redireciona para personalInfo.html
+        window.location.href = '/personalInfo.html';
+    } else {
+        // Caso contrário, redireciona para login.html
+        window.location.href = '/login.html';
+    }
+}
+
+// Ouvinte de eventos para redirecionar quando o usuário clicar no ícone de conta
+document.querySelector('.accountIcon').addEventListener('click', function (event) {
+    event.preventDefault(); // Impede o comportamento padrão do link
+
+    fetch('/getPersonalInfo')
+        .then(handleAuthenticationResponse)
+        .catch(error => {
+            console.log('Erro ao verificar autenticação:', error);
+            // Em caso de erro, redireciona para login.html por padrão
+            window.location.href = '/login.html';
+        });
+});

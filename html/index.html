@@ -7,7 +7,6 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
 </head>
 
 <body>
@@ -35,36 +34,13 @@
                 <img class="close_button__img" alt="close_button" src="/close_button.svg">
                 <h4 class="close_button__title">Fechar</h4>
             </button>
-            <div class="cartPopUp__items">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__items">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
+            <div id="cartItemsContainer"></div> <!-- Local onde os itens do carrinho serão inseridos -->
+
             <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
+
             <div class="cartPopUp__priceContainer">
                 <h2>Total</h2>
-                <h2>R$696,90</h2>
+                <h2 id="cartTotalPrice">R$0,00</h2> <!-- Elemento para exibir o preço total -->
             </div>
             <a id="finishCart" href="">
                 <p>Finalizar<br>pedido</p>
@@ -90,31 +66,7 @@
     <footer>
     </footer>
 
-    <script>
-        // Função para redirecionar com base na resposta do servidor
-        function handleAuthenticationResponse(response) {
-            if (response.ok) {
-                // Se o servidor retornar uma resposta bem-sucedida, redireciona para personalInfo.html
-                window.location.href = '/personalInfo.html';
-            } else {
-                // Caso contrário, redireciona para login.html
-                window.location.href = '/login.html';
-            }
-        }
-
-        // Ouvinte de eventos para redirecionar quando o usuário clicar no ícone de conta
-        document.querySelector('.accountIcon').addEventListener('click', function (event) {
-            event.preventDefault(); // Impede o comportamento padrão do link
-
-            fetch('/getPersonalInfo')
-                .then(handleAuthenticationResponse)
-                .catch(error => {
-                    console.log('Erro ao verificar autenticação:', error);
-                    // Em caso de erro, redireciona para login.html por padrão
-                    window.location.href = '/login.html';
-                });
-        });
-    </script>
+    <script src="/index.js"></script>
 </body>
 
 </html>

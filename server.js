@@ -113,21 +113,21 @@ app.get('/getPersonalInfo', (req, res) => {
   });
 });
 
-// app.post('/register', (req, res) => {
-//   let email = req.body.email;
-//   let password = req.body.password;
-//   let name = req.body.name;
+app.post('/register', (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let name = req.body.name;
 
-//   connection.query(`INSERT INTO \`kp_user\` (\`id_user\`, \`name\`, \`email\`, \`password\`, \`cpf\`, \`phone\`) 
-//   VALUES (NULL, '${name}', '${email}', '${password}', NULL, NULL)`, function (err, rows, fields) {
-//     if (!err) {
-//       console.log("Usuário cadastrado com sucesso!");
-//       res.redirect('/personalInfo.html');
-//     } else {
-//       console.log("Erro: Consulta não realizada", err);
-//     }
-//   });
-// });
+  connection.query(`INSERT INTO \`kp_user\` (\`id_user\`, \`name\`, \`email\`, \`password\`, \`cpf\`, \`phone\`) 
+  VALUES (NULL, '${name}', '${email}', '${password}', NULL, NULL)`, function (err, rows, fields) {
+    if (!err) {
+      console.log("Usuário cadastrado com sucesso!");
+      res.redirect('/personalInfo.html');
+    } else {
+      console.log("Erro: Consulta não realizada", err);
+    }
+  });
+});
 
 app.post('/custom', (req, res) => {
   const customKeyboard = {
@@ -168,6 +168,29 @@ app.post('/custom', (req, res) => {
       }
     });
   }
+});
+
+app.get('/getCartItems', (req, res) => {
+  // Verificar se o usuário está autenticado
+  if (!req.session.id_user) {
+    res.status(401).json({ error: 'Usuário não autenticado' });
+    return;
+  }
+
+  // Obter os itens do carrinho do usuário no banco de dados
+  const email = req.session.id_user;
+
+  connection.query(`SELECT kp_product.name, kp_product.description, kp_product.price FROM kp_product
+    INNER JOIN kp_user_products ON kp_product.id_product = kp_user_products.id_product
+    INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
+    WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
+    if (!err) {
+      res.json(rows);
+    } else {
+      console.log("Erro: Consulta não realizada", err);
+      res.status(500).json({ error: 'Erro no servidor' });
+    }
+  });
 });
 
 app.listen(3700, () => {
