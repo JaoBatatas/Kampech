@@ -29,19 +29,38 @@
             <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
             </a>
+        </div>
     </header>
 
     <main class="cart">
         <h1 class="cartTitle">Carrinho</h1>
-        <div id="cartItemsContainer"></div> <!-- Inserir aqui -->
-        <div class="cartPriceContainer">
-            <h2>Total:</h2>
-            <h2>R$0,00</h2>
+        <p id="noUser"></p>
+        <section class="cartSection">
+            <div class="cartSectionLeft">
+                <div id="cartItemsContainer"></div> <!-- Inserir aqui -->
+
+            </div>
+            <div class="cartSectionRight">
+                <div class="cartPriceContainer">
+                    <h2>Total:</h2>
+                    <h2>R$0,00</h2>
+                </div>
+                <a id="finishCart" href="">
+                    <p>Finalizar pedido</p>
+                </a>
+                <p id="finePrint">*taxas calculadas na finalização da compra</p>
+            </div>
+        </section>
+        <div id="cartModal" class="modal">
+            <div class="modal__content">
+                <h2>Usuário não logado</h2>
+                <div class="modal__buttons">
+                    <a href="/login.html" class="modal__button">Fazer login</a>
+                    <button id="modalCloseButton" class="modal__button">Voltar</button>
+                </div>
+            </div>
         </div>
-        <a id="finishCart" href="">
-            <p>Finalizar pedido</p>
-        </a>
-        <p id="finePrint">*taxas calculadas na finalização da compra</p>
+
     </main>
 
     <footer>
@@ -51,7 +70,16 @@
     <script>
         function getCartItems() {
             fetch('/getCart')
-                .then(response => response.json())
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 401) {
+                        throw new Error('Usuário não logado');
+                        showModal();
+                    } else {
+                        throw new Error('Erro na requisição');
+                    }
+                })
                 .then(data => {
                     const cartItemsContainer = document.getElementById('cartItemsContainer');
 
@@ -75,7 +103,7 @@
                             // Adicionar a imagem do produto (substitua "product.image" pelo caminho real da imagem)
                             const productImage = document.createElement('img');
                             productImage.className = 'cartItem__left__img'
-                            productImage.src = product.image; // Substitua "product.image" pelo caminho real da imagem
+                            productImage.src = product.image_url; // Substitua "product.image" pelo caminho real da imagem
                             productImage.alt = product.name;
                             cartItemLeft.appendChild(productImage);
 
@@ -93,31 +121,90 @@
                             cartItemRight.appendChild(productDescription);
 
                             const input = document.createElement('input');
-                            input.className = 'quantity';
+                            input.className = 'cartItem__right__bottom__input';
                             input.type = 'number';
                             input.name = 'quantity';
                             input.min = '0';
                             input.value = '1';
+                            input.id = product.id_user_products;
 
                             const productPrice = document.createElement('p');
                             productPrice.className = 'cartItem__right__bottom__price';
                             productPrice.textContent = 'Preço: ' + product.price;
-                            cartItemRight.appendChild(productPrice);
 
                             const cartItemRightBottom = document.createElement('div');
                             cartItemRightBottom.className = 'cartItem__right__bottom';
-                            cartItemRightBottom.appendChild(input);
-                            cartItemRight.appendChild(cartItemRightBottom);
 
+                            const removeButton = document.createElement('button');
+                            removeButton.className = 'cartItem__right__bottom__remove';
+                            removeButton.textContent = 'Remover';
+
+                            // Adicione um evento de escuta para o botão de remover
+                            removeButton.addEventListener('click', () => {
+                                const productId = product.id_user_products; // ID do produto a ser removido
+
+                                fetch('http://127.0.0.1:3700/removeProduct', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ id: productId })
+                                })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            console.log('Produto removido com sucesso!');
+                                            // Atualize o carrinho no lado do cliente, se necessário
+                                            cartItem.remove(); // Remova o elemento HTML do produto do carrinho após a remoção bem-sucedida
+                                        } else {
+                                            console.log('Erro ao remover o produto do carrinho');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log('Erro de rede:', error);
+                                    });
+                            });
+
+
+
+
+
+                            cartItemRightBottom.appendChild(removeButton);
                             cartItem.appendChild(cartItemLeft);
                             cartItem.appendChild(cartItemRight);
+                            cartItemsContainer.appendChild(cartItem);
 
+                            cartItemRightBottom.appendChild(input);
+                            cartItemRight.appendChild(cartItemRightBottom);
+                            cartItemRightBottom.appendChild(productPrice);
+                            cartItem.appendChild(cartItemLeft);
+                            cartItem.appendChild(cartItemRight);
                             cartItemsContainer.appendChild(cartItem);
                         });
                     }
                 })
-                .catch(error => console.log(error));
+                .catch(error => {
+                    showModal();
+                });
         }
+
+        // Obtém a referência para o formulário e o modal
+        const form = document.getElementById('cartForm');
+        const modal = document.getElementById('cartModal');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+
+        // Função para exibir o modal
+        function showModal() {
+            modal.style.display = 'block';
+        }
+
+        // Função para ocultar o modal
+        function fecharModal() {
+            modal.style.display = 'none';
+        }
+
+        // Adiciona um listener de evento para o botão de fechar
+        modalCloseButton.addEventListener('click', fecharModal);
+
         window.addEventListener('load', getCartItems);
     </script>
 </body>

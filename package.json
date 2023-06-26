@@ -8,7 +8,8 @@
     "jquery": "^3.7.0",
     "jquery-mask-plugin": "^1.14.16",
     "mysql2": "^3.3.3",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "nodemon server.js"

@@ -150,17 +150,17 @@ app.post('/custom', (req, res) => {
     \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1));`, (err, rows, fields) => {
       if (!err) {
         if (customKeyboard.keycap != '') {
-        connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
+          connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
         VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_product\`
         WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1));`, (err, rows, fields) => {
-          if (!err) {
-            console.log('Keycap adicionado ao carrinho!');
-          } else {
-            console.log("Erro: keycap não adicionada!", err);
-            res.status(500).json({ error: 'Erro no servidor' });
-          }
-        });
-      }
+            if (!err) {
+              console.log('Keycap adicionado ao carrinho!');
+            } else {
+              console.log("Erro: keycap não adicionada!", err);
+              res.status(500).json({ error: 'Erro no servidor' });
+            }
+          });
+        }
         console.log('Teclado adicionado ao carrinho!');
         res.redirect('/index.html');
       } else {
@@ -182,10 +182,10 @@ app.get('/getCart', (req, res) => {
   // const email = req.session.id_user;
   const email = 'pedro.top@gmail.com'
 
-  connection.query(`SELECT kp_product.name, kp_product.description, kp_product.price, kp_product.image_url FROM kp_product
-    INNER JOIN kp_user_products ON kp_product.id_product = kp_user_products.id_product
-    INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
-    WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
+  connection.query(`SELECT kp_user_products.id_user_products, kp_product.name, kp_product.description, kp_product.price, kp_product.image_url FROM kp_product
+  INNER JOIN kp_user_products ON kp_product.id_product = kp_user_products.id_product
+  INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
+  WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
     if (!err) {
       if (rows.length === 0) {
         res.status(404).json({ error: 'Usuário não encontrado' });
@@ -195,6 +195,7 @@ app.get('/getCart', (req, res) => {
           items: rows
         };
         res.json(cartItems);
+        console.log(cartItems);
       }
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -203,6 +204,34 @@ app.get('/getCart', (req, res) => {
   });
 });
 
+app.post('/removeProduct', (req, res) => {
+  const productId = req.body.id; // Obtenha o ID do produto do corpo da solicitação
+
+  // Verificar se o usuário está autenticado
+  // if (!req.session.id_user) {
+  //   res.status(401).json({ error: 'Usuário não autenticado' });
+  //   return;
+  // }
+
+  // Remova o produto do carrinho do usuário no banco de dados
+  // const email = req.session.id_user;
+  const email = 'pedro.top@gmail.com'
+
+  connection.query(`DELETE FROM kp_user_products
+    WHERE id_user = (SELECT id_user FROM kp_user WHERE email = '${email}')
+    AND id_product = '${productId}'`, (err, result) => {
+    if (!err) {
+      if (result.affectedRows === 0) {
+        res.status(404).json({ error: 'Produto não encontrado no carrinho' });
+      } else {
+        res.sendStatus(200); // Envie uma resposta de sucesso ao cliente
+      }
+    } else {
+      console.log("Erro: Consulta não realizada", err);
+      res.status(500).json({ error: 'Erro no servidor' });
+    }
+  });
+});
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
