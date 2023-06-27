@@ -6,6 +6,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 const path = require('path');
+const cors = require('cors');
+
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,6 +24,15 @@ app.use(sessions({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  //Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
+  res.header("Access-Control-Allow-Origin", "*");
+  //Quais são os métodos que a conexão pode realizar na API
+  res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+  app.use(cors());
+  next();
+});
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',
@@ -172,54 +183,38 @@ app.post('/custom', (req, res) => {
 });
 
 app.get('/getCart', (req, res) => {
-  // Verificar se o usuário está autenticado
-  // if (!req.session.id_user) {
-  //   res.status(401).json({ error: 'Usuário não autenticado' });
-  //   return;
-  // }
+  if (!req.session.id_user) {
+    res.redirect('/cart.html?noLogin')
+  } else {
+    // Obter as informações do carrinho do usuário no banco de dados
+    const email = req.session.id_user;
 
-  // Obter as informações do carrinho do usuário no banco de dados
-  // const email = req.session.id_user;
-  const email = 'pedro.top@gmail.com'
-
-  connection.query(`SELECT kp_user_products.id_user_products, kp_product.name, kp_product.description, kp_product.price, kp_product.image_url FROM kp_product
+    connection.query(`SELECT kp_user_products.id_user_products, kp_product.name, kp_product.description, kp_product.price, kp_product.image_url FROM kp_product
   INNER JOIN kp_user_products ON kp_product.id_product = kp_user_products.id_product
   INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
   WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
-    if (!err) {
-      if (rows.length === 0) {
-        res.status(404).json({ error: 'Usuário não encontrado' });
-      } else {
+      if (!err) {
         // Enviar as informações do carrinho como variáveis para a página cart.html
         const cartItems = {
           items: rows
         };
         res.json(cartItems);
         console.log(cartItems);
+      } else {
+        console.log("Erro: Consulta não realizada", err);
+        res.status(500).json({ error: 'Erro no servidor' });
       }
-    } else {
-      console.log("Erro: Consulta não realizada", err);
-      res.status(500).json({ error: 'Erro no servidor' });
-    }
-  });
+    });
+  }
 });
 
 app.post('/removeProduct', (req, res) => {
   const productId = req.body.id; // Obtenha o ID do produto do corpo da solicitação
 
-  // Verificar se o usuário está autenticado
-  // if (!req.session.id_user) {
-  //   res.status(401).json({ error: 'Usuário não autenticado' });
-  //   return;
-  // }
-
-  // Remova o produto do carrinho do usuário no banco de dados
-  // const email = req.session.id_user;
-  const email = 'pedro.top@gmail.com'
+  console.log(productId);
 
   connection.query(`DELETE FROM kp_user_products
-    WHERE id_user = (SELECT id_user FROM kp_user WHERE email = '${email}')
-    AND id_product = '${productId}'`, (err, result) => {
+    WHERE id_user_products = '${productId}'`, (err, result) => {
     if (!err) {
       if (result.affectedRows === 0) {
         res.status(404).json({ error: 'Produto não encontrado no carrinho' });

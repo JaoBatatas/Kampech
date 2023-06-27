@@ -25,27 +25,9 @@
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
-            <button class="cartIcon" onclick="cartAnimation()">
+            <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
-            </button>
-        </div>
-        <div class="cartPopUp" id="cartContainer">
-            <button class="close_button" onclick="cartAnimation()">
-                <img class="close_button__img" alt="close_button" src="/close_button.svg">
-                <h4 class="close_button__title">Fechar</h4>
-            </button>
-            <div id="cartItemsContainer"></div> <!-- Local onde os itens do carrinho serão inseridos -->
-
-            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
-
-            <div class="cartPopUp__priceContainer">
-                <h2>Total</h2>
-                <h2 id="cartTotalPrice">R$0,00</h2> <!-- Elemento para exibir o preço total -->
-            </div>
-            <a id="finishCart" href="">
-                <p>Finalizar<br>pedido</p>
             </a>
-            <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
     </header>
 
