@@ -7,9 +7,7 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.374/build/spline-viewer.js"></script>
-
 </head>
 
 <body>
@@ -36,7 +34,8 @@
 
     <main class="custom">
         <div class="customLeft">
-            <spline-viewer url="https://prod.spline.design/IksRGNkdKjIHw3hc/scene.splinecode" class="customLeft_img"></spline-viewer>
+            <spline-viewer url="https://prod.spline.design/IksRGNkdKjIHw3hc/scene.splinecode"
+                class="customLeft_img"></spline-viewer>
         </div>
         <form class="customRight" id="customForm" action="/custom" method="post">
             <div class="customRight__row" id="customRight__row1">
@@ -111,8 +110,10 @@
         </div>
     </main>
 
-    <footer></footer>
+    <footer>
+    </footer>
 
+    <script src="/index.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('noLogin')) {

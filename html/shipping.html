@@ -7,7 +7,6 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
 </head>
 
 <body>
@@ -40,7 +39,7 @@
                 <input type="checkbox" id="shipping__left__checkbox" name="shipping__checkbox" checked>
                 <label for="shipping__left__checkbox">Quero receber notícias e promoções</label>
             </div>
-            <a id="shipping__left__logout" href="">Sair</a>
+            <a id="shipping__left__logout" href="/logout">Sair</a>
             <a id="shipping__left__return" href="/index.html">
                 <img id="shipping__left__return__button" src="/back_button.png">
                 <h2 id="shipping__left__return__text">Voltar</h2>
@@ -48,6 +47,7 @@
         </div>
 
         <div class="shipping__right">
+            <form id="shippingForm" action="/payment.html" method="">
             <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
             <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
                 placeholder="Nome Completo:">
@@ -59,12 +59,15 @@
             </div>
             <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="phone" class="shipping__right__inputBig"
                 placeholder="Telefone:">
-            <button type="submit" id="shipping__right__button">Próximo</button>
+            <input type="submit" id="shipping__right__button" value="Próximo">
+        </form>
         </div>
     </main>
 
     <footer>
     </footer>
+
+    <script src="/index.js"></script>
 </body>
 
 
