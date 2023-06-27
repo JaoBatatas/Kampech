@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
     <script src="/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 
 <body>
@@ -80,6 +82,19 @@
     <footer></footer>
 
     <script>
+        $(document).ready(function () {
+            // Máscara para o campo de telefone
+            $('#personal__info__phone').inputmask('(99) 9999-9999');
+
+            // Máscara para o campo de CEP
+            $('#personal__info__zipCode').inputmask('99999-999');
+
+            // Máscara para o campo de CPF
+            $('#personal__info__CPF').inputmask('999.999.999-99');
+        });
+
+
+
         // Verifica se a variável com os dados existe e preenche os campos de entrada
         function fillFormFields(data) {
             document.getElementById('personal__info__name').value = data.name || '';
