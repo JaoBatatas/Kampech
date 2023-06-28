@@ -33,18 +33,16 @@
     </header>
 
     <main class="custom">
-        <div class="customLeft">
-            <spline-viewer url="https://prod.spline.design/IksRGNkdKjIHw3hc/scene.splinecode"
-                class="customLeft_img"></spline-viewer>
+        <div class="customLeft" id="splineContainer">
         </div>
         <form class="customRight" id="customForm" action="/custom" method="post">
             <div class="customRight__row" id="customRight__row1">
                 <div>
                     <label for="selSize">Tamanho</label>
-                    <select id="selSize" name="size">
+                    <select id="selSize" name="size" onchange="changeSpline()">
                         <option value="100%">Full-size (100%)</option>
                         <option value="80%">Tenkeyless (80%)</option>
-                        <option value="65%">Compact (65%)</option>
+                        <option value="75%">Compact (75%)</option>
                         <option value="60%">Mini (60%)</option>
                     </select>
                 </div>
@@ -79,7 +77,7 @@
                 </div>
                 <div>
                     <label for="selBoardColor">Cor teclado</label>
-                    <select id="selBoardColor" name="boardColor">
+                    <select id="selBoardColor" name="boardColor" onchange="changeSpline()">
                         <option value="black">Preto</option>
                         <option value="white">Branco</option>
                         <option value="grey">Cinza</option>
@@ -87,7 +85,7 @@
                 </div>
                 <div>
                     <label for="selKeyColor">Cor teclas</label>
-                    <select id="selKeyColor" name="keyColor">
+                    <select id="selKeyColor" name="keyColor" onchange="changeSpline()">
                         <option value="black">Preto</option>
                         <option value="white">Branco</option>
                         <option value="purple">Roxo</option>
@@ -110,8 +108,7 @@
         </div>
     </main>
 
-    <footer>
-    </footer>
+
 
     <script src="/index.js"></script>
     <script>
@@ -146,6 +143,8 @@
 
             modal.style.display = 'block';
         }
+
+        window.addEventListener('load', changeSpline);
     </script>
 
 </body>

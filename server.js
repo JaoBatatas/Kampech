@@ -8,9 +8,8 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 
+app.use(cors());
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('css'));
 app.use(express.static('assets'));
 app.use(express.static('html'));
@@ -30,7 +29,6 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   //Quais são os métodos que a conexão pode realizar na API
   res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
-  app.use(cors());
   next();
 });
 
@@ -199,6 +197,7 @@ app.get('/getCart', (req, res) => {
           items: rows
         };
         res.json(cartItems);
+        console.log(cartItems);
       } else {
         console.log("Erro: Consulta não realizada", err);
         res.status(500).json({ error: 'Erro no servidor' });
@@ -209,8 +208,6 @@ app.get('/getCart', (req, res) => {
 
 app.post('/removeProduct', (req, res) => {
   const productId = req.body.id; // Obtenha o ID do produto do corpo da solicitação
-
-  console.log(productId);
 
   connection.query(`DELETE FROM kp_user_products
     WHERE id_user_products = '${productId}'`, (err, result) => {
@@ -243,7 +240,6 @@ app.get('/getProducts', (req, res) => {
 
 app.get('/getProductInfo/:id', (req, res) => {
   const productId = req.params.id;
-  console.log(productId);
   connection.query(`SELECT * FROM kp_custom WHERE id_product = ${productId}`, (err, rows, fields) => {
     if (!err) {
       const product = {
