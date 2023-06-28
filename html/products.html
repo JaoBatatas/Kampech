@@ -97,60 +97,7 @@
             <div class="productsQuantity">
                 <p>8 produtos</p>
             </div>
-            <div class="productsShow">
-                <div class="productsShow__row">
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="productsShow__row">
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/productPage.html"><img src="/productImage.jpg" alt="produto">
-                            <h3 class="productsTitle">Produto brabo</h3>
-                            <p class="productsDesc">R$69,69</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div id="product-list"></div>
         </div>
     </main>
 
@@ -158,6 +105,66 @@
     </footer>
 
     <script src="/index.js"></script>
+    <script>
+        function getProducts() {
+            fetch('/getProducts')
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data.info)) {
+                        const productList = document.getElementById('product-list');
+                        productList.innerHTML = ''; // Limpa o conteúdo anterior
+
+                        data.info.forEach((product, index) => {
+                            if (index % 4 === 0) {
+                                // Cria uma nova linha para cada conjunto de 4 produtos
+                                const productRow = document.createElement('div');
+                                productRow.className = 'productsShow__row';
+                                productList.appendChild(productRow);
+                            }
+
+                            const productDiv = document.createElement('div');
+                            productDiv.className = 'productDiv';
+
+                            const productLink = document.createElement('a');
+                            productLink.className = 'productLink';
+                            productLink.href = "/productPage.html?id=" + product.id_product;
+
+                            const productImage = document.createElement('img');
+                            productImage.className = 'productImg';
+                            productImage.src = product.image_url;
+                            productImage.alt = "produto";
+                            productLink.appendChild(productImage);
+
+                            const productName = document.createElement('h3');
+                            productName.className = 'productsTitle';
+                            productName.textContent = product.name;
+                            productLink.appendChild(productName);
+
+                            const productDesc = document.createElement('p');
+                            productDesc.className = 'productsDesc';
+                            productDesc.textContent = product.description;
+                            productLink.appendChild(productDesc);
+
+                            const productPrice = document.createElement('p');
+                            productPrice.className = 'productsPrice';
+                            productPrice.textContent = "R$" + product.price;
+                            productLink.appendChild(productPrice);
+
+                            productDiv.appendChild(productLink);
+
+                            const productRow = productList.lastElementChild; // Última linha de produtos
+                            productRow.appendChild(productDiv);
+                        });
+                    } else {
+                        console.error('Erro ao obter produtos:', data);
+                    }
+                })
+                .catch(error => console.error('Erro ao obter produtos:', error));
+        }
+
+        // Chame a função getProducts quando a página carregar
+        window.addEventListener('load', getProducts);
+    </script>
 </body>
 
 </html>
