@@ -81,94 +81,100 @@
 
     <script src="/index.js"></script>
     <script>
-        document.getElementById('registerForm').addEventListener('submit', validateRegister);
-
-        function validateRegister() {
+        document.getElementById('registerForm').addEventListener('submit', handleSubmit);
+    
+        function handleSubmit(event) {
             event.preventDefault(); // Impedir o envio do formulário imediatamente
-
+    
             let name = document.getElementById('register__name').value;
             let email = document.getElementById('register__email').value;
             let password = document.getElementById('register__password').value;
             let confirm = document.getElementById('register__confirmPassword').value;
-
+    
             let messageFields = document.getElementById('fieldsEmpty');
             let messageLength = document.getElementById('passwordLength');
             let messageMatch = document.getElementById('passwordNotMatch');
-            let emptyFields = { value: false }; // Usando um objeto para armazenar por referência
-
-            validateFields(messageLength, messageMatch, messageFields, emptyFields);
-
-            if (emptyFields.value === false) {
-                validatePassword(messageLength, messageMatch, messageFields);
+    
+            // Remover as mensagens de erro anteriores
+            if (messageFields) {
+                messageFields.remove();
             }
-        }
-
-        function validateFields(messageLength, messageMatch, messageFields, emptyFields) {
-            let name = document.getElementById('register__name').value;
-            let email = document.getElementById('register__email').value;
-            let password = document.getElementById('register__password').value;
-            let confirm = document.getElementById('register__confirmPassword').value;
-
+            if (messageLength) {
+                messageLength.remove();
+            }
+            if (messageMatch) {
+                messageMatch.remove();
+            }
+    
+            let isValid = true;
+    
             if (name.length === 0 || email.length === 0 || password.length === 0 || confirm.length === 0) {
-                emptyFields.value = true;
-                if (messageMatch) {
-                    messageMatch.remove();
-                } if (messageLength) {
-                    messageLength.remove();
-                }
-                if (!messageFields) {
-                    const registerForm = document.querySelector('.register__container');
-                    const message = document.createElement('p');
-                    message.id = 'fieldsEmpty';
-                    message.className = 'message';
-                    message.style.color = 'red';
-                    message.textContent = 'Todos os campos são obrigatórios!';
-                    registerForm.insertBefore(message, document.getElementById('registerForm'));
-                }
-
+                const registerForm = document.querySelector('.register__container');
+                const message = document.createElement('p');
+                message.className = 'message';
+                message.style.color = 'red';
+                message.textContent = 'Todos os campos são obrigatórios!';
+                registerForm.insertBefore(message, document.getElementById('registerForm'));
+                isValid = false;
+            }
+    
+            if (password.length < 8 || password.length > 32) {
+                const registerForm = document.querySelector('.register__container');
+                const message = document.createElement('p');
+                message.className = 'message';
+                message.style.color = 'red';
+                message.textContent = 'A senha deve conter de 8 a 32 caracteres!';
+                registerForm.insertBefore(message, document.getElementById('registerForm'));
+                isValid = false;
+            }
+    
+            if (password !== confirm) {
+                const registerForm = document.querySelector('.register__container');
+                const message = document.createElement('p');
+                message.className = 'message';
+                message.style.color = 'red';
+                message.textContent = 'As senhas não coincidem!';
+                registerForm.insertBefore(message, document.getElementById('registerForm'));
+                isValid = false;
+            }
+    
+            if (isValid) {
+                // Todas as verificações passaram, enviar o formulário
+                sendForm();
             }
         }
-
-        function validatePassword(messageLength, messageMatch, messageFields) {
-            let password = document.getElementById('register__password').value;
-            let confirm = document.getElementById('register__confirmPassword').value;
-
-            if (password.length < 8 || password.length > 32) {
-                if (messageMatch) {
-                    messageMatch.remove();
-                } if (messageFields) {
-                    messageFields.remove();
+    
+        function sendForm() {
+            // Obtenha os dados do formulário
+            let formData = new FormData(document.getElementById('registerForm'));
+    
+            // Envie o formulário usando fetch
+            fetch('/register', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Trate a resposta do servidor
+                if (response.ok) {
+                    // O formulário foi enviado com sucesso
+                    // Faça algo em resposta, como redirecionar o usuário para outra página
+                    window.location.href = 'sucesso.html';
+                } else {
+                    // Ocorreu um erro no servidor
+                    // Trate o erro de acordo com sua lógica de negócio
+                    console.error('Erro no servidor:', response.status);
+                    // Exiba uma mensagem de erro para o usuário, se necessário
                 }
-                if (!messageLength) {
-                    const registerForm = document.querySelector('.register__container');
-                    const message = document.createElement('p');
-                    message.id = 'passwordLength';
-                    message.className = 'message';
-                    message.style.color = 'red';
-                    message.textContent = 'A senha deve conter de 8 a 32 caracteres!';
-                    registerForm.insertBefore(message, document.getElementById('registerForm'));
-                }
-
-            } else {
-                if (password !== confirm) {
-                    if (messageLength) {
-                        messageLength.remove();
-                    } if (messageFields) {
-                        messageFields.remove();
-                    }
-                    if (!messageMatch) {
-                        const registerForm = document.querySelector('.register__container');
-                        const message = document.createElement('p');
-                        message.id = 'passwordNotMatch';
-                        message.className = 'message';
-                        message.style.color = 'red';
-                        message.textContent = 'As senhas não coincidem!';
-                        registerForm.insertBefore(message, document.getElementById('registerForm'));
-                    }
-                }
-            }
+            })
+            .catch(error => {
+                // Ocorreu um erro ao enviar o formulário
+                // Trate o erro de acordo com sua lógica de negócio
+                console.error('Erro no envio do formulário:', error);
+                // Exiba uma mensagem de erro para o usuário, se necessário
+            });
         }
     </script>
+    
 
 </body>
 
