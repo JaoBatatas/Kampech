@@ -8,7 +8,6 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-
 </head>
 
 <body>
@@ -33,33 +32,33 @@
         </div>
     </header>
 
-    <main class="pix">
-        <img class="pixImage" src="/pix-logo.png" alt="pix-logo">
-        <div class="pixCol" id="pixCol1">
-            <form class="pixForm" action="/pixQr.html">
-                <input type="text" name="name" class="pixForm__name" placeholder="Nome completo">
-                <input type="text" name="cpf" class="pixForm__cpf" placeholder="CPF">
-                <input type="submit" value="Próximo" class="pixForm__submit">
+    <main class="Card">
+        <section class="CardLeft">
+            <h1>Cartão de Débito</h1>
+            <form action="/CardCard" method="post" id="CardForm">
+                <input type="text" name="CardName" placeholder="Nome no cartão" id="CardName">
+                <input type="text" name="Cardnumber" placeholder="Número do cartão" id="CardNum">
+                <input type="text" name="CardExpiration" placeholder="Data de validade" id="CardExp">
+                <input type="text" name="CardCVV" placeholder="Código de verificação (CVV)" id="CardCVV">
+                <input type="text" name="CardCPF" placeholder="CPF do titular" id="CardCPF">
             </form>
-        </div>
-        <div class="pixCol" id="pixCol2">
-            <div class="pixContainer">
-                <div class="pixCol__text">
-                    <p class="pixText"><strong>Pedido:</strong></p>
-                    <p class="pixText">#6969420</p>
-                </div>
-                <div class="pixCol__text">
-                    <p class="pixText"><strong>Forma de pagamento:</strong></p>
-                    <p class="pixText">PIX</p>
-                </div>
-                <div class="pixCol__text">
-                    <p class="pixText">Valor do pedido: <span>R$22,00</span></p>
-                    <p class="pixText">Frete: <span>R$2,00</span></p>
-                    <p class="pixText">Total: <strong>R$24,00</strong></p>
-                </div>
+        </section>
+        <section class="CardRight">
+            <a id="CardReturn" href="/index.html">
+                <img id="CardReturn__button" src="/back_button.png">
+                <h2 id="CardReturn__text">Voltar</h2>
+            </a>
+            <div class="CardImageContainer">
+                <p>Bandeiras aceitas:</p>
+                <img class="CardImage" src="/mastercard-logo.png" alt="mastercard-logo">
+                <img class="CardImage" src="/visa-logo.png" alt="visa-logo">
             </div>
-        </div>
+            <button class="CardFinish">Efetuar pagamento</button>
+        </section>
     </main>
+
+    <footer>
+    </footer>
 
     <script src="/index.js"></script>
 </body>

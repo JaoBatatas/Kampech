@@ -1789,3 +1789,112 @@ body {
     color: black;
     margin-top: 5%;
 }
+
+/* Card */
+/* main */
+
+.Card {
+    width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.CardLeft {
+    width: 65%;
+    height: 90%;
+}
+
+.CardLeft h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    margin-bottom: 5%;
+}
+
+#CardForm {
+    width: 90%;
+}
+
+#CardForm input {
+    margin-bottom: 3%;
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    width: 99%;
+    font-size: 15px;
+}
+
+#CardParcel {
+    width: 89%;
+    background-color: #ffffff;
+    border: 2px solid black;
+    padding: 10px 0 10px 5px;
+    font-size: 15px;
+}
+
+.CardRight {
+    width: 20%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#CardReturn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+#CardReturn__button {
+    width: 15%;
+    height: auto;
+}
+
+#CardReturn__text {
+    margin-left: 5%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    color: black;
+}
+
+.CardImageContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    height: 50%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 20px
+}
+
+.CardImage {
+    width: auto;
+    height: 40%;
+}
+
+.CardFinish {
+    background-color: #38B6FF;
+    color: black;
+    border-radius: 25px;
+    border: 1px solid black;
+    width: 80%;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    margin-top: 6%;
+    cursor: pointer;
+}
+
+.CardFinish:hover {
+    background-color: #2f9ad8;
+}
