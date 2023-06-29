@@ -146,14 +146,14 @@ app.post('/custom', (req, res) => {
     res.redirect('/custom.html?noLogin')
   } else {
     connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
-    VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_custom\` WHERE
+    VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\` WHERE
     \`size\` = '${customKeyboard.size}' AND \`connection\` = '${customKeyboard.connection}' AND
     \`switch\` = '${customKeyboard.switch}' AND \`main_color\` = '${customKeyboard.boardColor}' AND
     \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1));`, (err, rows, fields) => {
       if (!err) {
         if (customKeyboard.keycap != '') {
           connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
-        VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_custom\`
+        VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\`
         WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1));`, (err, rows, fields) => {
             if (!err) {
               console.log('Keycap adicionado ao carrinho!');
@@ -180,8 +180,8 @@ app.get('/getCart', (req, res) => {
     // Obter as informações do carrinho do usuário no banco de dados
     const email = req.session.id_user;
 
-    connection.query(`SELECT kp_user_products.id_user_products, kp_custom.name, kp_custom.description, kp_custom.price, kp_custom.image_url FROM kp_custom
-  INNER JOIN kp_user_products ON kp_custom.id_product = kp_user_products.id_product
+    connection.query(`SELECT kp_user_products.id_user_products, kp_products.name, kp_products.description, kp_products.price, kp_products.image_url FROM kp_products
+  INNER JOIN kp_user_products ON kp_products.id_product = kp_user_products.id_product
   INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
   WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
       if (!err) {
@@ -218,7 +218,7 @@ app.post('/removeProduct', (req, res) => {
 });
 
 app.get('/getProducts', (req, res) => {
-  connection.query('SELECT * FROM kp_custom', (err, rows, fields) => {
+  connection.query('SELECT * FROM kp_products', (err, rows, fields) => {
     if (!err) {
       const product = {
         info: rows
@@ -233,7 +233,7 @@ app.get('/getProducts', (req, res) => {
 
 app.get('/getProductInfo/:id', (req, res) => {
   const productId = req.params.id;
-  connection.query(`SELECT * FROM kp_custom WHERE id_product = ${productId}`, (err, rows, fields) => {
+  connection.query(`SELECT * FROM kp_products WHERE id_product = ${productId}`, (err, rows, fields) => {
     if (!err) {
       const product = {
         info: rows

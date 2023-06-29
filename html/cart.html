@@ -42,8 +42,8 @@
             </div>
             <div class="cartSectionRight">
                 <div class="cartPriceContainer">
-                    <h2>Total:</h2>
-                    <h2>R$0,00</h2>
+                    <h2>Total: R$</h2>
+                    <h2 id="cartTotal"></h2>
                 </div>
                 <a id="finishCart" href="/shipping.html">
                     <p>Finalizar pedido</p>
@@ -63,39 +63,14 @@
 
     </main>
 
-<footer>
-        <section class="footerLeft">
-            <p class="footerText">Contato para suporte:</p>
-            <div class="footerLeftFlex">
-                <div class="footerLeftContainer">
-                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p>
-                </div>
-                <div class="footerLeftContainer">
-                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p>
-                </div>
-            </div>
-        </section>
-        <section class="footerRight">
-            <p class="footerText">Nossas redes sociais:</p>
-            <div class="footerRightFlex">
-                <div class="footerRightContainer">
-                    <img src="/instagram_icon.svg" alt="instagram_logo"><a
-                        href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a>
-                </div>
-                <div class="footerRightContainer">
-                    <img src="/youtube_icon.svg" alt="instagram_logo"><a
-                        href="https://www.youtube.com/@kampech"><p>/Kampech</p></a>
-                </div>
-                <div class="footerRightContainer">
-                    <img src="/twitter_icon.svg" alt="instagram_logo"><a
-                        href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a>
-                </div>
-            </div>
-        </section>
-    </footer>
-
     <script src="/index.js"></script>
     <script>
+
+        const cartTotal = document.getElementById('cartTotal');
+        let totalPrice = 0;
+
+        totalPrice
+
         function getCartItems() {
             fetch('/getCart')
                 .then(response => {
@@ -160,6 +135,8 @@
                             productPrice.className = 'cartItem__right__bottom__price';
                             productPrice.textContent = 'Preço: R$' + product.price;
 
+                            totalPrice += parseFloat(product.price);
+
                             const cartItemRightBottom = document.createElement('div');
                             cartItemRightBottom.className = 'cartItem__right__bottom';
 
@@ -182,7 +159,7 @@
                                         if (response.ok) {
                                             console.log('Produto removido com sucesso!');
                                             // Atualize o carrinho no lado do cliente, se necessário
-                                            cartItem.remove(); // Remova o elemento HTML do produto do carrinho após a remoção bem-sucedida
+                                            location.reload()
                                         } else {
                                             console.log('Erro ao remover o produto do carrinho');
                                         }
@@ -204,6 +181,7 @@
                             cartItemsContainer.appendChild(cartItem);
                         });
                     }
+                    cartTotal.textContent = totalPrice.toFixed(2);
                 })
                 .catch(error => {
                     console.log('Erro na solicitação:', error);
