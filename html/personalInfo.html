@@ -60,7 +60,7 @@
                             <input type="text" placeholder="Cidade" id="personal__info__city"
                                 class="personal__info__inputMedium" required>
                             <input type="text" placeholder="Estado" id="personal__info__state"
-                                class="personal__info__inputSmall" maxlength="2" required>
+                                class="personal__info__inputSmall" maxlength="2" oninput="this.value = this.value.toUpperCase()" required>
                         </div>
                         <input type="tel" maxlength="15" id="personal__info__phone"
                             placeholder="Telefone:" class="personal__info__inputBig" required>
