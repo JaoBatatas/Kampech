@@ -7,6 +7,8 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 
 <body>
@@ -47,12 +49,12 @@
         </div>
 
         <div class="shipping__right">
-            <form id="shippingForm" action="/payment.html" method="">
+            <form id="shippingForm" action="/payment.html" method="post">
             <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
             <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
                 placeholder="Nome Completo:">
             <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:">
-            <input type="number" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP">
+            <input type="text" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP">
             <div class="city_state">
                 <input type="text" id="city" placeholder="Cidade">
                 <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado">
@@ -65,8 +67,47 @@
     </main>
 
     <script src="/index.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Máscara para o campo de telefone
+            $('#personal__info__phone').inputmask('(99) 9999-9999');
+
+            // Máscara para o campo de CEP
+            $('#personal__info__zipCode').inputmask('99999-999');
+
+            // Máscara para o campo de CPF
+            $('#personal__info__CPF').inputmask('999.999.999-99');
+        });
+
+        // Função para obter os dados pessoais do usuário
+        function getShipping() {
+            fetch('/getShipping')
+                .then(response => response.json())
+                .then(data => {
+                    fillFormFields(data);
+                })
+                .catch(error => {
+                    console.log('Erro ao obter dados pessoais:', error);
+                });
+        }
+
+        // Preenche os campos de entrada com os dados pessoais
+        function fillFormFields(data) {
+            document.getElementById('shipping__right__name').value = data.name || '';
+            document.getElementById('address').value = data.address || '';
+            document.getElementById('zipCode').value = data.zip_code || '';
+            document.getElementById('city').value = data.city || '';
+            document.getElementById('state').value = data.state || '';
+            document.getElementById('phone').value = data.phone || '';
+        }
+
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        window.addEventListener('load', getShipping);
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        $(document).ready(function () {
+            getShipping();
+        });
+    </script>
 </body>
-
-
 
 </html>

@@ -132,6 +132,55 @@ app.get('/getPersonalInfo', (req, res) => {
   });
 });
 
+app.post('/sendPersonalInfo', (req, res) => {
+  // Verificar se o usuário está autenticado
+  if (!req.session.id_user) {
+    res.status(401).json({ error: 'Usuário não autenticado' });
+    return;
+  }
+
+  // Obter as informações pessoais do corpo da solicitação
+  const personalInfo = req.body;
+
+  // Atualizar as informações pessoais do usuário no banco de dados
+  const email = req.session.id_user;
+  const userQuery = `UPDATE kp_user
+                     SET name = '${personalInfo.name}', cpf = '${personalInfo.cpf}', phone = '${personalInfo.phone}'
+                     WHERE email = '${email}'`;
+
+  const addressQuery = `UPDATE kp_address
+                        SET address = '${personalInfo.address}', zip_code = '${personalInfo.zip_code}', city = '${personalInfo.city}', state = '${personalInfo.state}'
+                        WHERE id_user IN (SELECT id_user FROM kp_user WHERE email = '${email}')`;
+
+  connection.query(userQuery, (userErr, userResult) => {
+    if (userErr) {
+      console.log("Erro: Atualização do usuário não realizada", userErr);
+      res.status(500).json({ error: 'Erro no servidor' });
+      return;
+    }
+
+    if (userResult.affectedRows === 0) {
+      res.status(404).json({ error: 'Usuário não encontrado' });
+      return;
+    }
+
+    connection.query(addressQuery, (addressErr, addressResult) => {
+      if (addressErr) {
+        console.log("Erro: Atualização do endereço não realizada", addressErr);
+        res.status(500).json({ error: 'Erro no servidor' });
+        return;
+      }
+
+      if (addressResult.affectedRows === 0) {
+        res.status(404).json({ error: 'Endereço não encontrado' });
+        return;
+      }
+
+      res.json({ message: 'Informações pessoais atualizadas com sucesso' });
+    });
+  });
+});
+
 app.post('/custom', (req, res) => {
   const customKeyboard = {
     size: req.body.size,
@@ -247,6 +296,40 @@ app.get('/getProductInfo/:id', (req, res) => {
   });
 });
 
+app.get('/getShipping', (req, res) => {
+  // Verificar se o usuário está autenticado
+  if (!req.session.id_user) {
+    res.status(401).json({ error: 'Usuário não autenticado' });
+    return;
+  }
+
+  // Obter as informações pessoais do usuário no banco de dados
+  const email = req.session.id_user;
+
+  connection.query(`SELECT kp_user.*, kp_address.* FROM kp_user
+    LEFT JOIN kp_address ON kp_user.id_user = kp_address.id_user
+    WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
+    if (!err) {
+      if (rows.length === 0) {
+        res.status(404).json({ error: 'Usuário não encontrado' });
+      } else {
+        // Enviar as informações pessoais do usuário como resposta JSON
+        const shipping = {
+          name: rows[0].name,
+          address: rows[0].address,
+          zip_code: rows[0].zip_code,
+          city: rows[0].city,
+          state: rows[0].state,
+          phone: rows[0].phone
+        };
+        res.json(shipping);
+      }
+    } else {
+      console.log("Erro: Consulta não realizada", err);
+      res.status(500).json({ error: 'Erro no servidor' });
+    }
+  });
+});
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
