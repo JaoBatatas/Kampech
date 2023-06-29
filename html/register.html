@@ -10,12 +10,13 @@
 </head>
 
 <body>
+    <h1 id="register__title">Criar conta</h1>
+
     <header>
         <div class="headerLeft">
             <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
-
         </div>
         <div class="headerRight">
             <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
@@ -30,7 +31,6 @@
             </a>
         </div>
     </header>
-
     <main class="register">
         <div class="register__container">
             <h1 id="register__title">Criar conta</h1>
@@ -47,135 +47,98 @@
             </a>
         </div>
     </main>
-
-<footer>
-        <section class="footerLeft">
-            <p class="footerText">Contato para suporte:</p>
-            <div class="footerLeftFlex">
-                <div class="footerLeftContainer">
-                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p>
-                </div>
-                <div class="footerLeftContainer">
-                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p>
-                </div>
-            </div>
-        </section>
-        <section class="footerRight">
-            <p class="footerText">Nossas redes sociais:</p>
-            <div class="footerRightFlex">
-                <div class="footerRightContainer">
-                    <img src="/instagram_icon.svg" alt="instagram_logo"><a
-                        href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a>
-                </div>
-                <div class="footerRightContainer">
-                    <img src="/youtube_icon.svg" alt="instagram_logo"><a
-                        href="https://www.youtube.com/@kampech"><p>/Kampech</p></a>
-                </div>
-                <div class="footerRightContainer">
-                    <img src="/twitter_icon.svg" alt="instagram_logo"><a
-                        href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a>
-                </div>
-            </div>
-        </section>
+    <footer>
     </footer>
 
     <script src="/index.js"></script>
     <script>
-        document.getElementById('registerForm').addEventListener('submit', handleSubmit);
+        document.getElementById('registerForm').addEventListener('submit', validateRegister);
     
-        function handleSubmit(event) {
-            event.preventDefault(); // Impedir o envio do formulário imediatamente
-    
+        function validateRegister(event) {
             let name = document.getElementById('register__name').value;
             let email = document.getElementById('register__email').value;
             let password = document.getElementById('register__password').value;
             let confirm = document.getElementById('register__confirmPassword').value;
-    
             let messageFields = document.getElementById('fieldsEmpty');
             let messageLength = document.getElementById('passwordLength');
             let messageMatch = document.getElementById('passwordNotMatch');
-    
-            // Remover as mensagens de erro anteriores
-            if (messageFields) {
-                messageFields.remove();
+            let emptyFields = { value: false }; // Usando um objeto para armazenar por referência
+            validateFields(messageLength, messageMatch, messageFields, emptyFields);
+            if (emptyFields.value === false) {
+                validatePassword(event, messageLength, messageMatch, messageFields);
+            } else {
+                event.preventDefault(); // Impedir o envio do formulário se houver campos vazios
             }
-            if (messageLength) {
-                messageLength.remove();
-            }
-            if (messageMatch) {
-                messageMatch.remove();
-            }
-    
-            let isValid = true;
-    
+        }
+        
+        function validateFields(messageLength, messageMatch, messageFields, emptyFields) {
+            let name = document.getElementById('register__name').value;
+            let email = document.getElementById('register__email').value;
+            let password = document.getElementById('register__password').value;
+            let confirm = document.getElementById('register__confirmPassword').value;
             if (name.length === 0 || email.length === 0 || password.length === 0 || confirm.length === 0) {
-                const registerForm = document.querySelector('.register__container');
-                const message = document.createElement('p');
-                message.className = 'message';
-                message.style.color = 'red';
-                message.textContent = 'Todos os campos são obrigatórios!';
-                registerForm.insertBefore(message, document.getElementById('registerForm'));
-                isValid = false;
-            }
-    
-            if (password.length < 8 || password.length > 32) {
-                const registerForm = document.querySelector('.register__container');
-                const message = document.createElement('p');
-                message.className = 'message';
-                message.style.color = 'red';
-                message.textContent = 'A senha deve conter de 8 a 32 caracteres!';
-                registerForm.insertBefore(message, document.getElementById('registerForm'));
-                isValid = false;
-            }
-    
-            if (password !== confirm) {
-                const registerForm = document.querySelector('.register__container');
-                const message = document.createElement('p');
-                message.className = 'message';
-                message.style.color = 'red';
-                message.textContent = 'As senhas não coincidem!';
-                registerForm.insertBefore(message, document.getElementById('registerForm'));
-                isValid = false;
-            }
-    
-            if (isValid) {
-                // Todas as verificações passaram, enviar o formulário
-                sendForm();
-            }
-        }
-    
-        function sendForm() {
-            // Obtenha os dados do formulário
-            let formData = new FormData(document.getElementById('registerForm'));
-    
-            // Envie o formulário usando fetch
-            fetch('/register', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                // Trate a resposta do servidor
-                if (response.ok) {
-                    // O formulário foi enviado com sucesso
-                    // Faça algo em resposta, como redirecionar o usuário para outra página
-                    window.location.href = 'sucesso.html';
-                } else {
-                    // Ocorreu um erro no servidor
-                    // Trate o erro de acordo com sua lógica de negócio
-                    console.error('Erro no servidor:', response.status);
-                    // Exiba uma mensagem de erro para o usuário, se necessário
+                emptyFields.value = true;
+                if (messageMatch) {
+                    messageMatch.remove();
                 }
-            })
-            .catch(error => {
-                // Ocorreu um erro ao enviar o formulário
-                // Trate o erro de acordo com sua lógica de negócio
-                console.error('Erro no envio do formulário:', error);
-                // Exiba uma mensagem de erro para o usuário, se necessário
-            });
+                if (messageLength) {
+                    messageLength.remove();
+                }
+                if (!messageFields) {
+                    const registerForm = document.querySelector('.register__container');
+                    const message = document.createElement('p');
+                    message.id = 'fieldsEmpty';
+                    message.className = 'message';
+                    message.style.color = 'red';
+                    message.textContent = 'Todos os campos são obrigatórios!';
+                    registerForm.insertBefore(message, document.getElementById('registerForm'));
+                }
+            }
         }
-    </script>
+        
+        function validatePassword(event, messageLength, messageMatch, messageFields) {
+            let password = document.getElementById('register__password').value;
+            let confirm = document.getElementById('register__confirmPassword').value;
+            if (password.length < 8 || password.length > 32) {
+                if (messageMatch) {
+                    messageMatch.remove();
+                }
+                if (messageFields) {
+                    messageFields.remove();
+                }
+                if (!messageLength) {
+                    const registerForm = document.querySelector('.register__container');
+                    const message = document.createElement('p');
+                    message.id = 'passwordLength';
+                    message.className = 'message';
+                    message.style.color = 'red';
+                    message.textContent = 'A senha deve conter de 8 a 32 caracteres!';
+                    registerForm.insertBefore(message, document.getElementById('registerForm'));
+                }
+                event.preventDefault(); // Impedir o envio do formulário se a senha for inválida
+            } else {
+                if (password !== confirm) {
+                    if (messageLength) {
+                        messageLength.remove();
+                    }
+                    if (messageFields) {
+                        messageFields.remove();
+                    }
+                    if (!messageMatch) {
+                        const registerForm = document.querySelector('.register__container');
+                        const message = document.createElement('p');
+                        message.id = 'passwordNotMatch';
+                        message.className = 'message';
+                        message.style.color = 'red';
+                        message.textContent = 'As senhas não coincidem!';
+                        registerForm.insertBefore(message, document.getElementById('registerForm'));
+                    }
+                    event.preventDefault(); // Impedir o envio do formulário se as senhas não coincidirem
+                }
+            }
+        }
+    </script>    
     
-
 </body>
 
 </html>

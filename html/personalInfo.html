@@ -78,15 +78,17 @@
         </div>
     </main>
 
-<footer>
+    <footer>
         <section class="footerLeft">
             <p class="footerText">Contato para suporte:</p>
             <div class="footerLeftFlex">
                 <div class="footerLeftContainer">
-                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p>
+                    <img src="/email_icon.svg" alt="email_icon">
+                    <p>suporte@kampech.com</p>
                 </div>
                 <div class="footerLeftContainer">
-                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p>
+                    <img src="/phone_icon.svg" alt="phone_icon">
+                    <p>(47) 98069-4200</p>
                 </div>
             </div>
         </section>
@@ -94,16 +96,19 @@
             <p class="footerText">Nossas redes sociais:</p>
             <div class="footerRightFlex">
                 <div class="footerRightContainer">
-                    <img src="/instagram_icon.svg" alt="instagram_logo"><a
-                        href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a>
+                    <img src="/instagram_icon.svg" alt="instagram_logo"><a href="https://www.instagram.com/kampech_ofc">
+                        <p>@Kampech_ofc</p>
+                    </a>
                 </div>
                 <div class="footerRightContainer">
-                    <img src="/youtube_icon.svg" alt="instagram_logo"><a
-                        href="https://www.youtube.com/@kampech"><p>/Kampech</p></a>
+                    <img src="/youtube_icon.svg" alt="instagram_logo"><a href="https://www.youtube.com/@kampech">
+                        <p>/Kampech</p>
+                    </a>
                 </div>
                 <div class="footerRightContainer">
-                    <img src="/twitter_icon.svg" alt="instagram_logo"><a
-                        href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a>
+                    <img src="/twitter_icon.svg" alt="instagram_logo"><a href="https://www.twitter.com/kampechofc">
+                        <p>/kampechOfc</p>
+                    </a>
                 </div>
             </div>
         </section>
@@ -122,17 +127,6 @@
             $('#personal__info__CPF').inputmask('999.999.999-99');
         });
 
-        // Verifica se a variável com os dados existe e preenche os campos de entrada
-        function fillFormFields(data) {
-            document.getElementById('personal__info__name').value = data.name || '';
-            document.getElementById('personal__info__address').value = data.address || '';
-            document.getElementById('personal__info__CPF').value = data.cpf || '';
-            document.getElementById('personal__info__zipCode').value = data.zip_code || '';
-            document.getElementById('personal__info__city').value = data.city || '';
-            document.getElementById('personal__info__state').value = data.state || '';
-            document.getElementById('personal__info__phone').value = data.phone || '';
-        }
-
         // Função para obter os dados pessoais do usuário
         function getPersonalInfo() {
             fetch('/getPersonalInfo')
@@ -145,8 +139,23 @@
                 });
         }
 
+        // Preenche os campos de entrada com os dados pessoais
+        function fillFormFields(data) {
+            document.getElementById('personal__info__name').value = data.name || '';
+            document.getElementById('personal__info__address').value = data.address || '';
+            document.getElementById('personal__info__CPF').value = data.cpf || '';
+            document.getElementById('personal__info__zipCode').value = data.zip_code || '';
+            document.getElementById('personal__info__city').value = data.city || '';
+            document.getElementById('personal__info__state').value = data.state || '';
+            document.getElementById('personal__info__phone').value = data.phone || '';
+        }
+
         // Chama a função para obter os dados pessoais quando a página é carregada
         window.addEventListener('load', getPersonalInfo);
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        $(document).ready(function () {
+            getPersonalInfo();
+        });
     </script>
 
 </body>

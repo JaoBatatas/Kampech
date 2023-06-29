@@ -45,15 +45,24 @@ connection.connect(function (err) {
   console.log("Conexão como o Banco realizada com sucesso!!!")
 });
 
-let session;
+app.post('/register', (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let name = req.body.name;
 
-app.get('/', (req, res) => {
-  session = req.session;
-  if (session.id_user) {
-    res.send("Welcome User <a href=\'/logout'>click to logout</a>");
-  } else
-    res.sendFile('views/index.html', { root: __dirname })
+  connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, rows, fields) {
+    if (!err) {
+      console.log("Usuário cadastrado com sucesso!");
+
+      req.session.id_user = email; // ID do usuário inserido no banco de dados
+      console.log(req.session.id_user);
+      res.redirect('/personalInfo.html');
+    } else {
+      console.log("Erro: Consulta não realizada", err);
+    }
+  });
 });
+
 
 app.post('/login', (req, res) => {
   let email = req.body.email;
@@ -119,22 +128,6 @@ app.get('/getPersonalInfo', (req, res) => {
     } else {
       console.log("Erro: Consulta não realizada", err);
       res.status(500).json({ error: 'Erro no servidor' });
-    }
-  });
-});
-
-app.post('/register', (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
-  let name = req.body.name;
-
-  connection.query(`INSERT INTO \`kp_user\` (\`id_user\`, \`name\`, \`email\`, \`password\`, \`cpf\`, \`phone\`) 
-  VALUES (NULL, '${name}', '${email}', '${password}', NULL, NULL)`, function (err, rows, fields) {
-    if (!err) {
-      console.log("Usuário cadastrado com sucesso!");
-      res.redirect('/personalInfo.html');
-    } else {
-      console.log("Erro: Consulta não realizada", err);
     }
   });
 });
