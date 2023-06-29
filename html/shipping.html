@@ -52,15 +52,15 @@
             <form id="shippingForm">
                 <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
                 <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
-                    placeholder="Nome Completo:">
-                <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:">
-                <input type="text" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP">
+                    placeholder="Nome Completo:" required>
+                <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:" required>
+                <input type="text" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP" required>
                 <div class="city_state">
-                    <input type="text" id="city" placeholder="Cidade">
-                    <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado">
+                    <input type="text" id="city" placeholder="Cidade" required>
+                    <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado" maxlength="2" required>
                 </div>
                 <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="phone"
-                    class="shipping__right__inputBig" placeholder="Telefone:">
+                    class="shipping__right__inputBig" placeholder="Telefone:" required>
                 <input type="submit" id="shipping__right__button" value="Próximo">
             </form>
         </div>
@@ -68,10 +68,10 @@
 
     <script src="/index.js"></script>
     <script>
-        function sendPersonalInfo(event) {
+        function sendShipping(event) {
             event.preventDefault(); // Impede o comportamento padrão do envio do formulário
 
-            const personalInfo = {
+            const shipping = {
                 name: document.getElementById('shipping__right__name').value,
                 address: document.getElementById('address').value,
                 zip_code: document.getElementById('zipCode').value,
@@ -80,12 +80,12 @@
                 phone: document.getElementById('phone').value
             };
 
-            fetch('/sendPersonalInfo', {
+            fetch('/sendShipping', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(personalInfo)
+                body: JSON.stringify(shipping)
             })
                 .then(response => response.json())
                 .then(data => {
@@ -100,7 +100,7 @@
         }
 
         const form = document.querySelector('#shippingForm');
-        form.addEventListener('submit', sendPersonalInfo);
+        form.addEventListener('submit', sendShipping);
 
         $(document).ready(function () {
             // Máscara para o campo de telefone

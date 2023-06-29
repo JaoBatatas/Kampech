@@ -181,6 +181,55 @@ app.post('/sendPersonalInfo', (req, res) => {
   });
 });
 
+app.post('/sendShipping', (req, res) => {
+  // Verificar se o usuário está autenticado
+  if (!req.session.id_user) {
+    res.status(401).json({ error: 'Usuário não autenticado' });
+    return;
+  }
+
+  // Obter as informações pessoais do corpo da solicitação
+  const shipping = req.body;
+
+  // Atualizar as informações pessoais do usuário no banco de dados
+  const email = req.session.id_user;
+  const userQuery = `UPDATE kp_user
+                     SET name = '${shipping.name}', phone = '${shipping.phone}'
+                     WHERE email = '${email}'`;
+
+  const addressQuery = `UPDATE kp_address
+                        SET address = '${shipping.address}', zip_code = '${shipping.zip_code}', city = '${shipping.city}', state = '${shipping.state}'
+                        WHERE id_user IN (SELECT id_user FROM kp_user WHERE email = '${email}')`;
+
+  connection.query(userQuery, (userErr, userResult) => {
+    if (userErr) {
+      console.log("Erro: Atualização do usuário não realizada", userErr);
+      res.status(500).json({ error: 'Erro no servidor' });
+      return;
+    }
+
+    if (userResult.affectedRows === 0) {
+      res.status(404).json({ error: 'Usuário não encontrado' });
+      return;
+    }
+
+    connection.query(addressQuery, (addressErr, addressResult) => {
+      if (addressErr) {
+        console.log("Erro: Atualização do endereço não realizada", addressErr);
+        res.status(500).json({ error: 'Erro no servidor' });
+        return;
+      }
+
+      if (addressResult.affectedRows === 0) {
+        res.status(404).json({ error: 'Endereço não encontrado' });
+        return;
+      }
+
+      res.json({ message: 'Informações pessoais atualizadas com sucesso' });
+    });
+  });
+});
+
 app.post('/custom', (req, res) => {
   const customKeyboard = {
     size: req.body.size,
