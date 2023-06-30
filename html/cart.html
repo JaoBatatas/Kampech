@@ -64,8 +64,8 @@
     </main>
 
     <script src="/index.js"></script>
+    <script src="/index.js"></script>
     <script>
-
         const cartTotal = document.getElementById('cartTotal');
         let totalPrice = 0;
 
@@ -128,14 +128,14 @@
                             input.type = 'number';
                             input.name = 'quantity';
                             input.min = '1';
-                            input.value = '1';
+                            input.value = product.quantity;
                             input.id = product.id_user_products;
 
                             const productPrice = document.createElement('p');
                             productPrice.className = 'cartItem__right__bottom__price';
-                            productPrice.textContent = 'Preço: R$' + product.price;
+                            productPrice.textContent = 'Preço: R$' + product.total_price;
 
-                            totalPrice += parseFloat(product.price);
+                            totalPrice += parseFloat(product.total_price);
 
                             const cartItemRightBottom = document.createElement('div');
                             cartItemRightBottom.className = 'cartItem__right__bottom';
@@ -169,10 +169,17 @@
                                     });
                             });
 
+                            // Adicione um evento de escuta para o evento "change" na input
+                            input.addEventListener('change', () => {
+                                const productId = product.id_user_products; // ID do produto a ser atualizado
+                                const newQuantity = parseInt(input.value); // Nova quantidade do produto
+
+                                updateProductQuantity(productId, newQuantity);
+                            });
+
                             cartItemRightBottom.appendChild(removeButton);
                             cartItem.appendChild(cartItemLeft);
                             cartItem.appendChild(cartItemRight);
-                            cartItemsContainer.appendChild(cartItem);
                             cartItemRightBottom.appendChild(input);
                             cartItemRight.appendChild(cartItemRightBottom);
                             cartItemRightBottom.appendChild(productPrice);
@@ -186,6 +193,29 @@
                 .catch(error => {
                     console.log('Erro na solicitação:', error);
                     showModal();
+                });
+        }
+
+        // Função para atualizar a quantidade do produto no banco de dados
+        function updateProductQuantity(productId, newQuantity) {
+            fetch('http://127.0.0.1:3700/updateProductQuantity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: productId, quantity: newQuantity })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Quantidade do produto atualizada com sucesso!');
+                        // Atualize o carrinho no lado do cliente, se necessário
+                        location.reload()
+                    } else {
+                        console.log('Erro ao atualizar a quantidade do produto no carrinho');
+                    }
+                })
+                .catch(error => {
+                    console.log('Erro de rede:', error);
                 });
         }
 

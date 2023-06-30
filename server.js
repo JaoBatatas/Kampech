@@ -243,16 +243,16 @@ app.post('/custom', (req, res) => {
   if (!req.session.id_user) {
     res.redirect('/custom.html?noLogin')
   } else {
-    connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
+    connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
     VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\` WHERE
     \`size\` = '${customKeyboard.size}' AND \`connection\` = '${customKeyboard.connection}' AND
     \`switch\` = '${customKeyboard.switch}' AND \`main_color\` = '${customKeyboard.boardColor}' AND
-    \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1));`, (err, rows, fields) => {
+    \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, rows, fields) => {
       if (!err) {
         if (customKeyboard.keycap != '') {
-          connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`) 
+          connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
         VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\`
-        WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1));`, (err, rows, fields) => {
+        WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, rows, fields) => {
             if (!err) {
               console.log('Keycap adicionado ao carrinho!');
             } else {
@@ -278,12 +278,17 @@ app.get('/getCart', (req, res) => {
     // Obter as informações do carrinho do usuário no banco de dados
     const email = req.session.id_user;
 
-    connection.query(`SELECT kp_user_products.id_user_products, kp_products.name, kp_products.description, kp_products.price, kp_products.image_url FROM kp_products
+    connection.query(`
+  SELECT kp_products.*, 
+         kp_user_products.*, 
+         kp_user.email, 
+         (kp_products.price * kp_user_products.quantity) AS total_price
+  FROM kp_products
   INNER JOIN kp_user_products ON kp_products.id_product = kp_user_products.id_product
   INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
-  WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
+  WHERE kp_user.email = '${email}'
+`, (err, rows, fields) => {
       if (!err) {
-        // Enviar as informações do carrinho como variáveis para a página cart.html
         const cartItems = {
           items: rows
         };
@@ -291,10 +296,10 @@ app.get('/getCart', (req, res) => {
         console.log(cartItems);
       } else {
         console.log("Erro: Consulta não realizada", err);
-        res.status(500).json({ error: 'Erro no servidor' });
+        return res.status(500).json({ error: 'Erro no servidor' });
       }
     });
-  }
+  };
 });
 
 app.post('/removeProduct', (req, res) => {
@@ -379,6 +384,31 @@ app.get('/getShipping', (req, res) => {
     }
   });
 });
+
+app.post('/updateProductQuantity', (req, res) => {
+  // Obter o ID do produto e a nova quantidade do corpo da solicitação
+  const productId = req.body.id;
+  const newQuantity = req.body.quantity;
+
+  // Atualizar a quantidade do produto no banco de dados
+  const updateQuery = `UPDATE kp_user_products SET quantity = ${newQuantity} WHERE id_user_products = ${productId}`;
+
+  connection.query(updateQuery, (err, result) => {
+    if (err) {
+      console.log('Erro: Falha ao atualizar a quantidade do produto', err);
+      res.status(500).json({ error: 'Erro no servidor' });
+      return;
+    }
+
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: 'Produto não encontrado' });
+      return;
+    }
+
+    res.json({ message: 'Quantidade do produto atualizada com sucesso' });
+  });
+});
+
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
