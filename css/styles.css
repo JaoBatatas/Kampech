@@ -1813,11 +1813,13 @@ body {
     margin-bottom: 5%;
 }
 
-#CardForm {
+#creditForm,
+#debitForm {
     width: 90%;
 }
 
-#CardForm input {
+#creditForm input,
+#debitForm input {
     margin-bottom: 3%;
     background-color: #ffffff;
     border: 2px solid black;

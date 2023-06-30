@@ -35,12 +35,12 @@
     <main class="Card">
         <section class="CardLeft">
             <h1>Cartão de Débito</h1>
-            <form action="/CardCard" method="post" id="CardForm">
-                <input type="text" name="CardName" placeholder="Nome no cartão" id="CardName">
-                <input type="text" name="Cardnumber" placeholder="Número do cartão" id="CardNum">
-                <input type="text" name="CardExpiration" placeholder="Data de validade" id="CardExp">
-                <input type="text" name="CardCVV" placeholder="Código de verificação (CVV)" id="CardCVV">
-                <input type="text" name="CardCPF" placeholder="CPF do titular" id="CardCPF">
+            <form action="/debit" method="post" id="debitForm">
+                <input type="text" name="CardName" placeholder="Nome no cartão" id="CardName" required>
+                <input type="text" name="Cardnumber" placeholder="Número do cartão" id="CardNum" required>
+                <input type="text" name="CardExpiration" placeholder="Data de validade" id="CardExp" required>
+                <input type="text" name="CardCVV" placeholder="Código de verificação (CVV)" id="CardCVV" required>
+                <input type="text" name="CardCPF" placeholder="CPF do titular" id="CardCPF" required>
             </form>
         </section>
         <section class="CardRight">
@@ -53,7 +53,7 @@
                 <img class="CardImage" src="/mastercard-logo.png" alt="mastercard-logo">
                 <img class="CardImage" src="/visa-logo.png" alt="visa-logo">
             </div>
-            <button class="CardFinish">Efetuar pagamento</button>
+            <input type="submit" form="debitForm" class="CardFinish" value="Efetuar pagamento">
         </section>
     </main>
 
