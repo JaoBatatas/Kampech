@@ -7,9 +7,7 @@ const mysql = require('mysql2');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-
 app.use(cors());
-
 app.use(express.static('css'));
 app.use(express.static('assets'));
 app.use(express.static('html'));
@@ -23,7 +21,6 @@ app.use(sessions({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use((req, res, next) => {
   //Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,14 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('css'));
-app.use(express.static('assets'));
-app.use(express.static('html'));
-app.use(express.static('js'));
-
-const pool = mysql.createPool({ // Use createPool em vez de createConnection
+const connection = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
   password: 'root',
@@ -48,19 +38,17 @@ const pool = mysql.createPool({ // Use createPool em vez de createConnection
   database: 'kampech'
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+connection.connect(function (err) {
+  console.log("Conexão como o Banco realizada com sucesso!!!")
 });
 
 app.post('/register', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   let name = req.body.name;
-
   connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, rows, fields) {
     if (!err) {
       console.log("Usuário cadastrado com sucesso!");
-
       req.session.id_user = email; // ID do usuário inserido no banco de dados
       console.log(req.session.id_user);
       res.redirect('/personalInfo.html');
@@ -69,52 +57,45 @@ app.post('/register', (req, res) => {
     }
   });
 });
-
-
 app.post('/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  try {
-    const connection = await pool.getConnection(); // Obtenha uma conexão da piscina
+  connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, rows, fields) {
+    if (!err) {
+      console.log("Resultado:", rows);
 
-    if (rows.length === 0) {
-      res.redirect('/login.html?404account');
-    } else {
-      if (password === rows[0].password) {
-        session = req.session;
-        session.id_user = req.body.email;
-        console.log(req.session)
-        res.redirect('/personalInfo.html');
+      if (rows.length === 0) {
+        res.redirect('/login.html?404account');
+      } else {
+        if (password === rows[0].password) {
+          session = req.session;
+          session.id_user = req.body.email;
+          console.log(req.session)
+          res.redirect('/personalInfo.html');
+        }
+        else {
+          res.redirect('/login.html?passwordError');
+        }
       }
-      else {
-        res.redirect('/login.html?passwordError');
-      }
-    }
-  } else {
-    if (password === rows[0].password) {
-      res.redirect('/personalInfo.html');
     } else {
-      res.redirect('/login.html?passwordError');
+      console.log("Erro: Consulta não realizada", err);
     }
-  }
+  });
 });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
-
 app.get('/getPersonalInfo', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
     res.status(401).json({ error: 'Usuário não autenticado' });
     return;
   }
-
   // Obter as informações pessoais do usuário no banco de dados
   const email = req.session.id_user;
-
   connection.query(`SELECT kp_user.*, kp_address.* FROM kp_user
     LEFT JOIN kp_address ON kp_user.id_user = kp_address.id_user
     WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
@@ -140,105 +121,86 @@ app.get('/getPersonalInfo', (req, res) => {
     }
   });
 });
-
 app.post('/sendPersonalInfo', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
     res.status(401).json({ error: 'Usuário não autenticado' });
     return;
   }
-
   // Obter as informações pessoais do corpo da solicitação
   const personalInfo = req.body;
-
   // Atualizar as informações pessoais do usuário no banco de dados
   const email = req.session.id_user;
   const userQuery = `UPDATE kp_user
                      SET name = '${personalInfo.name}', cpf = '${personalInfo.cpf}', phone = '${personalInfo.phone}'
                      WHERE email = '${email}'`;
-
   const addressQuery = `UPDATE kp_address
                         SET address = '${personalInfo.address}', zip_code = '${personalInfo.zip_code}', city = '${personalInfo.city}', state = '${personalInfo.state}'
                         WHERE id_user IN (SELECT id_user FROM kp_user WHERE email = '${email}')`;
-
   connection.query(userQuery, (userErr, userResult) => {
     if (userErr) {
       console.log("Erro: Atualização do usuário não realizada", userErr);
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-
     if (userResult.affectedRows === 0) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
-
     connection.query(addressQuery, (addressErr, addressResult) => {
       if (addressErr) {
         console.log("Erro: Atualização do endereço não realizada", addressErr);
         res.status(500).json({ error: 'Erro no servidor' });
         return;
       }
-
       if (addressResult.affectedRows === 0) {
         res.status(404).json({ error: 'Endereço não encontrado' });
         return;
       }
-
       res.json({ message: 'Informações pessoais atualizadas com sucesso' });
     });
   });
 });
-
 app.post('/sendShipping', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
     res.status(401).json({ error: 'Usuário não autenticado' });
     return;
   }
-
   // Obter as informações pessoais do corpo da solicitação
   const shipping = req.body;
-
   // Atualizar as informações pessoais do usuário no banco de dados
   const email = req.session.id_user;
   const userQuery = `UPDATE kp_user
                      SET name = '${shipping.name}', phone = '${shipping.phone}'
                      WHERE email = '${email}'`;
-
   const addressQuery = `UPDATE kp_address
                         SET address = '${shipping.address}', zip_code = '${shipping.zip_code}', city = '${shipping.city}', state = '${shipping.state}'
                         WHERE id_user IN (SELECT id_user FROM kp_user WHERE email = '${email}')`;
-
   connection.query(userQuery, (userErr, userResult) => {
     if (userErr) {
       console.log("Erro: Atualização do usuário não realizada", userErr);
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-
     if (userResult.affectedRows === 0) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
-
     connection.query(addressQuery, (addressErr, addressResult) => {
       if (addressErr) {
         console.log("Erro: Atualização do endereço não realizada", addressErr);
         res.status(500).json({ error: 'Erro no servidor' });
         return;
       }
-
       if (addressResult.affectedRows === 0) {
         res.status(404).json({ error: 'Endereço não encontrado' });
         return;
       }
-
       res.json({ message: 'Informações pessoais atualizadas com sucesso' });
     });
   });
 });
-
 app.post('/custom', (req, res) => {
   const customKeyboard = {
     size: req.body.size,
@@ -279,14 +241,12 @@ app.post('/custom', (req, res) => {
     });
   }
 });
-
 app.get('/getCart', (req, res) => {
   if (!req.session.id_user) {
     res.redirect('/cart.html?noLogin')
   } else {
     // Obter as informações do carrinho do usuário no banco de dados
     const email = req.session.id_user;
-
     connection.query(`
   SELECT kp_products.*, 
          kp_user_products.*, 
@@ -310,10 +270,8 @@ app.get('/getCart', (req, res) => {
     });
   };
 });
-
 app.post('/removeProduct', (req, res) => {
   const productId = req.body.id; // Obtenha o ID do produto do corpo da solicitação
-
   connection.query(`DELETE FROM kp_user_products
     WHERE id_user_products = '${productId}'`, (err, result) => {
     if (!err) {
@@ -328,7 +286,6 @@ app.post('/removeProduct', (req, res) => {
     }
   });
 });
-
 app.get('/getProducts', (req, res) => {
   connection.query('SELECT * FROM kp_products', (err, rows, fields) => {
     if (!err) {
@@ -342,7 +299,6 @@ app.get('/getProducts', (req, res) => {
     }
   });
 });
-
 app.get('/getProductInfo/:id', (req, res) => {
   const productId = req.params.id;
   connection.query(`SELECT * FROM kp_products WHERE id_product = ${productId}`, (err, rows, fields) => {
@@ -358,17 +314,14 @@ app.get('/getProductInfo/:id', (req, res) => {
     }
   });
 });
-
 app.get('/getShipping', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
     res.status(401).json({ error: 'Usuário não autenticado' });
     return;
   }
-
   // Obter as informações pessoais do usuário no banco de dados
   const email = req.session.id_user;
-
   connection.query(`SELECT kp_user.*, kp_address.* FROM kp_user
     LEFT JOIN kp_address ON kp_user.id_user = kp_address.id_user
     WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
@@ -393,31 +346,25 @@ app.get('/getShipping', (req, res) => {
     }
   });
 });
-
 app.post('/updateProductQuantity', (req, res) => {
   // Obter o ID do produto e a nova quantidade do corpo da solicitação
   const productId = req.body.id;
   const newQuantity = req.body.quantity;
-
   // Atualizar a quantidade do produto no banco de dados
   const updateQuery = `UPDATE kp_user_products SET quantity = ${newQuantity} WHERE id_user_products = ${productId}`;
-
   connection.query(updateQuery, (err, result) => {
     if (err) {
       console.log('Erro: Falha ao atualizar a quantidade do produto', err);
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-
     if (result.affectedRows === 0) {
       res.status(404).json({ error: 'Produto não encontrado' });
       return;
     }
-
     res.json({ message: 'Quantidade do produto atualizada com sucesso' });
   });
 });
-
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
