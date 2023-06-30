@@ -32,7 +32,14 @@ app.use((req, res, next) => {
   next();
 });
 
-const connection = mysql.createConnection({
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('css'));
+app.use(express.static('assets'));
+app.use(express.static('html'));
+app.use(express.static('js'));
+
+const pool = mysql.createPool({ // Use createPool em vez de createConnection
   host: '127.0.0.1',
   user: 'root',
   password: 'root',
@@ -41,8 +48,8 @@ const connection = mysql.createConnection({
   database: 'kampech'
 });
 
-connection.connect(function (err) {
-  console.log("Conexão como o Banco realizada com sucesso!!!")
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/register', (req, res) => {
@@ -68,27 +75,29 @@ app.post('/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, rows, fields) {
-    if (!err) {
-      console.log("Resultado:", rows);
+  try {
+    const connection = await pool.getConnection(); // Obtenha uma conexão da piscina
 
-      if (rows.length === 0) {
-        res.redirect('/login.html?404account');
-      } else {
-        if (password === rows[0].password) {
-          session = req.session;
-          session.id_user = req.body.email;
-          console.log(req.session)
-          res.redirect('/personalInfo.html');
-        }
-        else {
-          res.redirect('/login.html?passwordError');
-        }
-      }
+    if (rows.length === 0) {
+      res.redirect('/login.html?404account');
     } else {
-      console.log("Erro: Consulta não realizada", err);
+      if (password === rows[0].password) {
+        session = req.session;
+        session.id_user = req.body.email;
+        console.log(req.session)
+        res.redirect('/personalInfo.html');
+      }
+      else {
+        res.redirect('/login.html?passwordError');
+      }
     }
-  });
+  } else {
+    if (password === rows[0].password) {
+      res.redirect('/personalInfo.html');
+    } else {
+      res.redirect('/login.html?passwordError');
+    }
+  }
 });
 
 app.get('/logout', (req, res) => {
