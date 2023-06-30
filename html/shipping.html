@@ -7,14 +7,14 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -24,53 +24,12 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
-            <button class="cartIcon" onclick="cartAnimation()">
+            <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
-            </button>
-        </div>
-        <div class="cartPopUp">
-            <button class="close_button" onclick="cartAnimation()">
-                <img class="close_button__img" alt="close_button" src="/close_button.svg">
-                <h4 class="close_button__title">Fechar</h4>
-            </button>
-            <div class="cartPopUp__item">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__item2">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
-            <div class="cartPopUp__priceContainer">
-                <h2>Total</h2>
-                <h2>R$696,90</h2>
-            </div>
-            <a id="finishCart" href="">
-                <p>Finalizar<br>pedido</p>
             </a>
-            <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
     </header>
 
@@ -82,7 +41,7 @@
                 <input type="checkbox" id="shipping__left__checkbox" name="shipping__checkbox" checked>
                 <label for="shipping__left__checkbox">Quero receber notícias e promoções</label>
             </div>
-            <a id="shipping__left__logout" href="">Sair</a>
+            <a id="shipping__left__logout" href="/logout">Sair</a>
             <a id="shipping__left__return" href="/index.html">
                 <img id="shipping__left__return__button" src="/back_button.png">
                 <h2 id="shipping__left__return__text">Voltar</h2>
@@ -90,25 +49,99 @@
         </div>
 
         <div class="shipping__right">
-            <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
-            <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
-                placeholder="Nome Completo:">
-            <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:">
-            <input type="number" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP">
-            <div class="city_state">
-                <input type="text" id="city" placeholder="Cidade">
-                <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado">
-            </div>
-            <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="phone" class="shipping__right__inputBig"
-                placeholder="Telefone:">
-            <button type="submit" id="shipping__right__button">Próximo</button>
+            <form id="shippingForm">
+                <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
+                <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
+                    placeholder="Nome Completo:" required>
+                <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:" required>
+                <input type="text" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP" required>
+                <div class="city_state">
+                    <input type="text" id="city" placeholder="Cidade" required>
+                    <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado" maxlength="2" required>
+                </div>
+                <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="phone"
+                    class="shipping__right__inputBig" placeholder="Telefone:" required>
+                <input type="submit" id="shipping__right__button" value="Próximo">
+            </form>
         </div>
     </main>
 
-    <footer>
-    </footer>
+    <script src="/index.js"></script>
+    <script>
+        function sendShipping(event) {
+            event.preventDefault(); // Impede o comportamento padrão do envio do formulário
+
+            const shipping = {
+                name: document.getElementById('shipping__right__name').value,
+                address: document.getElementById('address').value,
+                zip_code: document.getElementById('zipCode').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                phone: document.getElementById('phone').value
+            };
+
+            fetch('/sendShipping', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(shipping)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Dados pessoais atualizados:', data);
+                    // Exibir mensagem de sucesso ou redirecionar para outra página, se necessário
+                    window.location.href = '/payment.html'
+                })
+                .catch(error => {
+                    console.log('Erro ao atualizar dados pessoais:', error);
+                    // Exibir mensagem de erro ao usuário, se necessário
+                });
+        }
+
+        const form = document.querySelector('#shippingForm');
+        form.addEventListener('submit', sendShipping);
+
+        $(document).ready(function () {
+            // Máscara para o campo de telefone
+            $('#personal__info__phone').inputmask('(99) 9999-9999');
+
+            // Máscara para o campo de CEP
+            $('#personal__info__zipCode').inputmask('99999-999');
+
+            // Máscara para o campo de CPF
+            $('#personal__info__CPF').inputmask('999.999.999-99');
+        });
+
+        // Função para obter os dados pessoais do usuário
+        function getShipping() {
+            fetch('/getShipping')
+                .then(response => response.json())
+                .then(data => {
+                    fillFormFields(data);
+                })
+                .catch(error => {
+                    console.log('Erro ao obter dados pessoais:', error);
+                });
+        }
+
+        // Preenche os campos de entrada com os dados pessoais
+        function fillFormFields(data) {
+            document.getElementById('shipping__right__name').value = data.name || '';
+            document.getElementById('address').value = data.address || '';
+            document.getElementById('zipCode').value = data.zip_code || '';
+            document.getElementById('city').value = data.city || '';
+            document.getElementById('state').value = data.state || '';
+            document.getElementById('phone').value = data.phone || '';
+        }
+
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        window.addEventListener('load', getShipping);
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        $(document).ready(function () {
+            getShipping();
+        });
+    </script>
 </body>
-
-
 
 </html>

@@ -7,14 +7,12 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
 </head>
 
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -24,53 +22,12 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
-            <button class="cartIcon" onclick="cartAnimation()">
+            <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
-            </button>
-        </div>
-        <div class="cartPopUp">
-            <button class="close_button" onclick="cartAnimation()">
-                <img class="close_button__img" alt="close_button" src="/close_button.svg">
-                <h4 class="close_button__title">Fechar</h4>
-            </button>
-            <div class="cartPopUp__item">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__item2">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
-            <div class="cartPopUp__priceContainer">
-                <h2>Total</h2>
-                <h2>R$696,90</h2>
-            </div>
-            <a id="finishCart" href="">
-                <p>Finalizar<br>pedido</p>
             </a>
-            <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
     </header>
 
@@ -88,61 +45,99 @@
                 <img src="/productImage.jpg">
                 <img src="/productImage.jpg">
             </div>
-            <div class="product__containerCol2"><img src="/productImage.jpg"></div>
+            <div class="product__containerCol2"><img src="" id="productMainImage"></div>
             <div class="product__containerCol3">
                 <div class="product__containerCol3__title">
-                    <h2>Teclado mecânico insano muito brabo - Switch Blue</h2>
-                </div>
-                <div class="product__containerCol3__review">
-                    <img src="/starIconFilled.svg">
-                    <img src="/starIconFilled.svg">
-                    <img src="/starIconFilled.svg">
-                    <img src="/starIconFilled.svg">
-                    <img src="/starIcon.svg">
-                    <p>1 avaliação</p>
+                    <h2 id="productTitle"></h2>
                 </div>
                 <div class="product__containerCol3__desc">
-                    <p>Ai q n sei oq q n sei oq lá q esse teclado é muito bom e você deveria compra-lo por favor compre
-                        esse teclado a gente precisa de dinheiro para comprar a comida de todo mês e sem contar que essa
-                        descrição insana precisa ser preenchida. Look, I was gonna go easy on you
-                        And not to hurt your feelings
-                        But I'm only going to get this one chance
-                        Something's wrong, I can feel it
-                        Just a feeling I've got
-                        Like something's about to happen
-                        But I don't know what
-                        If that means, what I think it means
-                        We're in trouble, big trouble
-                        And if he is as bananas as you say
-                        I'm not taking any chances
-                        You were just what the doctor ordered
-
-                        I'm beginning to feel like a Rap God, Rap God
-                        All my people from the front to the back nod, back nod
-                        Now who thinks their arms
-                        Are long enough to slapbox, slapbox?
-                        They said I rap like a robot
-                        So call me Rapbot
+                    <p id="productDesc">
                     </p>
                 </div>
                 <div class="product__containerCol3__tags">
-                    <p>ABNT2</p>
-                    <p>60%</p>
-                    <p>USB</p>
+                    <p id="productLayout"></p>
+                    <p id="productSize"></p>
+                    <p id="productConnection"></p>
                 </div>
             </div>
             <div class="product__containerCol4">
-                <div class="productDiv1"><h2>Em estoque.</h2></div>
-                <div class="productDiv2"><h2>R$9,90</h2></div>
-                <div class="product__containerCol4__quantity"><h3>Quantidade:</h3><input class="product__containerCol4__input" type="number" name="quantity" min="1" value="1"></div>
+                <div class="productDiv1">
+                    <h2>Em estoque.</h2>
+                </div>
+                <div class="productDiv2">
+                    <h2>R$9,90</h2>
+                </div>
+                <div class="product__containerCol4__quantity">
+                    <h3>Quantidade:</h3><input class="product__containerCol4__input" type="number" name="quantity"
+                        min="1" value="1">
+                </div>
                 <button class="productAddToCart">Adicionar<br>ao carrinho</button>
                 <button class="productBuy">Comprar</button>
             </div>
         </div>
     </main>
 
-    <footer></footer>
+<footer>
+        <section class="footerLeft">
+            <p class="footerText">Contato para suporte:</p>
+            <div class="footerLeftFlex">
+                <div class="footerLeftContainer">
+                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p>
+                </div>
+                <div class="footerLeftContainer">
+                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p>
+                </div>
+            </div>
+        </section>
+        <section class="footerRight">
+            <p class="footerText">Nossas redes sociais:</p>
+            <div class="footerRightFlex">
+                <div class="footerRightContainer">
+                    <img src="/instagram_icon.svg" alt="instagram_logo"><a
+                        href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a>
+                </div>
+                <div class="footerRightContainer">
+                    <img src="/youtube_icon.svg" alt="instagram_logo"><a
+                        href="https://www.youtube.com/@kampech"><p>/Kampech</p></a>
+                </div>
+                <div class="footerRightContainer">
+                    <img src="/twitter_icon.svg" alt="instagram_logo"><a
+                        href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a>
+                </div>
+            </div>
+        </section>
+    </footer>
 
+    <script src="/index.js"></script>
+    <script>
+        function getProductInfo() {
+            // Obtenha o ID do produto da URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            fetch(`/getProductInfo/${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const title = document.getElementById('productTitle');
+                    const desc = document.getElementById('productDesc');
+                    const layout = document.getElementById('productLayout');
+                    const size = document.getElementById('productSize');
+                    const connection = document.getElementById('productConnection');
+                    const image = document.getElementById('productMainImage');
+
+                    title.textContent = data.info[0].name;
+                    desc.textContent = data.info[0].description;
+                    layout.textContent = data.info[0].layout;
+                    size.textContent = data.info[0].size;
+                    connection.textContent = data.info[0].connection;
+                    image.src = data.info[0].image_url;
+                })
+                .catch(error => console.error('Erro ao obter produtos:', error));
+        }
+
+        // Chame a função getProductInfo quando a página carregar
+        window.addEventListener('load', getProductInfo);
+    </script>
 </body>
 
 </html>

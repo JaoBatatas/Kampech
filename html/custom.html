@@ -7,14 +7,13 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.374/build/spline-viewer.js"></script>
 </head>
 
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -24,68 +23,26 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
-            <button class="cartIcon" onclick="cartAnimation()">
+            <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
-            </button>
-        </div>
-        <div class="cartPopUp">
-            <button class="close_button" onclick="cartAnimation()">
-                <img class="close_button__img" alt="close_button" src="/close_button.svg">
-                <h4 class="close_button__title">Fechar</h4>
-            </button>
-            <div class="cartPopUp__item">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__item2">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
-            <div class="cartPopUp__priceContainer">
-                <h2>Total</h2>
-                <h2>R$696,90</h2>
-            </div>
-            <a id="finishCart" href="">
-                <p>Finalizar<br>pedido</p>
             </a>
-            <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
     </header>
 
     <main class="custom">
-        <div class="customLeft">
-            <img src="/keyboardExample.png" alt="customKeyboardImage" class="customLeft__img">
+        <div class="customLeft" id="splineContainer">
         </div>
-        <div class="customRight">
+        <form class="customRight" id="customForm" action="/custom" method="post">
             <div class="customRight__row" id="customRight__row1">
                 <div>
                     <label for="selSize">Tamanho</label>
-                    <select id="selSize" name="size">
+                    <select id="selSize" name="size" onchange="changeSpline()">
                         <option value="100%">Full-size (100%)</option>
                         <option value="80%">Tenkeyless (80%)</option>
-                        <option value="65%">Compact (65%)</option>
+                        <option value="75%">Compact (75%)</option>
                         <option value="60%">Mini (60%)</option>
                     </select>
                 </div>
@@ -101,9 +58,9 @@
                 <div>
                     <label for="selSwitch">Switch</label>
                     <select id="selSwitch" name="switch">
-                        <option value="sBlue">Switch Blue</option>
-                        <option value="sRed">Switch Red</option>
-                        <option value="sBrown">Switch Brown</option>
+                        <option value="blue">Switch Blue</option>
+                        <option value="red">Switch Red</option>
+                        <option value="brown">Switch Brown</option>
                     </select>
                 </div>
             </div>
@@ -111,16 +68,16 @@
                 <div>
                     <label for="selKeycap">Keycap</label>
                     <select id="selKeycap" name="keycap">
-                        <option value="none">Nenhuma</option>
-                        <option value="kc1">Keycap 1</option>
-                        <option value="kc2">Keycap 2</option>
-                        <option value="kc3">Keycap 3</option>
-                        <option value="kc4">Keycap 4</option>
+                        <option value="">Nenhuma</option>
+                        <option value="keycap 1">Keycap 1</option>
+                        <option value="keycap 2">Keycap 2</option>
+                        <option value="keycap 3">Keycap 3</option>
+                        <option value="keycap 4">Keycap 4</option>
                     </select>
                 </div>
                 <div>
                     <label for="selBoardColor">Cor teclado</label>
-                    <select id="selBoardColor" name="boardColor">
+                    <select id="selBoardColor" name="boardColor" onchange="changeSpline()">
                         <option value="black">Preto</option>
                         <option value="white">Branco</option>
                         <option value="grey">Cinza</option>
@@ -128,7 +85,7 @@
                 </div>
                 <div>
                     <label for="selKeyColor">Cor teclas</label>
-                    <select id="selKeyColor" name="keyColor">
+                    <select id="selKeyColor" name="keyColor" onchange="changeSpline()">
                         <option value="black">Preto</option>
                         <option value="white">Branco</option>
                         <option value="purple">Roxo</option>
@@ -136,14 +93,59 @@
                 </div>
             </div>
             <div class="customRight__row" id="customRight__row3">
-                <button class="continueButton" id="customRight__row__button">Continuar</button>
+                <input type="submit" class="continueButton" id="customRight__row__button" value="Continuar">
             </div>
+        </form>
         </div>
-
+        <div id="loginModal" class="modal">
+            <div class="modal__content">
+                <h2>Para customizar teclados é necessário fazer login</h2>
+                <div class="modal__buttons">
+                    <a href="/login.html" class="modal__button">Fazer login</a>
+                    <button id="modalCloseButton" class="modal__button">Voltar</button>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer></footer>
+
+
+    <script src="/index.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('noLogin')) {
+            // Obtém a referência para o formulário e o modal
+            const form = document.getElementById('customForm');
+            const modal = document.getElementById('loginModal');
+            const modalCloseButton = document.getElementById('modalCloseButton');
+
+            // Função para exibir o modal
+            function showModal() {
+                modal.style.display = 'block';
+            }
+
+            // Função para ocultar o modal
+            function fecharModal() {
+                modal.style.display = 'none';
+            }
+
+            // Adiciona um listener de evento para o botão de fechar
+            modalCloseButton.addEventListener('click', fecharModal);
+
+            // Adiciona um listener de evento para o evento de envio do formulário
+            form.addEventListener('submit', function (event) {
+                // Impede o envio padrão do formulário
+                event.preventDefault();
+
+                // Exibe o modal
+                showModal();
+            });
+
+            modal.style.display = 'block';
+        }
+
+        window.addEventListener('load', changeSpline);
+    </script>
 
 </body>
 

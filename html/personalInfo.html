@@ -7,14 +7,14 @@
     <title>Kampech</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 
 <body>
     <header>
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo"
-                    class="logo">
+            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
 
@@ -24,53 +24,12 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
-            <button class="cartIcon" onclick="cartAnimation()">
+            <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
-            </button>
-        </div>
-        <div class="cartPopUp">
-            <button class="close_button" onclick="cartAnimation()">
-                <img class="close_button__img" alt="close_button" src="/close_button.svg">
-                <h4 class="close_button__title">Fechar</h4>
-            </button>
-            <div class="cartPopUp__item">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__item2">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
-            <div class="cartPopUp__priceContainer">
-                <h2>Total</h2>
-                <h2>R$696,90</h2>
-            </div>
-            <a id="finishCart" href="">
-                <p>Finalizar<br>pedido</p>
             </a>
-            <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
     </header>
 
@@ -89,28 +48,140 @@
             <form>
                 <div class="personal__container2__col1">
                     <div class="personal__info">
-                        <input type="text" placeholder="Nome Completo:" id="personal__info__name" class="personal__info__inputBig">
-                        <input type="text" placeholder="Endereço:" id="personal__info__address" class="personal__info__inputBig">
+                        <input type="text" placeholder="Nome Completo:" id="personal__info__name"
+                            class="personal__info__inputBig" required>
+                        <input type="text" placeholder="Endereço:" id="personal__info__address"
+                            class="personal__info__inputBig" required>
                         <div>
-                        <input type="text" placeholder="CPF" id="personal__info__CPF" class="personal__info__inputMedium">
-                        <input type="text" placeholder="CEP" id="personal__info__zipCode" class="personal__info__inputSmall">
-                        <input type="text" placeholder="Cidade" id="personal__info__city" class="personal__info__inputMedium">
-                        <input type="text" placeholder="Estado" id="personal__info__state" class="personal__info__inputSmall">
+                            <input type="text" placeholder="CPF" id="personal__info__CPF"
+                                class="personal__info__inputMedium" required>
+                            <input type="text" placeholder="CEP" id="personal__info__zipCode"
+                                class="personal__info__inputSmall" required>
+                            <input type="text" placeholder="Cidade" id="personal__info__city"
+                                class="personal__info__inputMedium" required>
+                            <input type="text" placeholder="Estado" id="personal__info__state"
+                                class="personal__info__inputSmall" maxlength="2" oninput="this.value = this.value.toUpperCase()" required>
                         </div>
-                        <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="personal__info__phone" placeholder="Telefone:" class="personal__info__inputBig">
+                        <input type="tel" maxlength="15" id="personal__info__phone"
+                            placeholder="Telefone:" class="personal__info__inputBig" required>
                     </div>
+
                 </div>
                 <div class="personal__container2__col2">
                     <button type="submit" class="personal__info__save">
                         Salvar
                     </button>
+                    <a href='/logout' class="personal__info__logout">Logout</a>
                 </div>
             </form>
         </div>
+        <div id="personalModal" class="modal">
+            <div class="modal__content">
+                <h2>Dados salvos com sucesso!</h2>
+                <div class="modal__buttons">
+                    <button id="modalCloseButton" class="modal__button">Ok</button>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer></footer>
+    <script src="/index.js"></script>
+    <script>
+        // Função para enviar os dados pessoais do formulário para o servidor
+        function sendPersonalInfo(event) {
+            event.preventDefault(); // Impede o comportamento padrão do envio do formulário
+
+            const personalInfo = {
+                name: document.getElementById('personal__info__name').value,
+                address: document.getElementById('personal__info__address').value,
+                cpf: document.getElementById('personal__info__CPF').value,
+                zip_code: document.getElementById('personal__info__zipCode').value,
+                city: document.getElementById('personal__info__city').value,
+                state: document.getElementById('personal__info__state').value,
+                phone: document.getElementById('personal__info__phone').value
+            };
+
+            fetch('/sendPersonalInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(personalInfo)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Dados pessoais atualizados:', data);
+                    showModal();
+                    // Exibir mensagem de sucesso ou redirecionar para outra página, se necessário
+                })
+                .catch(error => {
+                    console.log('Erro ao atualizar dados pessoais:', error);
+                    // Exibir mensagem de erro ao usuário, se necessário
+                });
+        }
+
+        // Obtém a referência para o formulário e o modal
+        const modal = document.getElementById('personalModal');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+
+        // Função para exibir o modal
+        function showModal() {
+            modal.style.display = 'block';
+        }
+
+        // Função para ocultar o modal
+        function fecharModal() {
+            modal.style.display = 'none';
+        }
+
+        // Adiciona um listener de evento para o botão de fechar
+        modalCloseButton.addEventListener('click', fecharModal);
+
+        // Adicionar o evento de envio (submit) ao formulário
+        const form = document.querySelector('form');
+        form.addEventListener('submit', sendPersonalInfo);
+
+        $(document).ready(function () {
+            // Máscara para o campo de telefone
+            $('#personal__info__phone').inputmask('(99) 99999-9999');
+
+            // Máscara para o campo de CEP
+            $('#personal__info__zipCode').inputmask('99999-999');
+
+            // Máscara para o campo de CPF
+            $('#personal__info__CPF').inputmask('999.999.999-99');
+        });
+
+        // Função para obter os dados pessoais do usuário
+        function getPersonalInfo() {
+            fetch('/getPersonalInfo')
+                .then(response => response.json())
+                .then(data => {
+                    fillFormFields(data);
+                })
+                .catch(error => {
+                    console.log('Erro ao obter dados pessoais:', error);
+                });
+        }
+
+        // Preenche os campos de entrada com os dados pessoais
+        function fillFormFields(data) {
+            document.getElementById('personal__info__name').value = data.name || '';
+            document.getElementById('personal__info__address').value = data.address || '';
+            document.getElementById('personal__info__CPF').value = data.cpf || '';
+            document.getElementById('personal__info__zipCode').value = data.zip_code || '';
+            document.getElementById('personal__info__city').value = data.city || '';
+            document.getElementById('personal__info__state').value = data.state || '';
+            document.getElementById('personal__info__phone').value = data.phone || '';
+        }
+
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        window.addEventListener('load', getPersonalInfo);
+        // Chama a função para obter os dados pessoais quando a página é carregada
+        $(document).ready(function () {
+            getPersonalInfo();
+        });
+    </script>
 
 </body>
 
