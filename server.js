@@ -411,8 +411,10 @@ app.post('/payment', (req, res) => {
 });
 
 app.get('/getPurchaseHistory', (req, res) => {
-  connection.query('SELECT * FROM kp_order WHERE ', (err, rows, fields) => {
+
+  connection.query(`SELECT * FROM kp_order WHERE id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}')`, (err, rows, fields) => {
     if (!err) {
+      console.log(rows);
       res.json(rows);
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -420,7 +422,6 @@ app.get('/getPurchaseHistory', (req, res) => {
     }
   });
 });
-
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
