@@ -410,6 +410,18 @@ app.post('/payment', (req, res) => {
   });
 });
 
+app.get('/getPurchaseHistory', (req, res) => {
+  connection.query('SELECT * FROM kp_order WHERE ', (err, rows, fields) => {
+    if (!err) {
+      res.json(rows);
+    } else {
+      console.log("Erro: Consulta não realizada", err);
+      res.status(500).json({ error: 'Erro no servidor' });
+    }
+  });
+});
+
+
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!')
 });

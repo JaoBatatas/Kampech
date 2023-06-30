@@ -42,20 +42,18 @@
             <a href="/personalInfo.html" class="purchase__buttons__text">Dados Pessoais -</a>
             <a href="/purchaseHistory.html" class="purchase__buttons__text"><strong>Histórico de Compras</strong></a>
         </div>
-        <div class="purchase__filter">
-            <button class="purchase__filter__button" id="oneMonthFilter">1 mês</button>
-            <button class="purchase__filter__button" id="sixMonthFilter">6 meses</button>
+
+
+        <div class="searchContainer">
+            <button class="search-button">
+                <img src="/searchIcon.svg" class="search-icon">
+            </button>
+            <button class="clearButton" onclick="clearSearchBar()">
+                <img src="/xIcon.svg" class="xIcon">
+            </button>
+            <input type="text" placeholder="Pesquise aqui" class="searchBar" id="purchaseSearchBar">
         </div>
         <div class="purchase__history">
-            <div class="searchContainer">
-                <button class="search-button">
-                    <img src="/searchIcon.svg" class="search-icon">
-                </button>
-                <button class="clearButton" onclick="clearSearchBar()">
-                    <img src="/xIcon.svg" class="xIcon">
-                </button>
-                <input type="text" placeholder="Pesquise aqui" class="searchBar" id="purchaseSearchBar">
-            </div>
             <table class="purchaseTable">
                 <tr class="purchaseTableRow">
                     <th class="purchaseTableHeader">Pedido</th>
@@ -69,78 +67,30 @@
                     <td class="purchaseTableCell">(data)</td>
                     <td class="purchaseTableCell">(valor)</td>
                 </tr>
-                <tr class="purchaseTableRow">
-                    <td class="purchaseTableCell">(Código do pedido)</td>
-                    <td class="purchaseTableCell">(quantidade)</td>
-                    <td class="purchaseTableCell">(data)</td>
-                    <td class="purchaseTableCell">(valor)</td>
-                </tr>
-                <tr class="purchaseTableRow">
-                    <td class="purchaseTableCell">(Código do pedido)</td>
-                    <td class="purchaseTableCell">(quantidade)</td>
-                    <td class="purchaseTableCell">(data)</td>
-                    <td class="purchaseTableCell">(valor)</td>
-                </tr>
-                <tr class="purchaseTableRow">
-                    <td class="purchaseTableCell">(Código do pedido)</td>
-                    <td class="purchaseTableCell">(quantidade)</td>
-                    <td class="purchaseTableCell">(data)</td>
-                    <td class="purchaseTableCell">(valor)</td>
-                </tr>
-                <tr class="purchaseTableRow">
-                    <td class="purchaseTableCell">(Código do pedido)</td>
-                    <td class="purchaseTableCell">(quantidade)</td>
-                    <td class="purchaseTableCell">(data)</td>
-                    <td class="purchaseTableCell">(valor)</td>
-                </tr>
-                <tr class="purchaseTableRow">
-                    <td class="purchaseTableCell">(Código do pedido)</td>
-                    <td class="purchaseTableCell">(quantidade)</td>
-                    <td class="purchaseTableCell">(data)</td>
-                    <td class="purchaseTableCell">(valor)</td>
-                </tr>
-                <tr class="purchaseTableRow">
-                    <td class="purchaseTableCell">(Código do pedido)</td>
-                    <td class="purchaseTableCell">(quantidade)</td>
-                    <td class="purchaseTableCell">(data)</td>
-                    <td class="purchaseTableCell">(valor)</td>
-                </tr>
             </table>
         </div>
     </main>
 
-<footer>
-        <section class="footerLeft">
-            <p class="footerText">Contato para suporte:</p>
-            <div class="footerLeftFlex">
-                <div class="footerLeftContainer">
-                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p>
-                </div>
-                <div class="footerLeftContainer">
-                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p>
-                </div>
-            </div>
-        </section>
-        <section class="footerRight">
-            <p class="footerText">Nossas redes sociais:</p>
-            <div class="footerRightFlex">
-                <div class="footerRightContainer">
-                    <img src="/instagram_icon.svg" alt="instagram_logo"><a
-                        href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a>
-                </div>
-                <div class="footerRightContainer">
-                    <img src="/youtube_icon.svg" alt="instagram_logo"><a
-                        href="https://www.youtube.com/@kampech"><p>/Kampech</p></a>
-                </div>
-                <div class="footerRightContainer">
-                    <img src="/twitter_icon.svg" alt="instagram_logo"><a
-                        href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a>
-                </div>
-            </div>
-        </section>
-    </footer>
-
     <script src="/index.js"></script>
+    <script>
+        fetch('/getPurchaseHistory')
+            .then(response => response.json())
+            .then(data => {
+                // Aqui você pode manipular os dados e atualizar a tabela
+                const table = document.querySelector('.purchaseTable');
+                for (let i = 0; i < data.length; i++) {
+                    const row = table.insertRow(-1);
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    const cell3 = row.insertCell(2);
+                    const cell4 = row.insertCell(3);
+                    cell1.innerHTML = data[i].pedido;
+                    cell2.innerHTML = data[i].quantidade;
+                    cell3.innerHTML = data[i].data;
+                    cell4.innerHTML = data[i].valor;
+                }
+            });
+    </script>
 </body>
 
 </html>
