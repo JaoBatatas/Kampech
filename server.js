@@ -46,9 +46,9 @@ app.post('/register', (req, res) => {
   let name = req.body.name;
   connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, rows, fields) {
     if (!err) {
-      console.log("Usuário cadastrado com sucesso!");
+      // console.log("Usuário cadastrado com sucesso!");
       req.session.id_user = email; // ID do usuário inserido no banco de dados
-      console.log(req.session.id_user);
+      // console.log(req.session.id_user);
       res.redirect('/personalInfo.html');
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -61,7 +61,7 @@ app.post('/login', (req, res) => {
 
   connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, rows, fields) {
     if (!err) {
-      console.log("Resultado:", rows);
+      // console.log("Resultado:", rows);
 
       if (rows.length === 0) {
         res.redirect('/login.html?404account');
@@ -69,7 +69,7 @@ app.post('/login', (req, res) => {
         if (password === rows[0].password) {
           session = req.session;
           session.id_user = req.body.email;
-          console.log(req.session)
+          // console.log(req.session)
           res.redirect('/personalInfo.html');
         }
         else {
@@ -223,14 +223,14 @@ app.post('/custom', (req, res) => {
         VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\`
         WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, rows, fields) => {
             if (!err) {
-              console.log('Keycap adicionado ao carrinho!');
+              // console.log('Keycap adicionado ao carrinho!');
             } else {
               console.log("Erro: keycap não adicionada!", err);
               res.status(500).json({ error: 'Erro no servidor' });
             }
           });
         }
-        console.log('Teclado adicionado ao carrinho!');
+        // console.log('Teclado adicionado ao carrinho!');
         res.redirect('/index.html');
       } else {
         console.log("Erro: teclado não adicionado!", err);
@@ -260,7 +260,7 @@ app.get('/getCart', (req, res) => {
           items: rows
         };
         res.json(cartItems);
-        console.log(cartItems);
+        // console.log(cartItems);
       } else {
         console.log("Erro: Consulta não realizada", err);
         return res.status(500).json({ error: 'Erro no servidor' });
@@ -304,7 +304,7 @@ app.get('/getProductInfo/:id', (req, res) => {
       const product = {
         info: rows
       };
-      console.log(product);
+      // console.log(product);
       res.json(product);
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -365,21 +365,49 @@ app.post('/updateProductQuantity', (req, res) => {
 });
 
 app.post('/payment', (req, res) => {
-  let payment = req.body.paymentOptions;
+  const payment = req.body.paymentOptions;
+  const currentDate = new Date().toISOString().slice(0, 10);
 
-  console.log(payment);
+  const calculateTotalQuery = `SELECT SUM(p.price * up.quantity) AS total
+                               FROM kp_user_products up
+                               JOIN kp_products p ON up.id_product = p.id_product
+                               WHERE up.id_user = 1;`; // Substitua o ID do usuário conforme necessário
 
-  if (payment === 'pix') {
-    res.redirect('/pix.html');
-  } else if (payment === 'boleto') {
-    res.redirect('/pagseguro.html')
-  } else if (payment === 'credito') {
-    res.redirect('/creditCard.html');
-  } else if (payment === 'debito') {
-    res.redirect('/debitCard.html');
-  } else {
-    res.redirect('/payment.html');
-  }
+  // Executa a consulta para calcular o total
+  connection.query(calculateTotalQuery, (err, result) => {
+    if (err) {
+      console.log('Erro: Falha ao calcular o valor total', err);
+      res.status(500).json({ error: 'Erro no servidor' });
+      return;
+    }
+
+    const cartTotal = result[0].total;
+
+    const insertOrder = `INSERT INTO kp_order(id_user, order_date, total, payment)
+                         VALUES((SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), 
+                         '${currentDate}', ${cartTotal}, '${payment}');`;
+
+    connection.query(insertOrder, (err, result) => {
+      if (err) {
+        console.log('Erro: Falha ao atualizar a quantidade do produto', err);
+        res.status(500).json({ error: 'Erro no servidor' });
+        return;
+      }
+      console.log('Ordem criada');
+    });
+
+    if (payment === 'pix') {
+      res.redirect('/pix.html');
+    } else if (payment === 'boleto') {
+      res.redirect('/pagseguro.html')
+    } else if (payment === 'credito') {
+      res.redirect('/creditCard.html');
+    } else if (payment === 'debito') {
+      res.redirect('/debitCard.html');
+    } else {
+      res.redirect('/payment.html');
+    }
+  });
 });
 
 app.listen(3700, () => {
