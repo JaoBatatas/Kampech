@@ -2,10 +2,8 @@ const oneDay = 1000 * 60 * 60 * 24;
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const express = require('express');
-// const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const app = express();
-const path = require('path');
 const cors = require('cors');
 app.use(cors());
 app.use(express.static('css'));
@@ -364,6 +362,24 @@ app.post('/updateProductQuantity', (req, res) => {
     }
     res.json({ message: 'Quantidade do produto atualizada com sucesso' });
   });
+});
+
+app.post('/payment', (req, res) => {
+  let payment = req.body.paymentOptions;
+
+  console.log(payment);
+
+  if (payment === 'pix') {
+    res.redirect('/pix.html');
+  } else if (payment === 'boleto') {
+    res.redirect('/pagseguro.html')
+  } else if (payment === 'credito') {
+    res.redirect('/creditCard.html');
+  } else if (payment === 'debito') {
+    res.redirect('/debitCard.html');
+  } else {
+    res.redirect('/payment.html');
+  }
 });
 
 app.listen(3700, () => {

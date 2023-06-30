@@ -38,14 +38,15 @@
             <div class="paymentCol" id="paymentCol1">
                 <h1>Forma de pagamento</h1>
                 <h4>Selecione a forma de pagamento:</h4>
-                <form for="paymentOptions" id="paymentForm" method="post" action="/payment"></form>
-                <select id="paymentOptions" name="paymentOptions" required>
-                    <option selected disabled></option>
-                    <option value="pix">PIX</option>
-                    <option value="boleto">Boleto</option>
-                    <option value="credito">Cartão de Crédito</option>
-                    <option value="debito">Cartão de Débito</option>
-                </select>
+                <form for="paymentOptions" id="paymentForm" method="post" action="/payment">
+                    <select id="paymentOptions" name="paymentOptions">
+                        <option selected disabled></option>
+                        <option value="pix">PIX</option>
+                        <option value="boleto">Boleto</option>
+                        <option value="credito">Cartão de Crédito</option>
+                        <option value="debito">Cartão de Débito</option>
+                    </select>
+                </form>
             </div>
             <div class="paymentCol" id="paymentCol2">
                 <h1>Métodos de pagamento</h1>
