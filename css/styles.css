@@ -476,7 +476,7 @@ body {
     background-color: #ffffff;
     border: 2px solid black;
     padding: 10px 0 10px 5px;
-    width: 99%;
+    width: 100%;
     font-size: 15px;
 }
 
@@ -491,7 +491,7 @@ body {
 .city_state {
     display: flex;
     justify-content: space-between;
-    width: 100.5%;
+    width: 100%;
 }
 
 #city {
