@@ -66,6 +66,7 @@ h1 {
     background: none;
     border: none;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .cartIcon {
@@ -73,6 +74,7 @@ h1 {
     height: 50%;
     background: none;
     border: none;
+    transition: all 0.3s ease-in-out;
 }
 
 .accountIcon>img {
@@ -102,6 +104,13 @@ h1 {
 .searchIcon {
     width: auto;
     height: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.searchIcon:hover,
+.accountIcon:hover,
+.cartIcon:hover {
+    transform: scale(1.1);
 }
 
 #headerSearchBar {
@@ -219,6 +228,7 @@ body {
 
 .container {
     width: 100%;
+    height: auto;
     color: white;
     margin-top: 2%;
 }
@@ -227,12 +237,19 @@ body {
     position: relative;
     border-radius: 30px;
     animation: fade-in 0.5s;
+    transition: all 0.3s ease-in-out;
+}
+
+.keyboardCustom:hover,
+.keyboardBuy:hover {
+    transform: scale(1.05);
 }
 
 .keyboardBuy {
     position: relative;
     border-radius: 30px;
     animation: fade-in 0.5s;
+    transition: all 0.3s ease-in-out;
 }
 
 @keyframes fade-in {
@@ -304,6 +321,12 @@ body {
     font-weight: 600;
     font-size: 20px;
     margin-top: 6%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#login__enter:hover {
+    transform: scale(1.05);
 }
 
 #login__register {
@@ -368,6 +391,11 @@ body {
     font-size: 20px;
     margin-top: 6%;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#register__enter:hover {
+    transform: scale(1.05);
 }
 
 #register__login {
@@ -512,6 +540,11 @@ body {
     font-weight: 400;
     font-size: 30px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#shipping__right__button:hover {
+    transform: scale(1.05);
 }
 
 /* personalInfo.html */
@@ -1227,6 +1260,11 @@ body {
     font-weight: 600;
     font-size: 20px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.continueButton:hover {
+    transform: scale(1.05);
 }
 
 .modal {
@@ -1374,6 +1412,11 @@ body {
     font-weight: normal;
     font-size: 25px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#paymentButton:hover {
+    transform: scale(1.05);
 }
 
 /* Pix.html */
@@ -1427,6 +1470,12 @@ body {
     font-weight: 600;
     font-size: 20px;
     margin-top: 5%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.pixForm__submit:hover {
+    transform: scale(1.05);
 }
 
 #pixCol2 {
@@ -1507,6 +1556,11 @@ body {
     width: 15%;
     bottom: 25%;
     text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+#pixQr__return:hover {
+    transform: scale(1.05);
 }
 
 #pixQr__return__button {
@@ -1712,6 +1766,11 @@ body {
     font-weight: normal;
     font-size: 15px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.cartItem__right__bottom__remove:hover {
+    transform: scale(1.05);
 }
 
 .cartItem__right__bottom__input {
@@ -1755,6 +1814,11 @@ body {
     font-weight: 600;
     font-size: 20px;
     margin-top: 2.5%;
+    transition: all 0.3s ease-in-out;
+}
+
+#finishCart:hover {
+    transform: scale(1.05);
 }
 
 #finePrint {
@@ -1876,10 +1940,11 @@ body {
     font-size: 20px;
     margin-top: 6%;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .CardFinish:hover {
-    background-color: #2f9ad8;
+    transform: scale(1.05);
 }
 
 /* PagSeguro */
@@ -2241,6 +2306,11 @@ a {
     display: flex;
     align-items: center;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.completeNFE:hover {
+    transform: scale(1.05);
 }
 
 .completeImage {
@@ -2261,6 +2331,11 @@ a {
     align-items: center;
     width: 40%;
     height: 10%;
+    transition: all 0.3s ease-in-out;
+}
+
+#completeReturn:hover {
+    transform: scale(1.05);
 }
 
 #completeReturn__button {
