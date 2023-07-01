@@ -1,12 +1,15 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
+    <!-- Inclusão de scripts externos -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -14,50 +17,52 @@
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
             <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de pesquisa -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de pesquisa -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="purchaseHistory">
+        <!-- Conteúdo principal -->
         <div class="purchase__container1">
             <a href="/index.html">
-                <img class="purchase__container1__backButton" src="/back_button.png" alt="back_button">
+                <img class="purchase__container1__backButton" src="/back_button.png" alt="back_button"> <!-- Botão de voltar -->
             </a>
             <h1 class="purchase__container1__title">Meus Dados</h1>
         </div>
         <div class="purchase__buttons">
-            <a href="/personalInfo.html" class="purchase__buttons__text">Dados Pessoais -</a>
-            <a href="/purchaseHistory.html" class="purchase__buttons__text"><strong>Histórico de Compras</strong></a>
+            <a href="/personalInfo.html" class="purchase__buttons__text">Dados Pessoais -</a> <!-- Link para a página de dados pessoais -->
+            <a href="/purchaseHistory.html" class="purchase__buttons__text"><strong>Histórico de Compras</strong></a> <!-- Link para a página de histórico de compras -->
         </div>
 
 
         <div class="searchContainer">
             <button class="search-button">
-                <img src="/searchIcon.svg" class="search-icon">
+                <img src="/searchIcon.svg" class="search-icon"> <!-- Ícone de pesquisa -->
             </button>
             <button class="clearButton" onclick="clearSearchBar()">
-                <img src="/xIcon.svg" class="xIcon">
+                <img src="/xIcon.svg" class="xIcon"> <!-- Ícone de limpar a barra de pesquisa -->
             </button>
-            <input type="text" placeholder="Pesquise aqui" class="searchBar" id="purchaseSearchBar">
+            <input type="text" placeholder="Pesquise aqui" class="searchBar" id="purchaseSearchBar"> <!-- Barra de pesquisa -->
         </div>
         <div class="purchase__history">
             <table class="purchaseTable">
+                <!-- Tabela de histórico de compras -->
                 <tr class="purchaseTableRow">
                     <th class="purchaseTableHeader">Pedido</th>
                     <th class="purchaseTableHeader">Pagamento</th>

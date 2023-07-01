@@ -1,39 +1,42 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Inclusão da biblioteca jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script> <!-- Inclusão da biblioteca jQuery Inputmask -->
 </head>
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
             <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de pesquisa -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de pesquisa -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="shipping">
+        <!-- Conteúdo principal -->
         <div class="shipping__left">
             <h1 id="shipping__left__title" class="shipping__title">Informações de contato</h1>
             <h3 id="shipping__left__contact">Henrique Gomes (henrique_rei_delas_69420@gmail.com)</h3>
@@ -52,16 +55,16 @@
             <form id="shippingForm">
                 <h1 id="shipping__right__title" class="shipping__title">Endereço para envio:</h1>
                 <input type="text" id="shipping__right__name" class="shipping__right__inputBig"
-                    placeholder="Nome Completo:" required>
-                <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:" required>
-                <input type="text" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP" required>
+                    placeholder="Nome Completo:" required> <!-- Campo de nome -->
+                <input type="text" id="address" class="shipping__right__inputBig" placeholder="Endereço:" required> <!-- Campo de endereço -->
+                <input type="text" id="zipCode" class="shipping__right__inputSmall" placeholder="CEP" required> <!-- Campo de CEP -->
                 <div class="city_state">
-                    <input type="text" id="city" placeholder="Cidade" required>
-                    <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado" maxlength="2" required>
+                    <input type="text" id="city" placeholder="Cidade" required> <!-- Campo de cidade -->
+                    <input type="text" id="state" class="shipping__right__inputSmall" placeholder="Estado" maxlength="2" required> <!-- Campo de estado -->
                 </div>
                 <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="phone"
-                    class="shipping__right__inputBig" placeholder="Telefone:" required>
-                <input type="submit" id="shipping__right__button" value="Próximo">
+                    class="shipping__right__inputBig" placeholder="Telefone:" required> <!-- Campo de telefone -->
+                <input type="submit" id="shipping__right__button" value="Próximo"> <!-- Botão de envio do formulário -->
             </form>
         </div>
     </main>

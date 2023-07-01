@@ -1,71 +1,33 @@
-
-// Search Bar Animation
+// Função de animação da barra de pesquisa
 function searchBar_slide() {
     const stylesheet = document.styleSheets[0];
     let elementRules;
 
+    // Localiza as regras de estilo para a barra de pesquisa
     for (let i = 0; i < stylesheet.cssRules.length; i++) {
         if (stylesheet.cssRules[i].selectorText === '#headerSearchBar') {
             elementRules = stylesheet.cssRules[i];
         }
     }
 
+    // Altera a propriedade 'display' das regras de estilo da barra de pesquisa
     if (elementRules.style.display === 'none') {
         elementRules.style.display = 'block';
-    }
-    else {
+    } else {
         if (headerSearchBar.value == '') {
             alert("Campo vazio");
-        }
-        else {
-            alert("Buscnado");
+        } else {
+            alert("Buscando");
         }
     }
 }
 
-// Cart PopUp Animation
-function cartAnimation() {
-    const stylesheet = document.styleSheets[0];
-    let elementRules;
-
-    for (let i = 0; i < stylesheet.cssRules.length; i++) {
-        if (stylesheet.cssRules[i].selectorText === '.cartPopUp') {
-            elementRules = stylesheet.cssRules[i];
-        }
-    }
-
-    if (elementRules.style.display === 'none') {
-        elementRules.style.display = 'flex';
-    }
-    else {
-        elementRules.style.display = 'none';
-    }
-}
-
-function changeClass() {
-    const stylesheet = document.styleSheets[0];
-    let elementRules;
-
-    for (let i = 0; i < stylesheet.cssRules.length; i++) {
-        if (stylesheet.cssRules[i].selectorText === '#oneMonthFilter') {
-            elementRules = stylesheet.cssRules[i];
-        }
-    }
-
-    if (elementRules.style.background === '#F3F5F8') {
-        elementRules.style.background = 'black';
-    }
-    else {
-        elementRules.style.background = '#F3F5F8';
-    }
-}
-
-// Clear searchBar
+// Função para limpar a barra de pesquisa
 function clearSearchBar() {
     document.getElementById('purchaseSearchBar').value = '';
 }
 
-// Função para redirecionar com base na resposta do servidor
+// Função para lidar com a resposta de autenticação do servidor e redirecionar a página
 function handleAuthenticationResponse(response) {
     if (response.ok) {
         // Se o servidor retornar uma resposta bem-sucedida, redireciona para personalInfo.html
@@ -137,21 +99,21 @@ function changeSpline() {
 
     const keyCombination = size + board + key;
 
-    // Remove existing spline-viewer element
+    // Remove o elemento spline-viewer existente
     const existingSpline = document.querySelector('.customLeft_img');
     if (existingSpline) {
         existingSpline.remove();
     }
 
-    // Create a new spline-viewer element
+    // Cria um novo elemento spline-viewer
     const newSpline = document.createElement('spline-viewer');
     newSpline.setAttribute('url', splines[keyCombination]);
     newSpline.setAttribute('class', 'customLeft_img');
 
-    // Append the new spline-viewer element to the container
+    // Adiciona o novo elemento spline-viewer ao contêiner
     if (splineContainer) {
         splineContainer.appendChild(newSpline);
     } else {
-        console.error("splineContainer element not found.");
+        console.error("Elemento splineContainer não encontrado.");
     }
-}  
+}

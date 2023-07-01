@@ -1,45 +1,51 @@
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
     <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.374/build/spline-viewer.js"></script>
+    <!-- Inclusão do script Spline Viewer -->
 </head>
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
-                <h1>Kampech</h1>
+            <a href="/index.html" class="nome_logo">
+                <img src="/Kumpech_logo_noText.png" alt="logo" class="logo"> <!-- Logo -->
+                <h1>Kampech</h1> <!-- Título da página -->
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de busca -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de busca -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="custom">
+        <!-- Conteúdo principal da página -->
         <div class="customLeft" id="splineContainer">
         </div>
         <form class="customRight" id="customForm" action="/custom" method="post">
+            <!-- Formulário de customização -->
             <div class="customRight__row" id="customRight__row1">
                 <div>
                     <label for="selSize">Tamanho</label>
                     <select id="selSize" name="size" onchange="changeSpline()">
+                        <!-- Campo para selecionar o tamanho -->
                         <option value="100%">Full-size (100%)</option>
                         <option value="80%">Tenkeyless (80%)</option>
                         <option value="75%">Compact (75%)</option>
@@ -49,6 +55,7 @@
                 <div>
                     <label for="selConnection">Conexão</label>
                     <select id="selConnection" name="connection">
+                        <!-- Campo para selecionar a conexão -->
                         <option value="usb">USB (Padrão)</option>
                         <option value="usb-c">USB-C</option>
                         <option value="wireless">Sem fio (2.4G)</option>
@@ -58,6 +65,7 @@
                 <div>
                     <label for="selSwitch">Switch</label>
                     <select id="selSwitch" name="switch">
+                        <!-- Campo para selecionar o switch -->
                         <option value="blue">Switch Blue</option>
                         <option value="red">Switch Red</option>
                         <option value="brown">Switch Brown</option>
@@ -68,6 +76,7 @@
                 <div>
                     <label for="selKeycap">Keycap</label>
                     <select id="selKeycap" name="keycap">
+                        <!-- Campo para selecionar o keycap -->
                         <option value="">Nenhuma</option>
                         <option value="keycap 1">Keycap 1</option>
                         <option value="keycap 2">Keycap 2</option>
@@ -78,6 +87,7 @@
                 <div>
                     <label for="selBoardColor">Cor teclado</label>
                     <select id="selBoardColor" name="boardColor" onchange="changeSpline()">
+                        <!-- Campo para selecionar a cor do teclado -->
                         <option value="black">Preto</option>
                         <option value="white">Branco</option>
                         <option value="grey">Cinza</option>
@@ -86,6 +96,7 @@
                 <div>
                     <label for="selKeyColor">Cor teclas</label>
                     <select id="selKeyColor" name="keyColor" onchange="changeSpline()">
+                        <!-- Campo para selecionar a cor das teclas -->
                         <option value="black">Preto</option>
                         <option value="white">Branco</option>
                         <option value="purple">Roxo</option>
@@ -94,21 +105,23 @@
             </div>
             <div class="customRight__row" id="customRight__row3">
                 <input type="submit" class="continueButton" id="customRight__row__button" value="Continuar">
+                <!-- Botão para continuar -->
             </div>
         </form>
         </div>
         <div id="loginModal" class="modal">
+            <!-- Modal de login -->
             <div class="modal__content">
                 <h2>Para customizar teclados é necessário fazer login</h2>
                 <div class="modal__buttons">
                     <a href="/login.html" class="modal__button">Fazer login</a>
+                    <!-- Botão para fazer login -->
                     <button id="modalCloseButton" class="modal__button">Voltar</button>
+                    <!-- Botão para voltar -->
                 </div>
             </div>
         </div>
     </main>
-
-
 
     <script src="/index.js"></script>
     <script>

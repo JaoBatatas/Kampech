@@ -1,91 +1,93 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
 </head>
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
             <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de pesquisa -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de pesquisa -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="product">
+        <!-- Conteúdo principal -->
         <div class="product__back">
             <a href="/products.html">
-                <img class="product__backButton" src="/back_button.png" alt="back_button">Voltar para a página
-                de teclados
+                <img class="product__backButton" src="/back_button.png" alt="back_button">Voltar para a página de teclados
             </a>
         </div>
         <div class="product__container">
             <div class="product__containerCol1">
-                <img src="/productImage.jpg">
+                <img src="/productImage.jpg"> <!-- Imagem do produto -->
                 <img src="/productImage.jpg">
                 <img src="/productImage.jpg">
                 <img src="/productImage.jpg">
             </div>
-            <div class="product__containerCol2"><img src="" id="productMainImage"></div>
+            <div class="product__containerCol2"><img src="" id="productMainImage"></div> <!-- Imagem principal do produto -->
             <div class="product__containerCol3">
                 <div class="product__containerCol3__title">
-                    <h2 id="productTitle"></h2>
+                    <h2 id="productTitle"></h2> <!-- Título do produto -->
                 </div>
                 <div class="product__containerCol3__desc">
-                    <p id="productDesc">
-                    </p>
+                    <p id="productDesc"></p> <!-- Descrição do produto -->
                 </div>
                 <div class="product__containerCol3__tags">
-                    <p id="productLayout"></p>
-                    <p id="productSize"></p>
-                    <p id="productConnection"></p>
+                    <p id="productLayout"></p> <!-- Layout do produto -->
+                    <p id="productSize"></p> <!-- Tamanho do produto -->
+                    <p id="productConnection"></p> <!-- Conexão do produto -->
                 </div>
             </div>
             <div class="product__containerCol4">
                 <div class="productDiv1">
-                    <h2>Em estoque.</h2>
+                    <h2>Em estoque.</h2> <!-- Disponibilidade do produto -->
                 </div>
                 <div class="productDiv2">
-                    <h2>R$9,90</h2>
+                    <h2>R$9,90</h2> <!-- Preço do produto -->
                 </div>
                 <div class="product__containerCol4__quantity">
                     <h3>Quantidade:</h3><input class="product__containerCol4__input" type="number" name="quantity"
-                        min="1" value="1">
+                        min="1" value="1"> <!-- Quantidade do produto -->
                 </div>
-                <button class="productAddToCart">Adicionar<br>ao carrinho</button>
-                <button class="productBuy">Comprar</button>
+                <button class="productAddToCart">Adicionar<br>ao carrinho</button> <!-- Botão para adicionar ao carrinho -->
+                <button class="productBuy">Comprar</button> <!-- Botão para comprar o produto -->
             </div>
         </div>
     </main>
 
-<footer>
+    <footer>
+        <!-- Rodapé -->
         <section class="footerLeft">
             <p class="footerText">Contato para suporte:</p>
             <div class="footerLeftFlex">
                 <div class="footerLeftContainer">
-                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p>
+                    <img src="/email_icon.svg" alt="email_icon"><p>suporte@kampech.com</p> <!-- Ícone e email de suporte -->
                 </div>
                 <div class="footerLeftContainer">
-                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p>
+                    <img src="/phone_icon.svg" alt="phone_icon"><p>(47) 98069-4200</p> <!-- Ícone e número de telefone de suporte -->
                 </div>
             </div>
         </section>
@@ -93,16 +95,13 @@
             <p class="footerText">Nossas redes sociais:</p>
             <div class="footerRightFlex">
                 <div class="footerRightContainer">
-                    <img src="/instagram_icon.svg" alt="instagram_logo"><a
-                        href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a>
+                    <img src="/instagram_icon.svg" alt="instagram_logo"><a href="https://www.instagram.com/kampech_ofc"><p>@Kampech_ofc</p></a> <!-- Ícone e link para o Instagram -->
                 </div>
                 <div class="footerRightContainer">
-                    <img src="/youtube_icon.svg" alt="instagram_logo"><a
-                        href="https://www.youtube.com/@kampech"><p>/Kampech</p></a>
+                    <img src="/youtube_icon.svg" alt="instagram_logo"><a href="https://www.youtube.com/@kampech"><p>/Kampech</p></a> <!-- Ícone e link para o YouTube -->
                 </div>
                 <div class="footerRightContainer">
-                    <img src="/twitter_icon.svg" alt="instagram_logo"><a
-                        href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a>
+                    <img src="/twitter_icon.svg" alt="instagram_logo"><a href="https://www.twitter.com/kampechofc"><p>/kampechOfc</p></a> <!-- Ícone e link para o Twitter -->
                 </div>
             </div>
         </section>

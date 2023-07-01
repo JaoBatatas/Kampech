@@ -1,85 +1,82 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Biblioteca jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script> <!-- Plugin de máscara de entrada para campos de formulário -->
 </head>
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
             <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de pesquisa -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de pesquisa -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="personalInfo">
+        <!-- Conteúdo principal -->
         <div class="personal__container1">
             <a href="/index.html">
-                <img class="personal__container1__backButton" src="/back_button.png" alt="back_button">
+                <img class="personal__container1__backButton" src="/back_button.png" alt="back_button"> <!-- Botão de retorno -->
             </a>
             <h1 class="personal__container1__title">Meus Dados</h1>
         </div>
         <div class="personal__buttons">
-            <a href="/personalInfo.html" class="personal__buttons__text"><strong>Dados Pessoais</strong></a>
-            <a href="/purchaseHistory.html" class="personal__buttons__text">- Histórico de Compras</a>
+            <a href="/personalInfo.html" class="personal__buttons__text"><strong>Dados Pessoais</strong></a> <!-- Link para a página de dados pessoais -->
+            <a href="/purchaseHistory.html" class="personal__buttons__text">- Histórico de Compras</a> <!-- Link para a página de histórico de compras -->
         </div>
         <div class="personal__container2">
             <form>
+                <!-- Formulário de dados pessoais -->
                 <div class="personal__container2__col1">
                     <div class="personal__info">
-                        <input type="text" placeholder="Nome Completo:" id="personal__info__name"
-                            class="personal__info__inputBig" required>
-                        <input type="text" placeholder="Endereço:" id="personal__info__address"
-                            class="personal__info__inputBig" required>
+                        <input type="text" placeholder="Nome Completo:" id="personal__info__name" class="personal__info__inputBig" required> <!-- Campo para o nome completo -->
+                        <input type="text" placeholder="Endereço:" id="personal__info__address" class="personal__info__inputBig" required> <!-- Campo para o endereço -->
                         <div>
-                            <input type="text" placeholder="CPF" id="personal__info__CPF"
-                                class="personal__info__inputMedium" required>
-                            <input type="text" placeholder="CEP" id="personal__info__zipCode"
-                                class="personal__info__inputSmall" required>
-                            <input type="text" placeholder="Cidade" id="personal__info__city"
-                                class="personal__info__inputMedium" required>
-                            <input type="text" placeholder="Estado" id="personal__info__state"
-                                class="personal__info__inputSmall" maxlength="2" oninput="this.value = this.value.toUpperCase()" required>
+                            <input type="text" placeholder="CPF" id="personal__info__CPF" class="personal__info__inputMedium" required> <!-- Campo para o CPF -->
+                            <input type="text" placeholder="CEP" id="personal__info__zipCode" class="personal__info__inputSmall" required> <!-- Campo para o CEP -->
+                            <input type="text" placeholder="Cidade" id="personal__info__city" class="personal__info__inputMedium" required> <!-- Campo para a cidade -->
+                            <input type="text" placeholder="Estado" id="personal__info__state" class="personal__info__inputSmall" maxlength="2" oninput="this.value = this.value.toUpperCase()" required> <!-- Campo para o estado -->
                         </div>
-                        <input type="tel" maxlength="15" id="personal__info__phone"
-                            placeholder="Telefone:" class="personal__info__inputBig" required>
+                        <input type="tel" maxlength="15" id="personal__info__phone" placeholder="Telefone:" class="personal__info__inputBig" required> <!-- Campo para o telefone -->
                     </div>
-
                 </div>
                 <div class="personal__container2__col2">
-                    <button type="submit" class="personal__info__save">
+                    <button type="submit" class="personal__info__save"> <!-- Botão para salvar os dados -->
                         Salvar
                     </button>
-                    <a href='/logout' class="personal__info__logout">Logout</a>
+                    <a href='/logout' class="personal__info__logout">Logout</a> <!-- Link para fazer logout -->
                 </div>
             </form>
         </div>
         <div id="personalModal" class="modal">
+            <!-- Modal de confirmação de salvamento de dados -->
             <div class="modal__content">
                 <h2>Dados salvos com sucesso!</h2>
                 <div class="modal__buttons">
-                    <button id="modalCloseButton" class="modal__button">Ok</button>
+                    <button id="modalCloseButton" class="modal__button">Ok</button> <!-- Botão de fechar o modal -->
                 </div>
             </div>
         </div>

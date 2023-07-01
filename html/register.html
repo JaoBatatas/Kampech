@@ -1,49 +1,53 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
 </head>
 
 <body>
-    <h1 id="register__title">Criar conta</h1>
+    <h1 id="register__title">Criar conta</h1> <!-- Título da página -->
 
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
             <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
                 <h1>Kampech</h1>
             </a>
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de pesquisa -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de pesquisa -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
     <main class="register">
+        <!-- Conteúdo principal -->
         <div class="register__container">
-            <h1 id="register__title">Criar conta</h1>
-            <form action="/register" method="post" id="registerForm">
-                <input type="text" placeholder="Nome completo" id="register__name" name="name">
-                <input type="email" placeholder="Email" id="register__email" name="email">
-                <input type="password" placeholder="Senha" id="register__password" name="password">
+            <h1 id="register__title">Criar conta</h1> <!-- Título da página -->
+            <form action="/register" method="post" id="registerForm"> <!-- Formulário de registro -->
+                <input type="text" placeholder="Nome completo" id="register__name" name="name"> <!-- Campo de nome -->
+                <input type="email" placeholder="Email" id="register__email" name="email"> <!-- Campo de email -->
+                <input type="password" placeholder="Senha" id="register__password" name="password"> <!-- Campo de senha -->
                 <input type="password" placeholder="Confirmar senha" id="register__confirmPassword"
-                    name="confirmPassword">
-                <input type="submit" value="Cadastrar" id="register__enter">
+                    name="confirmPassword"> <!-- Campo de confirmação de senha -->
+                <input type="submit" value="Cadastrar" id="register__enter"> <!-- Botão de cadastro -->
             </form>
             <a id="register__login" href="/login.html">
-                <p>Já possui uma conta?</p>
+                <p>Já possui uma conta?</p> <!-- Link para a página de login -->
             </a>
         </div>
     </main>

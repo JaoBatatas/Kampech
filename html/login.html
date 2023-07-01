@@ -2,49 +2,51 @@
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
-
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
 </head>
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
-                <h1>Kampech</h1>
+            <a href="/index.html" class="nome_logo">
+                <img src="/Kumpech_logo_noText.png" alt="logo" class="logo"> <!-- Logo -->
+                <h1>Kampech</h1> <!-- Título da página -->
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de busca -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de busca -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="login">
+        <!-- Conteúdo principal da página (login) -->
         <div class="login__container">
-            <h1 id="login__title">Login</h1>
+            <h1 id="login__title">Login</h1> <!-- Título do formulário de login -->
             <form action="/login" method="post" id="loginForm">
-                <input type="email" placeholder="Email" id="login__email" name="email">
-                <input type="password" placeholder="Senha" id="login__password" name="password">
+                <input type="email" placeholder="Email" id="login__email" name="email"> <!-- Campo de email -->
+                <input type="password" placeholder="Senha" id="login__password" name="password"> <!-- Campo de senha -->
                 <a id="login__forgotPassword" href="/forgotPassword.html">
-                    <p>Esqueceu sua senha?</p>
+                    <p>Esqueceu sua senha?</p> <!-- Link para a página de recuperação de senha -->
                 </a>
-                <input type="submit" value="Entrar" id="login__enter">
+                <input type="submit" value="Entrar" id="login__enter"> <!-- Botão de login -->
                 <a id="login__register" href="./register.html">
-                    <p>Criar uma conta</p>
+                    <p>Criar uma conta</p> <!-- Link para a página de registro -->
                 </a>
             </form>
         </div>
