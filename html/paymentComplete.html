@@ -24,55 +24,15 @@
             <button onclick="searchBar_slide()" class="searchButton">
                 <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
             </button>
-            <a href="/login.html" class="accountIcon">
+            <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
                 <img src="/accountIcon.svg" alt="accountIcon">
             </a>
-            <button class="cartIcon" onclick="cartAnimation()">
+            <a href="/cart.html" class="cartIcon">
                 <img src="/cartIcon.svg" alt="cartIcon">
-            </button>
-        </div>
-        <div class="cartPopUp">
-            <button class="close_button" onclick="cartAnimation()">
-                <img class="close_button__img" alt="close_button" src="/close_button.svg">
-                <h4 class="close_button__title">Fechar</h4>
-            </button>
-            <div class="cartPopUp__item">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="cartPopUp__item2">
-                <div class="cartPopUp__item__left">
-                    <img class="cartPopUp__item__left__img" src="/keyboardExample.png">
-                </div>
-                <div class="cartPopUp__item__right">
-                    <h1 class="cartPopUp__item__right__title">Teclado Mecânico</h1>
-                    <h2 class="cartPopUp__item__right__desc">Descrição simples</h2>
-                    <div class="cartPopUp__item__right__bottom">
-                        <input class="quantity" type="number" name="quantity" min="0" value="1">
-                        <h1 class="cartPopUp__item__right__bottom__price">696,90</h1>
-                    </div>
-                </div>
-            </div>
-            <hr style="border: 1px solid black; width: 90%; align-self: center; margin-top: 10%;">
-            <div class="cartPopUp__priceContainer">
-                <h2>Total</h2>
-                <h2>R$696,90</h2>
-            </div>
-            <a id="finishCart" href="">
-                <p>Finalizar<br>pedido</p>
             </a>
-            <p id="finePrint">*taxas calculadas na finalização da compra</p>
         </div>
     </header>
+
 
     <main class="complete">
         <section class="completeLeft">
