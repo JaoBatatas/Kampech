@@ -395,7 +395,7 @@ app.post('/payment', (req, res) => {
   const calculateTotalQuery = `SELECT SUM(p.price * up.quantity) AS total
                                FROM kp_user_products up
                                JOIN kp_products p ON up.id_product = p.id_product
-                               WHERE up.id_user = 1;`; // Substitua o ID do usuário conforme necessário
+                               WHERE up.id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}');`; // Substitua o ID do usuário conforme necessário
 
   // Executa a consulta para calcular o total
   connection.query(calculateTotalQuery, (err, result) => {
