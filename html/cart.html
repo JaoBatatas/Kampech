@@ -82,6 +82,7 @@
                 })
                 .then(data => {
                     const cartItemsContainer = document.getElementById('cartItemsContainer');
+                    const button = document.getElementById('finishCart');
 
                     // Limpar o contêiner antes de adicionar os produtos
                     cartItemsContainer.innerHTML = '';
@@ -91,7 +92,10 @@
                         emptyCartMessage.textContent = 'O carrinho está vazio.';
                         emptyCartMessage.id = 'emptyCart'
                         cartItemsContainer.appendChild(emptyCartMessage);
+
+                        button.href = '#'
                     } else {
+                        button.href = '/shipping.html'
                         // Iterar sobre os produtos e criar elementos HTML para exibi-los
                         data.items.forEach(product => {
                             const cartItem = document.createElement('div');

@@ -70,19 +70,34 @@
 
     <script src="/index.js"></script>
     <script>
+        function formatPayment(payment) {
+            if (payment === 'pix') {
+                return 'PIX';
+            } else if (payment === 'boleto') {
+                return 'Boleto';
+            } else if (payment === 'credito') {
+                return 'Cartão de crédito';
+            } else if (payment === 'debito') {
+                return 'Cartão de débito';
+            } else {
+                return payment.charAt(0).toUpperCase() + payment.slice(1);
+            }
+        }
+
         $.get('/getPurchaseHistory', function (data) {
             // Aqui você pode manipular os dados e atualizar a tabela
             const table = $('.purchaseTable');
             for (let i = 0; i < data.length; i++) {
                 const row = $('<tr></tr>').addClass('purchaseTableRow');
                 const cell1 = $('<td></td>').text(data[i].id_order).addClass('purchaseTableCell');
-                const cell2 = $('<td></td>').text(data[i].payment).addClass('purchaseTableCell');
+                const cell2 = $('<td></td>').text(formatPayment(data[i].payment)).addClass('purchaseTableCell');
                 const cell3 = $('<td></td>').text(moment(data[i].order_date).format('DD/MM/YYYY')).addClass('purchaseTableCell');
-                const cell4 = $('<td></td>').text(data[i].total).addClass('purchaseTableCell');
+                const cell4 = $('<td></td>').text('R$ ' + data[i].total).addClass('purchaseTableCell');
                 row.append(cell1, cell2, cell3, cell4);
                 table.append(row);
             }
         });
+
     </script>
 </body>
 
