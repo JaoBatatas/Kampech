@@ -343,18 +343,18 @@ body {
 /* body */
 
 .register {
+    width: 100%;
+    height: calc(100vh - 5rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    margin-top: 0;
 }
 
 .register__container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3%;
     width: 40%;
 }
 
@@ -2015,7 +2015,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 150px;
+    height: 15px;
     margin: 0px;
 }
 
