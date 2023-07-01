@@ -5,24 +5,28 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 const cors = require('cors');
-app.use(cors());
-app.use(express.static('css'));
-app.use(express.static('assets'));
-app.use(express.static('html'));
-app.use(express.static('js'));
+
+app.use(cors()); // Habilita o CORS para permitir solicitações de diferentes origens
+app.use(express.static('css')); // Serve arquivos estáticos da pasta 'css'
+app.use(express.static('assets')); // Serve arquivos estáticos da pasta 'assets'
+app.use(express.static('html')); // Serve arquivos estáticos da pasta 'html'
+app.use(express.static('js')); // Serve arquivos estáticos da pasta 'js'
+
 app.use(sessions({
-  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767", // Chave secreta usada para assinar as sessões
   saveUninitialized: true,
-  cookie: { maxAge: oneDay },
+  cookie: { maxAge: oneDay }, // Configura o tempo de vida do cookie da sessão para um dia
   resave: false
 }));
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser()); // Analisa cookies recebidos nas requisições
+app.use(express.json()); // Analisa o corpo da requisição como JSON
+app.use(express.urlencoded({ extended: true })); // Analisa o corpo da requisição codificado em URL
+
 app.use((req, res, next) => {
-  //Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
+  // Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
   res.header("Access-Control-Allow-Origin", "*");
-  //Quais são os métodos que a conexão pode realizar na API
+  // Quais são os métodos que a conexão pode realizar na API
   res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
   next();
 });
@@ -37,43 +41,40 @@ const connection = mysql.createConnection({
 });
 
 connection.connect(function (err) {
-  console.log("Conexão como o Banco realizada com sucesso!!!")
+  console.log("Conexão com o Banco realizada com sucesso!!!")
 });
 
 app.post('/register', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   let name = req.body.name;
+
   connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, rows, fields) {
     if (!err) {
-      // console.log("Usuário cadastrado com sucesso!");
       req.session.id_user = email; // ID do usuário inserido no banco de dados
-      // console.log(req.session.id_user);
-      res.redirect('/personalInfo.html');
+      res.redirect('/personalInfo.html'); // Redireciona para a página 'personalInfo.html' após o registro
     } else {
       console.log("Erro: Consulta não realizada", err);
     }
   });
 });
+
 app.post('/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
   connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, rows, fields) {
     if (!err) {
-      // console.log("Resultado:", rows);
-
       if (rows.length === 0) {
-        res.redirect('/login.html?404account');
+        res.redirect('/login.html?404account'); // Redireciona para a página 'login.html' com um parâmetro de erro (404account) caso a conta não seja encontrada
       } else {
         if (password === rows[0].password) {
           session = req.session;
           session.id_user = req.body.email;
-          // console.log(req.session)
-          res.redirect('/personalInfo.html');
+          res.redirect('/personalInfo.html'); // Redireciona para a página 'personalInfo.html' após o login bem-sucedido
         }
         else {
-          res.redirect('/login.html?passwordError');
+          res.redirect('/login.html?passwordError'); // Redireciona para a página 'login.html' com um parâmetro de erro (passwordError) caso a senha esteja incorreta
         }
       }
     } else {
@@ -84,8 +85,9 @@ app.post('/login', (req, res) => {
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/'); // Redireciona para a página inicial após o logout
 });
+
 app.get('/getPersonalInfo', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
@@ -119,6 +121,7 @@ app.get('/getPersonalInfo', (req, res) => {
     }
   });
 });
+
 app.post('/sendPersonalInfo', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
@@ -159,6 +162,7 @@ app.post('/sendPersonalInfo', (req, res) => {
     });
   });
 });
+
 app.post('/sendShipping', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
@@ -200,6 +204,7 @@ app.post('/sendShipping', (req, res) => {
   });
 });
 app.post('/custom', (req, res) => {
+  // Receber os dados do teclado personalizado do corpo da solicitação
   const customKeyboard = {
     size: req.body.size,
     connection: req.body.connection,
@@ -210,9 +215,12 @@ app.post('/custom', (req, res) => {
     description: `Teclado Custom: Size: ${req.body.size}; Connection: ${req.body.connection}; Switch: ${req.body.switch}; Keycap: ${req.body.keycap}; Board color: ${req.body.boardColor}; Key color: ${req.body.keyColor}`
   };
   console.log(customKeyboard);
+
   if (!req.session.id_user) {
-    res.redirect('/custom.html?noLogin')
+    // Redirecionar para a página custom.html com o parâmetro noLogin em caso de usuário não autenticado
+    res.redirect('/custom.html?noLogin');
   } else {
+    // Inserir o teclado personalizado no carrinho do usuário no banco de dados
     connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
     VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\` WHERE
     \`size\` = '${customKeyboard.size}' AND \`connection\` = '${customKeyboard.connection}' AND
@@ -220,18 +228,18 @@ app.post('/custom', (req, res) => {
     \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, rows, fields) => {
       if (!err) {
         if (customKeyboard.keycap != '') {
+          // Se um keycap estiver definido, inserir o keycap no carrinho do usuário no banco de dados
           connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
         VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\`
         WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, rows, fields) => {
             if (!err) {
-              // console.log('Keycap adicionado ao carrinho!');
             } else {
               console.log("Erro: keycap não adicionada!", err);
               res.status(500).json({ error: 'Erro no servidor' });
             }
           });
         }
-        // console.log('Teclado adicionado ao carrinho!');
+        // Redirecionar para a página index.html em caso de sucesso
         res.redirect('/index.html');
       } else {
         console.log("Erro: teclado não adicionado!", err);
@@ -240,9 +248,11 @@ app.post('/custom', (req, res) => {
     });
   }
 });
+
 app.get('/getCart', (req, res) => {
   if (!req.session.id_user) {
-    res.redirect('/cart.html?noLogin')
+    // Redirecionar para a página cart.html com o parâmetro noLogin em caso de usuário não autenticado
+    res.redirect('/cart.html?noLogin');
   } else {
     // Obter as informações do carrinho do usuário no banco de dados
     const email = req.session.id_user;
@@ -260,8 +270,8 @@ app.get('/getCart', (req, res) => {
         const cartItems = {
           items: rows
         };
+        // Enviar as informações do carrinho como resposta JSON
         res.json(cartItems);
-        // console.log(cartItems);
       } else {
         console.log("Erro: Consulta não realizada", err);
         return res.status(500).json({ error: 'Erro no servidor' });
@@ -269,15 +279,18 @@ app.get('/getCart', (req, res) => {
     });
   };
 });
+
 app.post('/removeProduct', (req, res) => {
-  const productId = req.body.id; // Obtenha o ID do produto do corpo da solicitação
+  // Obter o ID do produto do corpo da solicitação
+  const productId = req.body.id;
   connection.query(`DELETE FROM kp_user_products
     WHERE id_user_products = '${productId}'`, (err, result) => {
     if (!err) {
       if (result.affectedRows === 0) {
+        // Se nenhum registro for afetado, o produto não foi encontrado no carrinho
         res.status(404).json({ error: 'Produto não encontrado no carrinho' });
       } else {
-        res.sendStatus(200); // Envie uma resposta de sucesso ao cliente
+        res.sendStatus(200); // Enviar uma resposta de sucesso ao cliente
       }
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -285,12 +298,15 @@ app.post('/removeProduct', (req, res) => {
     }
   });
 });
+
 app.get('/getProducts', (req, res) => {
+  // Obter todas as informações dos produtos do banco de dados
   connection.query('SELECT * FROM kp_products', (err, rows, fields) => {
     if (!err) {
       const product = {
         info: rows
       };
+      // Enviar as informações dos produtos como resposta JSON
       res.json(product);
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -298,14 +314,16 @@ app.get('/getProducts', (req, res) => {
     }
   });
 });
+
 app.get('/getProductInfo/:id', (req, res) => {
   const productId = req.params.id;
+  // Obter as informações do produto com base no ID fornecido
   connection.query(`SELECT * FROM kp_products WHERE id_product = ${productId}`, (err, rows, fields) => {
     if (!err) {
       const product = {
         info: rows
       };
-      // console.log(product);
+      // Enviar as informações do produto como resposta JSON
       res.json(product);
     } else {
       console.log("Erro: Consulta não realizada", err);
@@ -313,12 +331,14 @@ app.get('/getProductInfo/:id', (req, res) => {
     }
   });
 });
+
 app.get('/getShipping', (req, res) => {
   // Verificar se o usuário está autenticado
   if (!req.session.id_user) {
     res.status(401).json({ error: 'Usuário não autenticado' });
     return;
   }
+
   // Obter as informações pessoais do usuário no banco de dados
   const email = req.session.id_user;
   connection.query(`SELECT kp_user.*, kp_address.* FROM kp_user
@@ -345,10 +365,12 @@ app.get('/getShipping', (req, res) => {
     }
   });
 });
+
 app.post('/updateProductQuantity', (req, res) => {
   // Obter o ID do produto e a nova quantidade do corpo da solicitação
   const productId = req.body.id;
   const newQuantity = req.body.quantity;
+
   // Atualizar a quantidade do produto no banco de dados
   const updateQuery = `UPDATE kp_user_products SET quantity = ${newQuantity} WHERE id_user_products = ${productId}`;
   connection.query(updateQuery, (err, result) => {
@@ -412,11 +434,11 @@ app.post('/payment', (req, res) => {
 });
 
 app.get('/getPurchaseHistory', (req, res) => {
-
+  // Consulta o histórico de compras do usuário no banco de dados
   connection.query(`SELECT * FROM kp_order WHERE id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}')`, (err, rows, fields) => {
     if (!err) {
       console.log(rows);
-      res.json(rows);
+      res.json(rows); // Envia o histórico de compras como resposta JSON
     } else {
       console.log("Erro: Consulta não realizada", err);
       res.status(500).json({ error: 'Erro no servidor' });
