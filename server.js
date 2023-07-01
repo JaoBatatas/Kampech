@@ -209,6 +209,7 @@ app.post('/custom', (req, res) => {
     keyColor: req.body.keyColor,
     description: `Teclado Custom: Size: ${req.body.size}; Connection: ${req.body.connection}; Switch: ${req.body.switch}; Keycap: ${req.body.keycap}; Board color: ${req.body.boardColor}; Key color: ${req.body.keyColor}`
   };
+  console.log(customKeyboard);
   if (!req.session.id_user) {
     res.redirect('/custom.html?noLogin')
   } else {
