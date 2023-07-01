@@ -122,17 +122,17 @@ function changeSpline() {
         '75%whitewhite': 'https://prod.spline.design/OAV3ZjWFF9eQdwcA/scene.splinecode',
         '75%whitepurple': 'https://prod.spline.design/dr9yMZpfqhP2OqMC/scene.splinecode',
         '75%greyblack': 'https://prod.spline.design/qN6LcJ6bMxJppUup/scene.splinecode',
-        '75%greywhite': 'https://prod.spline.design/34UwbWsV44wz9OMd/scene.splinecode',
+        '75%greywhite': 'https://prod.spline.design/r3ApzAUWOjfUEkew/scene.splinecode',
         '75%greypurple': 'https://prod.spline.design/4vqJvWSjM43FZHzi/scene.splinecode',
         '60%blackblack': 'https://prod.spline.design/XRUVXXtTzTN0HBiU/scene.splinecode',
-        '60%blackwhite': 'https://prod.spline.design/ckrFd9e7X-WEh-0A/scene.splinecode',
+        '60%blackwhite': 'https://prod.spline.design/bwPNdicmiIErryD6/scene.splinecode',
         '60%blackpurple': 'https://prod.spline.design/R3AUWwqJe2Gvn5MD/scene.splinecode',
         '60%whiteblack': 'https://prod.spline.design/r0ljjLXEjMzHqKJ6/scene.splinecode',
         '60%whitewhite': 'https://prod.spline.design/xCdWYWkeU-29Hdeh/scene.splinecode',
         '60%whitepurple': 'https://prod.spline.design/jYlyb6NicHhj8fTH/scene.splinecode',
         '60%greyblack': 'https://prod.spline.design/wa9nZJi8EsWECR4f/scene.splinecode',
         '60%greywhite': 'https://prod.spline.design/34UwbWsV44wz9OMd/scene.splinecode',
-        '60%greypurple': 'https://prod.spline.design/4vqJvWSjM43FZHzi/scene.splinecode'
+        '60%greypurple': 'https://prod.spline.design/oyNP-rHyTkN6UJa2/scene.splinecode'
     };
 
     const keyCombination = size + board + key;
