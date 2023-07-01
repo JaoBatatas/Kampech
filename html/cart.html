@@ -59,7 +59,8 @@
                 <h2>Usuário não logado</h2>
                 <div class="modal__buttons">
                     <a href="/login.html" class="modal__button">Fazer login</a> <!-- Link para fazer login -->
-                    <a id="modalCloseButton" class="modal__button" href="/index.html">Voltar</a> <!-- Botão para voltar -->
+                    <a id="modalCloseButton" class="modal__button" href="/index.html">Voltar</a>
+                    <!-- Botão para voltar -->
                 </div>
             </div>
         </div>
@@ -135,6 +136,10 @@
                             input.max = '10';
                             input.value = product.quantity;
                             input.id = product.id_user_products;
+
+                            input.addEventListener('keydown', function (event) {
+                                event.preventDefault();
+                            });
 
                             const productPrice = document.createElement('p');
                             productPrice.className = 'cartItem__right__bottom__price';
