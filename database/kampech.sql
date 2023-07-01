@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/07/2023 às 03:25
--- Versão do servidor: 10.4.28-MariaDB
+-- Tempo de geração: 01/07/2023 às 13:10
+-- Versão do servidor: 8.0.21
 -- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `kp_address` (
-  `id_address` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_address` int NOT NULL,
+  `id_user` int NOT NULL,
   `address` varchar(500) NOT NULL,
   `zip_code` varchar(9) NOT NULL,
   `city` varchar(100) NOT NULL,
   `state` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Despejando dados para a tabela `kp_address`
@@ -50,19 +50,23 @@ INSERT INTO `kp_address` (`id_address`, `id_user`, `address`, `zip_code`, `city`
 --
 
 CREATE TABLE `kp_order` (
-  `id_order` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_order` int NOT NULL,
+  `id_user` int NOT NULL,
   `order_date` date NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `payment` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Despejando dados para a tabela `kp_order`
 --
 
 INSERT INTO `kp_order` (`id_order`, `id_user`, `order_date`, `total`, `payment`) VALUES
-(1, 1, '2023-06-30', 199.60, 'boleto');
+(1, 1, '2023-06-30', 199.60, 'boleto'),
+(2, 1, '2023-07-01', 699.00, 'pix'),
+(3, 1, '2023-07-01', 69.90, 'credito'),
+(4, 1, '2023-07-01', 69.90, 'debito'),
+(5, 1, '2023-07-01', 69.90, 'credito');
 
 --
 -- Acionadores `kp_order`
@@ -88,11 +92,11 @@ DELIMITER ;
 --
 
 CREATE TABLE `kp_order_items` (
-  `id_order_items` int(11) NOT NULL,
-  `id_order` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
+  `id_order_items` int NOT NULL,
+  `id_order` int NOT NULL,
+  `id_product` int NOT NULL,
   `price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Despejando dados para a tabela `kp_order_items`
@@ -101,7 +105,11 @@ CREATE TABLE `kp_order_items` (
 INSERT INTO `kp_order_items` (`id_order_items`, `id_order`, `id_product`, `price`) VALUES
 (1, 1, 5, 69.90),
 (2, 1, 113, 69.90),
-(3, 1, 3, 59.80);
+(3, 1, 3, 59.80),
+(4, 2, 5, 699.00),
+(5, 3, 5, 69.90),
+(6, 4, 5, 69.90),
+(7, 5, 5, 69.90);
 
 -- --------------------------------------------------------
 
@@ -110,7 +118,7 @@ INSERT INTO `kp_order_items` (`id_order_items`, `id_order`, `id_product`, `price
 --
 
 CREATE TABLE `kp_products` (
-  `id_product` int(11) NOT NULL,
+  `id_product` int NOT NULL,
   `name` varchar(300) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `price` decimal(10,2) NOT NULL,
@@ -122,7 +130,7 @@ CREATE TABLE `kp_products` (
   `main_color` varchar(100) DEFAULT NULL,
   `key_color` varchar(100) DEFAULT NULL,
   `productShow` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Despejando dados para a tabela `kp_products`
@@ -575,13 +583,13 @@ INSERT INTO `kp_products` (`id_product`, `name`, `description`, `price`, `image_
 --
 
 CREATE TABLE `kp_user` (
-  `id_user` int(11) NOT NULL,
+  `id_user` int NOT NULL,
   `name` varchar(300) NOT NULL,
   `email` varchar(300) NOT NULL,
   `password` varchar(50) NOT NULL,
   `cpf` varchar(14) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Despejando dados para a tabela `kp_user`
@@ -608,18 +616,11 @@ DELIMITER ;
 --
 
 CREATE TABLE `kp_user_products` (
-  `id_user_products` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `quantity` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Despejando dados para a tabela `kp_user_products`
---
-
-INSERT INTO `kp_user_products` (`id_user_products`, `id_user`, `id_product`, `quantity`) VALUES
-(8, 1, 5, 1);
+  `id_user_products` int NOT NULL,
+  `id_user` int NOT NULL,
+  `id_product` int NOT NULL,
+  `quantity` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Índices para tabelas despejadas
@@ -675,37 +676,37 @@ ALTER TABLE `kp_user_products`
 -- AUTO_INCREMENT de tabela `kp_address`
 --
 ALTER TABLE `kp_address`
-  MODIFY `id_address` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_address` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `kp_order`
 --
 ALTER TABLE `kp_order`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_order` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `kp_order_items`
 --
 ALTER TABLE `kp_order_items`
-  MODIFY `id_order_items` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_order_items` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `kp_products`
 --
 ALTER TABLE `kp_products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=437;
+  MODIFY `id_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=437;
 
 --
 -- AUTO_INCREMENT de tabela `kp_user`
 --
 ALTER TABLE `kp_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `kp_user_products`
 --
 ALTER TABLE `kp_user_products`
-  MODIFY `id_user_products` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user_products` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para tabelas despejadas
