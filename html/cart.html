@@ -2,61 +2,64 @@
 <html lang="pt-br">
 
 <head>
+    <!-- Cabeçalho da página -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kampech</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/Kumpech_logo_noText.png">
+    <link rel="stylesheet" href="/styles.css"> <!-- Inclusão do arquivo CSS -->
+    <link rel="icon" href="/Kumpech_logo_noText.png"> <!-- Ícone da página -->
 </head>
 
 <body>
     <header>
+        <!-- Cabeçalho -->
         <div class="headerLeft">
-            <a href="/index.html" class="nome_logo"><img src="/Kumpech_logo_noText.png" alt="logo" class="logo">
-                <h1>Kampech</h1>
+            <a href="/index.html" class="nome_logo">
+                <img src="/Kumpech_logo_noText.png" alt="logo" class="logo"> <!-- Logo -->
+                <h1>Kampech</h1> <!-- Título da página -->
             </a>
-
         </div>
         <div class="headerRight">
-            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar">
+            <input type="text" placeholder="Buscar.." class="searchBar" id="headerSearchBar"> <!-- Barra de busca -->
             <button onclick="searchBar_slide()" class="searchButton">
-                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon">
+                <img src="/searchIcon.svg" alt="searchIcon" class="searchIcon"> <!-- Ícone de busca -->
             </button>
             <a href="#" class="accountIcon" onclick="handleAuthenticationResponse()">
-                <img src="/accountIcon.svg" alt="accountIcon">
+                <img src="/accountIcon.svg" alt="accountIcon"> <!-- Ícone da conta do usuário -->
             </a>
             <a href="/cart.html" class="cartIcon">
-                <img src="/cartIcon.svg" alt="cartIcon">
+                <img src="/cartIcon.svg" alt="cartIcon"> <!-- Ícone do carrinho de compras -->
             </a>
         </div>
     </header>
 
     <main class="cart">
-        <h1 class="cartTitle">Carrinho</h1>
+        <!-- Conteúdo principal da página -->
+        <h1 class="cartTitle">Carrinho</h1> <!-- Título da seção de carrinho -->
         <p id="noUser"></p>
         <section class="cartSection">
             <div class="cartSectionLeft">
-                <div id="cartItemsContainer"></div> <!-- Inserir aqui -->
-
+                <div id="cartItemsContainer"></div> <!-- Contêiner para os itens do carrinho -->
             </div>
             <div class="cartSectionRight">
                 <div class="cartPriceContainer">
-                    <h2>Total: R$</h2>
-                    <h2 id="cartTotal"></h2>
+                    <h2>Total: R$</h2> <!-- Preço total -->
+                    <h2 id="cartTotal"></h2> <!-- Total do carrinho -->
                 </div>
                 <a id="finishCart" href="/shipping.html">
-                    <p>Finalizar pedido</p>
+                    <p>Finalizar pedido</p> <!-- Link para finalizar o pedido -->
                 </a>
-                <p id="finePrint">*taxas calculadas na finalização da compra</p>
+                <p id="finePrint">*taxas calculadas na finalização da compra</p> <!-- Observação sobre taxas -->
             </div>
         </section>
         <div id="cartModal" class="modal">
+            <!-- Modal para usuário não logado -->
             <div class="modal__content">
                 <h2>Usuário não logado</h2>
                 <div class="modal__buttons">
-                    <a href="/login.html" class="modal__button">Fazer login</a>
-                    <a id="modalCloseButton" class="modal__button" href="/index.html">Voltar</a>
+                    <a href="/login.html" class="modal__button">Fazer login</a> <!-- Link para fazer login -->
+                    <a id="modalCloseButton" class="modal__button" href="/index.html">Voltar</a> <!-- Botão para voltar -->
                 </div>
             </div>
         </div>
