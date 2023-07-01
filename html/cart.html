@@ -56,7 +56,7 @@
                 <h2>Usuário não logado</h2>
                 <div class="modal__buttons">
                     <a href="/login.html" class="modal__button">Fazer login</a>
-                    <button id="modalCloseButton" class="modal__button">Voltar</button>
+                    <a id="modalCloseButton" class="modal__button" href="/index.html">Voltar</a>
                 </div>
             </div>
         </div>
@@ -224,7 +224,6 @@
         // Obtém a referência para o formulário e o modal
         const form = document.getElementById('cartForm');
         const modal = document.getElementById('cartModal');
-        const modalCloseButton = document.getElementById('modalCloseButton');
 
         // Função para exibir o modal
         function showModal() {
@@ -235,9 +234,6 @@
         function fecharModal() {
             modal.style.display = 'none';
         }
-
-        // Adiciona um listener de evento para o botão de fechar
-        modalCloseButton.addEventListener('click', fecharModal);
 
         window.addEventListener('load', getCartItems);
     </script>
