@@ -130,6 +130,7 @@
 
         // Preenche os campos de entrada com os dados pessoais
         function fillFormFields(data) {
+            document.getElementById('shipping__left__contact').textContent = data.email;
             document.getElementById('shipping__right__name').value = data.name || '';
             document.getElementById('address').value = data.address || '';
             document.getElementById('zipCode').value = data.zip_code || '';

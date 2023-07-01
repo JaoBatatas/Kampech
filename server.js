@@ -351,6 +351,7 @@ app.get('/getShipping', (req, res) => {
         // Enviar as informações pessoais do usuário como resposta JSON
         const shipping = {
           name: rows[0].name,
+          email: rows[0].email,
           address: rows[0].address,
           zip_code: rows[0].zip_code,
           city: rows[0].city,
