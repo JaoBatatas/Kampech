@@ -1909,6 +1909,7 @@ body {
     color: black;
 }
 
+
 .CardImageContainer {
     display: flex;
     align-items: center;
@@ -1941,8 +1942,20 @@ body {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
+.returnIcon {
+    height: 50%;
+    background: none;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
 
-.CardFinish:hover {
+.returnIcon>img {
+    width: auto;
+    height: 100%;
+    cursor: pointer;
+}
+.CardFinish:hover,
+.returnIcon:hover{
     transform: scale(1.05);
 }
 
