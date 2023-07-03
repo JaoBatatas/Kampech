@@ -66,14 +66,13 @@
                     <h2>Em estoque.</h2> <!-- Disponibilidade do produto -->
                 </div>
                 <div class="productDiv2">
-                    <h2>R$9,90</h2> <!-- Preço do produto -->
+                    <h2 id="productPrice"></h2> <!-- Preço do produto -->
                 </div>
                 <div class="product__containerCol4__quantity">
                     <h3>Quantidade:</h3><input class="product__containerCol4__input" type="number" name="quantity"
                         min="1" value="1"> <!-- Quantidade do produto -->
                 </div>
                 <button class="productAddToCart">Adicionar<br>ao carrinho</button> <!-- Botão para adicionar ao carrinho -->
-                <button class="productBuy">Comprar</button> <!-- Botão para comprar o produto -->
             </div>
         </div>
     </main>
@@ -119,6 +118,7 @@
                 .then(data => {
                     const title = document.getElementById('productTitle');
                     const desc = document.getElementById('productDesc');
+                    const price = document.getElementById('productPrice');
                     const layout = document.getElementById('productLayout');
                     const size = document.getElementById('productSize');
                     const connection = document.getElementById('productConnection');
@@ -126,6 +126,7 @@
 
                     title.textContent = data.info[0].name;
                     desc.textContent = data.info[0].description;
+                    price.textContent = 'R$ ' + data.info[0].price;
                     layout.textContent = data.info[0].layout;
                     size.textContent = data.info[0].size;
                     connection.textContent = data.info[0].connection;
