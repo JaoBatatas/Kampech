@@ -448,5 +448,6 @@ app.get('/getPurchaseHistory', (req, res) => {
 });
 
 app.listen(3700, () => {
-  console.log('Servidor rodando na porta 3700!')
+  console.log('Servidor rodando na porta 3700!');
+  console.log('Para reiniciar o servidor, digite "rs" e aperte a tecla "Enter"!');
 });
