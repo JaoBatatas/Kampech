@@ -2,7 +2,7 @@ const oneDay = 1000 * 60 * 60 * 24;
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const express = require('express');
-const mysql = require('mysql2');
+const { Pool } = require('pg');
 const app = express();
 const cors = require('cors');
 
@@ -31,25 +31,29 @@ app.use((req, res, next) => {
   next();
 });
 
-const connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'root',
-  // user: 'adm',
-  // password: 'adm',
-  database: 'kampech'
+const pool = new Pool({
+  user: 'kampech_g6ay_user',
+  host: 'dpg-cimooedph6el95trg8l0-a.oregon-postgres.render.com',
+  database: 'kampech_g6ay',
+  password: 'puyCQTiGOYCtzhCqgkvkLgPCFvm7jVPZ',
+  port: 5432,
+  ssl: {
+      rejectUnauthorized: false
+  }
 });
 
-connection.connect(function (err) {
-  console.log("Conexão com o Banco realizada com sucesso!!!")
-});
+const connection = {
+  query: (text, params, callback) => {
+      return pool.query(text, params, callback);
+  }
+};
 
 app.post('/register', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   let name = req.body.name;
 
-  connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, rows, fields) {
+  connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, result) {
     if (!err) {
       req.session.id_user = email; // ID do usuário inserido no banco de dados
       res.redirect('/personalInfo.html'); // Redireciona para a página 'personalInfo.html' após o registro
@@ -63,12 +67,12 @@ app.post('/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, rows, fields) {
+  connection.query(`SELECT * FROM kp_user where email = '${email}'`, function (err, result) {
     if (!err) {
-      if (rows.length === 0) {
+      if (result.rows.length === 0) {
         res.redirect('/login.html?404account'); // Redireciona para a página 'login.html' com um parâmetro de erro (404account) caso a conta não seja encontrada
       } else {
-        if (password === rows[0].password) {
+        if (password === result.rows[0].password) {
           session = req.session;
           session.id_user = req.body.email;
           res.redirect('/personalInfo.html'); // Redireciona para a página 'personalInfo.html' após o login bem-sucedido
@@ -98,20 +102,20 @@ app.get('/getPersonalInfo', (req, res) => {
   const email = req.session.id_user;
   connection.query(`SELECT kp_user.*, kp_address.* FROM kp_user
     LEFT JOIN kp_address ON kp_user.id_user = kp_address.id_user
-    WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
+    WHERE kp_user.email = '${email}'`, (err, result) => {
     if (!err) {
-      if (rows.length === 0) {
+      if (result.rows.length === 0) {
         res.status(404).json({ error: 'Usuário não encontrado' });
       } else {
         // Enviar as informações pessoais do usuário como resposta JSON
         const personalInfo = {
-          name: rows[0].name,
-          address: rows[0].address,
-          cpf: rows[0].cpf,
-          zip_code: rows[0].zip_code,
-          city: rows[0].city,
-          state: rows[0].state,
-          phone: rows[0].phone
+          name: result.rows[0].name,
+          address: result.rows[0].address,
+          cpf: result.rows[0].cpf,
+          zip_code: result.rows[0].zip_code,
+          city: result.rows[0].city,
+          state: result.rows[0].state,
+          phone: result.rows[0].phone
         };
         res.json(personalInfo);
       }
@@ -144,7 +148,7 @@ app.post('/sendPersonalInfo', (req, res) => {
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-    if (userResult.affectedRows === 0) {
+    if (userResult.affectedresult.rows === 0) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
@@ -154,7 +158,7 @@ app.post('/sendPersonalInfo', (req, res) => {
         res.status(500).json({ error: 'Erro no servidor' });
         return;
       }
-      if (addressResult.affectedRows === 0) {
+      if (addressResult.affectedresult.rows === 0) {
         res.status(404).json({ error: 'Endereço não encontrado' });
         return;
       }
@@ -185,7 +189,7 @@ app.post('/sendShipping', (req, res) => {
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-    if (userResult.affectedRows === 0) {
+    if (userResult.affectedresult.rows === 0) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
@@ -195,7 +199,7 @@ app.post('/sendShipping', (req, res) => {
         res.status(500).json({ error: 'Erro no servidor' });
         return;
       }
-      if (addressResult.affectedRows === 0) {
+      if (addressResult.affectedresult.rows === 0) {
         res.status(404).json({ error: 'Endereço não encontrado' });
         return;
       }
@@ -225,13 +229,13 @@ app.post('/custom', (req, res) => {
     VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\` WHERE
     \`size\` = '${customKeyboard.size}' AND \`connection\` = '${customKeyboard.connection}' AND
     \`switch\` = '${customKeyboard.switch}' AND \`main_color\` = '${customKeyboard.boardColor}' AND
-    \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, rows, fields) => {
+    \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, result) => {
       if (!err) {
         if (customKeyboard.keycap != '') {
           // Se um keycap estiver definido, inserir o keycap no carrinho do usuário no banco de dados
           connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
         VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\`
-        WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, rows, fields) => {
+        WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, result) => {
             if (!err) {
             } else {
               console.log("Erro: keycap não adicionada!", err);
@@ -265,10 +269,10 @@ app.get('/getCart', (req, res) => {
   INNER JOIN kp_user_products ON kp_products.id_product = kp_user_products.id_product
   INNER JOIN kp_user ON kp_user_products.id_user = kp_user.id_user
   WHERE kp_user.email = '${email}'
-`, (err, rows, fields) => {
+`, (err, result) => {
       if (!err) {
         const cartItems = {
-          items: rows
+          items: result.rows
         };
         // Enviar as informações do carrinho como resposta JSON
         res.json(cartItems);
@@ -286,7 +290,7 @@ app.post('/removeProduct', (req, res) => {
   connection.query(`DELETE FROM kp_user_products
     WHERE id_user_products = '${productId}'`, (err, result) => {
     if (!err) {
-      if (result.affectedRows === 0) {
+      if (result.affectedresult.rows === 0) {
         // Se nenhum registro for afetado, o produto não foi encontrado no carrinho
         res.status(404).json({ error: 'Produto não encontrado no carrinho' });
       } else {
@@ -301,10 +305,10 @@ app.post('/removeProduct', (req, res) => {
 
 app.get('/getProducts', (req, res) => {
   // Obter todas as informações dos produtos do banco de dados
-  connection.query('SELECT * FROM kp_products', (err, rows, fields) => {
+  connection.query('SELECT * FROM kp_products', (err, result) => {
     if (!err) {
       const product = {
-        info: rows
+        info: result.rows
       };
       // Enviar as informações dos produtos como resposta JSON
       res.json(product);
@@ -318,10 +322,10 @@ app.get('/getProducts', (req, res) => {
 app.get('/getProductInfo/:id', (req, res) => {
   const productId = req.params.id;
   // Obter as informações do produto com base no ID fornecido
-  connection.query(`SELECT * FROM kp_products WHERE id_product = ${productId}`, (err, rows, fields) => {
+  connection.query(`SELECT * FROM kp_products WHERE id_product = ${productId}`, (err, result) => {
     if (!err) {
       const product = {
-        info: rows
+        info: result.rows
       };
       // Enviar as informações do produto como resposta JSON
       res.json(product);
@@ -343,20 +347,20 @@ app.get('/getShipping', (req, res) => {
   const email = req.session.id_user;
   connection.query(`SELECT kp_user.*, kp_address.* FROM kp_user
     LEFT JOIN kp_address ON kp_user.id_user = kp_address.id_user
-    WHERE kp_user.email = '${email}'`, (err, rows, fields) => {
+    WHERE kp_user.email = '${email}'`, (err, result) => {
     if (!err) {
-      if (rows.length === 0) {
+      if (result.rows.length === 0) {
         res.status(404).json({ error: 'Usuário não encontrado' });
       } else {
         // Enviar as informações pessoais do usuário como resposta JSON
         const shipping = {
-          name: rows[0].name,
-          email: rows[0].email,
-          address: rows[0].address,
-          zip_code: rows[0].zip_code,
-          city: rows[0].city,
-          state: rows[0].state,
-          phone: rows[0].phone
+          name: result.rows[0].name,
+          email: result.rows[0].email,
+          address: result.rows[0].address,
+          zip_code: result.rows[0].zip_code,
+          city: result.rows[0].city,
+          state: result.rows[0].state,
+          phone: result.rows[0].phone
         };
         res.json(shipping);
       }
@@ -380,7 +384,7 @@ app.post('/updateProductQuantity', (req, res) => {
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-    if (result.affectedRows === 0) {
+    if (result.affectedresult.rows === 0) {
       res.status(404).json({ error: 'Produto não encontrado' });
       return;
     }
@@ -436,10 +440,10 @@ app.post('/payment', (req, res) => {
 
 app.get('/getPurchaseHistory', (req, res) => {
   // Consulta o histórico de compras do usuário no banco de dados
-  connection.query(`SELECT * FROM kp_order WHERE id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}')`, (err, rows, fields) => {
+  connection.query(`SELECT * FROM kp_order WHERE id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}')`, (err, result) => {
     if (!err) {
-      console.log(rows);
-      res.json(rows); // Envia o histórico de compras como resposta JSON
+      console.log(result.rows);
+      res.json(result.rows); // Envia o histórico de compras como resposta JSON
     } else {
       console.log("Erro: Consulta não realizada", err);
       res.status(500).json({ error: 'Erro no servidor' });
