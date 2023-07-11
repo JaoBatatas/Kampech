@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 const pool = new Pool({
   user: 'kampech_g6ay_user',
-  host: 'dpg-cimooedph6el95trg8l0-a',
+  host: 'dpg-cimooedph6el95trg8l0-a.oregon-postgres.render.com',
   database: 'kampech_g6ay',
   password: 'puyCQTiGOYCtzhCqgkvkLgPCFvm7jVPZ',
   port: 5432,
