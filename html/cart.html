@@ -158,7 +158,7 @@
                             removeButton.addEventListener('click', () => {
                                 const productId = product.id_user_products; // ID do produto a ser removido
 
-                                fetch('http://127.0.0.1:3700/removeProduct', {
+                                fetch('/removeProduct', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -208,7 +208,7 @@
 
         // Função para atualizar a quantidade do produto no banco de dados
         function updateProductQuantity(productId, newQuantity) {
-            fetch('http://127.0.0.1:3700/updateProductQuantity', {
+            fetch('/updateProductQuantity', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
