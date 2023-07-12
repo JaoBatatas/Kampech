@@ -53,7 +53,7 @@ app.post('/register', (req, res) => {
   let password = req.body.password;
   let name = req.body.name;
 
-  connection.query('INSERT INTO `kp_user` (`id_user`, `name`, `email`, `password`, `cpf`, `phone`) VALUES (NULL, ?, ?, ?, NULL, NULL)', [name, email, password], function (err, result) {
+  connection.query(`INSERT INTO "kp_user" ("id_user", "name", "email", "password", "cpf", "phone") VALUES (DEFAULT, '${name}', '${email}', ${password}, NULL, NULL)`, function (err, result) {
     if (!err) {
       req.session.id_user = email; // ID do usuário inserido no banco de dados
       res.redirect('/personalInfo.html'); // Redireciona para a página 'personalInfo.html' após o registro
@@ -148,7 +148,7 @@ app.post('/sendPersonalInfo', (req, res) => {
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-    if (userResult.affectedresult.rows === 0) {
+    if (userResult.affectedRows === 0) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
@@ -158,7 +158,7 @@ app.post('/sendPersonalInfo', (req, res) => {
         res.status(500).json({ error: 'Erro no servidor' });
         return;
       }
-      if (addressResult.affectedresult.rows === 0) {
+      if (addressResult.affectedRows === 0) {
         res.status(404).json({ error: 'Endereço não encontrado' });
         return;
       }
@@ -189,7 +189,7 @@ app.post('/sendShipping', (req, res) => {
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-    if (userResult.affectedresult.rows === 0) {
+    if (userResult.affectedRows === 0) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
@@ -199,7 +199,7 @@ app.post('/sendShipping', (req, res) => {
         res.status(500).json({ error: 'Erro no servidor' });
         return;
       }
-      if (addressResult.affectedresult.rows === 0) {
+      if (addressResult.affectedRows === 0) {
         res.status(404).json({ error: 'Endereço não encontrado' });
         return;
       }
@@ -225,17 +225,17 @@ app.post('/custom', (req, res) => {
     res.redirect('/custom.html?noLogin');
   } else {
     // Inserir o teclado personalizado no carrinho do usuário no banco de dados
-    connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
-    VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\` WHERE
-    \`size\` = '${customKeyboard.size}' AND \`connection\` = '${customKeyboard.connection}' AND
-    \`switch\` = '${customKeyboard.switch}' AND \`main_color\` = '${customKeyboard.boardColor}' AND
-    \`key_color\` = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, result) => {
+    connection.query(`INSERT INTO kp_user_products (id_user_products, id_user, id_product, quantity) 
+    VALUES (NULL, (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), (SELECT id_product FROM kp_products WHERE
+    size = '${customKeyboard.size}' AND connection = '${customKeyboard.connection}' AND
+    switch = '${customKeyboard.switch}' AND main_color = '${customKeyboard.boardColor}' AND
+    key_color = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, result) => {
       if (!err) {
         if (customKeyboard.keycap != '') {
           // Se um keycap estiver definido, inserir o keycap no carrinho do usuário no banco de dados
-          connection.query(`INSERT INTO \`kp_user_products\` (\`id_user_products\`, \`id_user\`, \`id_product\`, \`quantity\`) 
-        VALUES (NULL, (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), (SELECT \`id_product\` FROM \`kp_products\`
-        WHERE \`name\` = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, result) => {
+          connection.query(`INSERT INTO kp_user_products (id_user_products, id_user, id_product, quantity) 
+        VALUES (NULL, (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), (SELECT id_product FROM kp_products
+        WHERE name = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, result) => {
             if (!err) {
             } else {
               console.log("Erro: keycap não adicionada!", err);
@@ -290,7 +290,7 @@ app.post('/removeProduct', (req, res) => {
   connection.query(`DELETE FROM kp_user_products
     WHERE id_user_products = '${productId}'`, (err, result) => {
     if (!err) {
-      if (result.affectedresult.rows === 0) {
+      if (result.affectedRows === 0) {
         // Se nenhum registro for afetado, o produto não foi encontrado no carrinho
         res.status(404).json({ error: 'Produto não encontrado no carrinho' });
       } else {
@@ -384,7 +384,7 @@ app.post('/updateProductQuantity', (req, res) => {
       res.status(500).json({ error: 'Erro no servidor' });
       return;
     }
-    if (result.affectedresult.rows === 0) {
+    if (result.affectedRows === 0) {
       res.status(404).json({ error: 'Produto não encontrado' });
       return;
     }
@@ -399,7 +399,7 @@ app.post('/payment', (req, res) => {
   const calculateTotalQuery = `SELECT SUM(p.price * up.quantity) AS total
                                FROM kp_user_products up
                                JOIN kp_products p ON up.id_product = p.id_product
-                               WHERE up.id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}');`; // Substitua o ID do usuário conforme necessário
+                               WHERE up.id_user = (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}');`; // Substitua o ID do usuário conforme necessário
 
   // Executa a consulta para calcular o total
   connection.query(calculateTotalQuery, (err, result) => {
@@ -412,7 +412,7 @@ app.post('/payment', (req, res) => {
     const cartTotal = result[0].total;
 
     const insertOrder = `INSERT INTO kp_order(id_user, order_date, total, payment)
-                         VALUES((SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}'), 
+                         VALUES((SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), 
                          '${currentDate}', ${cartTotal}, '${payment}');`;
 
     connection.query(insertOrder, (err, result) => {
@@ -440,7 +440,7 @@ app.post('/payment', (req, res) => {
 
 app.get('/getPurchaseHistory', (req, res) => {
   // Consulta o histórico de compras do usuário no banco de dados
-  connection.query(`SELECT * FROM kp_order WHERE id_user = (SELECT \`id_user\` FROM \`kp_user\` WHERE \`email\` = '${req.session.id_user}')`, (err, result) => {
+  connection.query(`SELECT * FROM kp_order WHERE id_user = (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}')`, (err, result) => {
     if (!err) {
       console.log(result.rows);
       res.json(result.rows); // Envia o histórico de compras como resposta JSON
@@ -453,5 +453,4 @@ app.get('/getPurchaseHistory', (req, res) => {
 
 app.listen(3700, () => {
   console.log('Servidor rodando na porta 3700!');
-  console.log('Para reiniciar o servidor, digite "rs" e aperte a tecla "Enter"!');
 });
