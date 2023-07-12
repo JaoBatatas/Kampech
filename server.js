@@ -409,7 +409,7 @@ app.post('/payment', (req, res) => {
       return;
     }
 
-    const cartTotal = result[0].total;
+    const cartTotal = result.rows[0].total;
 
     const insertOrder = `INSERT INTO kp_order(id_user, order_date, total, payment)
                          VALUES((SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), 
@@ -426,14 +426,19 @@ app.post('/payment', (req, res) => {
 
     if (payment === 'pix') {
       res.redirect('/pix.html');
+      return; // Adiciona o return aqui
     } else if (payment === 'boleto') {
-      res.redirect('/pagseguro.html')
+      res.redirect('/pagseguro.html');
+      return; // Adiciona o return aqui
     } else if (payment === 'credito') {
       res.redirect('/creditCard.html');
+      return; // Adiciona o return aqui
     } else if (payment === 'debito') {
       res.redirect('/debitCard.html');
+      return; // Adiciona o return aqui
     } else {
       res.redirect('/payment.html');
+      return; // Adiciona o return aqui
     }
   });
 });
