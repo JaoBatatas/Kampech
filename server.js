@@ -53,8 +53,6 @@ app.post('/register', (req, res) => {
   let password = req.body.password;
   let name = req.body.name;
 
-  console.log(password);
-
   connection.query(`INSERT INTO "kp_user" ("id_user", "name", "email", "password", "cpf", "phone") VALUES (DEFAULT, '${name}', '${email}', '${password}', NULL, NULL)`, function (err, result) {
     if (!err) {
       req.session.id_user = email; // ID do usuário inserido no banco de dados
