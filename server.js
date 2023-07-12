@@ -218,7 +218,6 @@ app.post('/custom', (req, res) => {
     keyColor: req.body.keyColor,
     description: `Teclado Custom: Size: ${req.body.size}; Connection: ${req.body.connection}; Switch: ${req.body.switch}; Keycap: ${req.body.keycap}; Board color: ${req.body.boardColor}; Key color: ${req.body.keyColor}`
   };
-  console.log(customKeyboard);
 
   if (!req.session.id_user) {
     // Redirecionar para a página custom.html com o parâmetro noLogin em caso de usuário não autenticado
