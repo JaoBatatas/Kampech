@@ -226,7 +226,7 @@ app.post('/custom', (req, res) => {
   } else {
     // Inserir o teclado personalizado no carrinho do usuário no banco de dados
     connection.query(`INSERT INTO kp_user_products (id_user_products, id_user, id_product, quantity) 
-    VALUES (NULL, (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), (SELECT id_product FROM kp_products WHERE
+    VALUES (DEFAULT, (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), (SELECT id_product FROM kp_products WHERE
     size = '${customKeyboard.size}' AND connection = '${customKeyboard.connection}' AND
     switch = '${customKeyboard.switch}' AND main_color = '${customKeyboard.boardColor}' AND
     key_color = '${customKeyboard.keyColor}' LIMIT 1), '1');`, (err, result) => {
@@ -234,7 +234,7 @@ app.post('/custom', (req, res) => {
         if (customKeyboard.keycap != '') {
           // Se um keycap estiver definido, inserir o keycap no carrinho do usuário no banco de dados
           connection.query(`INSERT INTO kp_user_products (id_user_products, id_user, id_product, quantity) 
-        VALUES (NULL, (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), (SELECT id_product FROM kp_products
+        VALUES (DEFAULT, (SELECT id_user FROM kp_user WHERE email = '${req.session.id_user}'), (SELECT id_product FROM kp_products
         WHERE name = '${customKeyboard.keycap}' LIMIT 1), '1');`, (err, result) => {
             if (!err) {
             } else {
