@@ -15,4 +15,4 @@ Equipe de desenvolvimento: João Paulo Ersching, Daniel Costa Krüger e Henrique
 | :fire: Desafio     | 
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
-![](https://raw.githubusercontent.com/JaoBatatas/Kampech/master/assets/Kumpech_logo.png#vitrinedev)
+![](https://raw.githubusercontent.com/JaoBatatas/Kampech/master/assets/project_banner.png#vitrinedev)
