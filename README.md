@@ -10,7 +10,7 @@ Equipe de desenvolvimento: João Paulo Ersching, Daniel Costa Krüger e Henrique
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
 | :sparkles: Nome        | **Kampech**
-| :label: Tecnologias | javascript, html, css, nodejs
+| :label: Tecnologias | javascript, html, css, node.js
 | :rocket: URL         | https://github.com/JaoBatatas/Kampech
 | :fire: Desafio     | 
 
